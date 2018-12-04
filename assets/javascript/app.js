@@ -24,7 +24,7 @@ function startSearch() {
         lati = response1.results[0].geometry.location.lat;
         long = response1.results[0].geometry.location.lng;
 
-        var cuisine = $("option").val();
+        var cuisine = $("#cuisineSearch").val();
         var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
 
         $.ajax({

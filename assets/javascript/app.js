@@ -35,11 +35,11 @@ function startSearch() {
                 var yRestName = result.name;
                 console.log(result.location.display_address[0]);
                 var yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
-                //we may have to insert happy hours from yelp. 
+                //ATTENTION: we may have to insert happy hours from the api that reads pictures to text
 
 
                 //display all variable in makeRestaurantCard function
-                makeRestaurantCard(yImageLink, yRestName, yRestAddress);
+                makeRestaurantCard(yImageLink, yRestName, yRestAddress); //add the yRestHappyHours
             }
             //========================================================================================
         }

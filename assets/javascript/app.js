@@ -45,15 +45,12 @@ function startSearch () {
 
 
 
-
-
-
-function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHappyHours) { // parameters sent to set values
-    // imageLink: link of restaurant image
-    // restName: str name of restaurant 
-    // restAddress: str address
-    // happyHours: str happyHours
-    // main div card that everything goes into
+function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yRestHappyHours){ // parameters sent to set values
+                                                                                        // imageLink: link of restaurant image
+                                                                                        // restName: str name of restaurant 
+                                                                                        // restAddress: str address
+                                                                                        // happyHours: str happyHours
+                                                                                        // main div card that everything goes into
     var card = $("<div>");
     card.addClass("card restaurant-card");
 
@@ -67,8 +64,8 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     // set up picture (placeholder for now) for image portion
     var img = $("<img>");
     img.addClass("restImage");
-    img.attr("src", "https://bulma.io/images/placeholders/1280x960.png"); // img.attr("src", imageLink); 
-    img.attr("alt", "Placeholder Image"); //img.attr("alt", restName)
+    img.attr("src", "https://bulma.io/images/placeholders/1280x960.png"); // img.attr("src", yImageLink); 
+    img.attr("alt", "Placeholder Image"); //img.attr("alt", yRestName)
 
     // add picture to image portion.
     figure.append(img);
@@ -185,4 +182,82 @@ function clearSearchForm() {
 
 
 makeRestaurantCard();
+
+$(document).on("click", "#selResBasic", function(){
+    // if ($("#selResPictures").hasClass("is-active")){
+    //     $("#selResPictures").toggleClass("is-active");
+    // }
+    // else if ($("#selResMenu").hasClass("is-active")){
+    //     $("#selResMenu").toggleClass("is-active");
+    // }
+
+     // deactivate other tab. hide other tab content
+     if ($("#selResPictures").hasClass("is-active")){
+        $("#selResPictures").toggleClass("is-active");
+        $("#picturesTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResMenu").hasClass("is-active")){
+        $("#selResMenu").toggleClass("is-active");
+        $("#menuTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResBasic").hasClass("is-active")){
+        return;
+    }
+
+    // activate this tab.
+    $("#selResBasic").toggleClass("is-active");
+
+    // show tab content
+    $("#basicTabContent").removeAttr("style");
+
+});
+
+$(document).on("click", "#selResPictures", function(){
+console.log("click");
+
+    // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")){
+        $("#selResBasic").toggleClass("is-active");
+        $("#basicTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResMenu").hasClass("is-active")){
+        $("#selResMenu").toggleClass("is-active");
+        $("#menuTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResPictures").hasClass("is-active")){
+        return;
+    }
+
+    // activate this tab.
+    $("#selResPictures").toggleClass("is-active");
+
+    // show tab content
+    $("#picturesTabContent").removeAttr("style");
+    
+});
+
+$(document).on("click", "#selResMenu", function(){
+    console.log("click");
+   // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")){
+        $("#selResBasic").toggleClass("is-active");
+        $("#basicTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResPictures").hasClass("is-active")){
+        $("#selResPictures").toggleClass("is-active");
+        $("#picturesTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResMenu").hasClass("is-active")){
+        return;
+    }
+
+    // activate this tab.
+    $("#selResMenu").toggleClass("is-active");
+
+    // show tab content
+    $("#menuTabContent").removeAttr("style");
+});
 

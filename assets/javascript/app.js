@@ -11,7 +11,7 @@ function startSearch() {
     var cuisine = $("#cuisineSearch").val();
 
     //========================================================================================
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=restaurants&term=by-" + cuisine + "&location=" + city + "," + state;
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=restaurants&term=by-" + cuisine + "&location=" + city + "," + state + "," + zip;
     $.ajax({
         url: myurl,
         headers: {
@@ -42,8 +42,11 @@ function startSearch() {
                 makeRestaurantCard(yImageLink, yRestName, yRestAddress);
             }
             //========================================================================================
-
-
+        }
+    });
+    }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//ATTENTION: THIS IS ALL CALLS UPON GOOGLE PLACES/GOOGLE API
             // //function that converts to long/lat and names it with variable "location"
             // //which we can actually use geocoding API from google. 
             // var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
@@ -91,9 +94,7 @@ function startSearch() {
             //         }
             //     });
             // });
-        }
-});
-}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 //we need to make a separate ajax calling from yelp to get pcitures and happy hours 
@@ -153,8 +154,8 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yRestHappyHours
 
     // create div for restaurant happy hours
     var happyHoursDiv = $("<div>");
-    var restHappyHours = "08:00 - 09:00"
-    // var happyHoursSpan = $("<span>");
+    // var restHappyHours = "08:00 - 09:00"
+    var restHappyHours = $("<span>").text("hours");
     // happyHoursSpan.attr("id", "happyHours"); // not sure we need to do a span if we just add the hours in this part
 
     //  add value to happy hours. then to card content

@@ -11,27 +11,34 @@ function startSearch () {
     //function that converts to long/lat and names it with variable "location"
     //which we can actually use geocoding API from google. 
     var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
-    var lng;
-    var lat;
+    var long;
+    var lati;
     $.ajax({
         url: queryURLGeocoding,
         method: 'GET',
     }).then(function(response1) {
         console.log(response1);
-        lng = console.log(response1.results[0].geometry.location.lng);
-        lat = console.log(response1.results[0].geometry.location.lat);
+        console.log(response1.results[0].geometry.location.lng);
+        console.log(response1.results[0].geometry.location.lat);
+
+        lati = response1.results[0].geometry.location.lat;
+        long = response1.results[0].geometry.location.lng;
+
+        var cuisine = $("option").val();
+        var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
+
+        $.ajax({
+            url: queryURLGoogleMaps,
+            method: 'GET',       
+        }).then(function(response2) {
+            console.log(response2);
+        })
     });
 
-    var cuisine = $("option").val();
+   
     //radius is set to 8000 meters which is about 5 miles 
-    var queryURLGoogleMaps = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng + "&radius=8000&type=restaurant&keyword=" + cuisine +"&key=" + apiKeyGoogle;
-
-    $.ajax({
-        url: queryURLGoogleMaps,
-        method: 'GET',       
-    }).then(function(response2) {
-        console.log(response2);
-    })
+    // var queryURLGoogleMaps1 = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + lat + "," + lng + "&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=" + apiKeyGoogle;
+   
 
     
 }

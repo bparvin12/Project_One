@@ -34,7 +34,7 @@ function startSearch() {
                 console.log(result.name);
                 var yRestName = result.name;
                 console.log(result.location.display_address[0]);
-                var yRestAddress = result.location.display_address[0] + result.location.display_address[1];
+                var yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
                 //we may have to insert happy hours from yelp. 
 
 

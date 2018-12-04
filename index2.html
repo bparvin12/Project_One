@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lunch Selector</title>
+
+    <!-- reset -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- link to jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- bulma -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <!-- font awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- bootstrap -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" -->
+    <!-- crossorigin="anonymous"> -->
+    <!-- my own styles -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- link to firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+</head>
+
+<body>
+
+    <!-- navbar/header -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            Project 1
+        </div>
+    </nav>
+
+    
+    <!-- main body  -->
+    <!-- search -->
+    <div class="columns is-centered">
+        <div class="column is-three-quarters">
+            <div class="field">
+                <label class="label">Location </label>
+                <div class="control">
+                    <div class="columns">
+                        <div class="column is-one-third">
+                            <input class="input" type="text" placeholder="City" id="citySearch">
+                        </div>
+                        <div class="column is-one-third">
+                            <input class="input" type="text" placeholder="State" id="stateSearch">
+                        </div>
+                        <div class="column is-one-third">
+                            <input class="input" type="text" placeholder="Zip Code (Optional)" id="zipSearch">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Cuisine</label>
+                <div class="control">
+                    <div class="select">
+                        <select>
+                            <option id="everything" value="">---------</option>
+                            <option id="beer" value="beer">Beer</option>
+                            <option id="cocktails" value="cocktails">Cocktails</option>
+                            <option id="wine" value="wine">Wine</option>
+                            <option id="mexican" value="mexican">Mexican</option>
+                            <option id="meditteranean" value="meditteranean">Meditteranean</option>
+                            <option id="sushi" value="sushi">Sushi</option>
+                            <option id="italian" value="italian">Italian</option>
+                            <option id="american" value="american">American</option>
+                            <option id="chinese" value="chinese">Chinese</option>
+                            <option id="french" value="french">French</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link submit">Submit</button>
+                </div>
+                <div class="control">
+                    <button class="button is-text c">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- results -->
+    <div class="columns is-centered results">
+
+
+    </div>
+
+    
+    <!-- bluma javascript -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <!-- my own javascript -->
+    <script src="assets/javascript/app.js"></script>
+</body>
+
+</html>

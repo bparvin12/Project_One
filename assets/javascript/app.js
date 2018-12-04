@@ -160,4 +160,4 @@ function addRestCard(restCard) {
 
 }
 
-// makeRes  taurantCard();
+makeRestaurantCard();

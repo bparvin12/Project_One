@@ -4,17 +4,33 @@ var rowCount = 0;
 var currRow;
 
 
-// close signInModal when manually closed or information submitted.
+// SIGN IN MODAL close & submit
 $(".closeSignInModal").click(function () {
     // if sign in fails, clear form so user can retry
     $("#signInModal").toggleClass("is-active");
 });
 
+
+// SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
     startSearch();
 })
 
+// SEARCH FORM clear
 $(document).on("click", "#clearSearch", clearSearchForm);
+
+// RESTAURANT CARD onclick
+$(document).on("click", ".restaurant-card", function(){
+    // activate selected Restaurant Modal
+    $("#selResModal").toggleClass("is-active");
+});
+
+// RESTAURANT MODAL close
+$(document).on("click", "#closeSelResModal", function(){
+    $("#selResModal").toggleClass("is-active");
+});
+
+
 
 function clearSearchForm() {
     $("#citySearch").val("");
@@ -33,7 +49,7 @@ function startSearch() {
     var state = $("#stateSearch").val();
     var zip = $("#zipSearch").val();
     var cuisine = $("#cuisineSearch").val();
-    
+
     // reset cardCount and rowCount global variables
     cardCount = 0;
     rowCount = 0;
@@ -128,7 +144,6 @@ function addRestCard(restCard) {
     cardCount++;
     // new row
     if ((cardCount % 3) === 1) {
-        console.log("row");
         rowCount++;
         currRow = $("<div>");
         currRow.addClass("columns");
@@ -137,15 +152,16 @@ function addRestCard(restCard) {
         $(".results").append(currRow);
 
     }
+
     var newCard = $("<div>");
     newCard.addClass("column is-one-third");
     newCard.append(restCard);
     currRow.append(newCard);
-    
+
 }
 
 makeRestaurantCard();
-makeRestaurantCard();makeRestaurantCard();makeRestaurantCard();
+makeRestaurantCard(); makeRestaurantCard(); makeRestaurantCard();
 makeRestaurantCard();
 makeRestaurantCard();
 makeRestaurantCard();

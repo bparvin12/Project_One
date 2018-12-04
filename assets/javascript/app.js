@@ -1,17 +1,36 @@
 //need a function to call upon ajax. 
+//this portion needs to call upon google maps, not yelp. 
 function startSearch () {
-    var apiKey = "NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx"
-    var city = $("#citySearch").val();
-    var state = $("#stateSearch").val();
-    var zip = $("#zipSearch").val();
+    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
 
-    var queryURL = "https://api.yelp.com/v3/businesses/search?term=by-chloe&location=boston";
+    //need to find a way to convert these to long/lat
+    var city = $("#citySearch").val().trim();
+    city = city.trim().replace(/ /g, "+");
+    var state = $("#stateSearch").val().trim();
+    var zip = $("#zipSearch").val().trim();
+    //function that converts to long/lat and names it with variable "location"
+    //which we can actually use geocoding API from google. 
+    var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
+    var lng;
+    var lat;
+    $.ajax({
+        url: queryURLGeocoding,
+        method: 'GET',
+    }).then(function(response1) {
+        console.log(response1);
+        lng = console.log(response1.results[0].geometry.location.lng);
+        lat = console.log(response1.results[0].geometry.location.lat);
+    });
+
+    var cuisine = $("option").val();
+    //radius is set to 8000 meters which is about 5 miles 
+    var queryURLGoogleMaps = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng + "&radius=8000&type=restaurant&keyword=" + cuisine +"&key=" + apiKeyGoogle;
 
     $.ajax({
-        url: queryURL,
+        url: queryURLGoogleMaps,
         method: 'GET',       
-    }).then(function(response) {
-        console.log(response);
+    }).then(function(response2) {
+        console.log(response2);
     })
 
     
@@ -88,13 +107,13 @@ function activateRestauarantInfo() {
 
 
 //this will invoke the start search to display search in the restaurant cards
-$(document).on("click", ".submit", startSearch());
+$(document).on("click", ".submit", startSearch);
 //this invokes the activateRestaurantInfo function on click of a restaurant card
-$(document).on("click", ".restaurant-card", activateRestauarantInfo());
+$(document).on("click", ".restaurant-card", activateRestauarantInfo);
 //this closes selected restaurant modal
-$(documnet).on("click", "#closeSelResModal", function(){
-   $("#selResModal").toggleClass("is-active");
-});
+// $(documnet).on("click", "#closeSelResModal", function(){
+//    $("#selResModal").toggleClass("is-active");
+// });
 
 
 

@@ -131,18 +131,21 @@ function addRestCard(restCard) {
         console.log("row");
         rowCount++;
         currRow = $("<div>");
-        currRow.addClass("columns is-one-third");
+        currRow.addClass("columns");
         var rowClass = "rowNum" + rowCount;
         currRow.addClass(rowClass);
         $(".results").append(currRow);
 
     }
-    currRow.append(restCard);
+    var newCard = $("<div>");
+    newCard.addClass("column is-one-third");
+    newCard.append(restCard);
+    currRow.append(newCard);
     
 }
 
 makeRestaurantCard();
-makeRestaurantCard();
+makeRestaurantCard();makeRestaurantCard();makeRestaurantCard();
 makeRestaurantCard();
 makeRestaurantCard();
 makeRestaurantCard();

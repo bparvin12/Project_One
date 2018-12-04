@@ -1,52 +1,73 @@
-//need a function to call upon ajax. 
-//this portion needs to call upon google maps, not yelp. 
-function startSearch () {
-    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+// global variables
+var cardCount = 0;
+var rowCount = 0;
+var currRow;
 
-    //need to find a way to convert these to long/lat
-    var city = $("#citySearch").val().trim();
-    city = city.trim().replace(/ /g, "+");
-    var state = $("#stateSearch").val().trim();
-    var zip = $("#zipSearch").val().trim();
-    //function that converts to long/lat and names it with variable "location"
-    //which we can actually use geocoding API from google. 
-    var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
-    var long;
-    var lati;
-    $.ajax({
-        url: queryURLGeocoding,
-        method: 'GET',
-    }).then(function(response1) {
-        console.log(response1);
-        console.log(response1.results[0].geometry.location.lng);
-        console.log(response1.results[0].geometry.location.lat);
 
-        lati = response1.results[0].geometry.location.lat;
-        long = response1.results[0].geometry.location.lng;
+// SIGN IN MODAL close & submit
+$(".closeSignInModal").click(function () {
+    // if sign in fails, clear form so user can retry
+    $("#signInModal").toggleClass("is-active");
+});
 
-        var cuisine = $("#cuisineSearch").val();
-        var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
 
-        $.ajax({
-            url: queryURLGoogleMaps,
-            method: 'GET',       
-        }).then(function(response2) {
-            console.log(response2);
-        })
-    });
+// SEARCH FORM submit
+$(document).on("click", "#submitSearch", function () {
+    startSearch();
+})
 
-   
-    //radius is set to 8000 meters which is about 5 miles 
-    // var queryURLGoogleMaps1 = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + lat + "," + lng + "&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=" + apiKeyGoogle;
-   
+// SEARCH FORM clear
+$(document).on("click", "#clearSearch", clearSearchForm);
 
-    
+// RESTAURANT CARD onclick
+$(document).on("click", ".restaurant-card", function(){
+    // activate selected Restaurant Modal
+    $("#selResModal").toggleClass("is-active");
+});
+
+// RESTAURANT MODAL close
+$(document).on("click", "#closeSelResModal", function(){
+    $("#selResModal").toggleClass("is-active");
+});
+
+
+
+function clearSearchForm() {
+    $("#citySearch").val("");
+    $("#stateSearch").val("");
+    $("#zipSearch").val("");
+    $("#cuisineSearch").val("");
 }
 
 
 
 
+function startSearch() {
+    // API Key for when we actually access yelp
+    // var yelpAPIKey = "NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx";
+    var city = $("#citySearch").val();
+    var state = $("#stateSearch").val();
+    var zip = $("#zipSearch").val();
+    var cuisine = $("#cuisineSearch").val();
 
+    // reset cardCount and rowCount global variables
+    cardCount = 0;
+    rowCount = 0;
+
+    // maybe use google to make sure that this location exists before sending to yelp?
+    // if it doesn't exist, we could write a little error message above a cleared search form
+
+    // more stuff for when we actually access yelp
+    // var queryURL = "https://api.yelp.com/v3/businesses/search?term=by-chloe&location=boston";
+    // $.ajax({
+    //     url: queryURL,
+    //     method: 'GET',       
+    // }).then(function(response) {
+    //     console.log(response);
+    // })
+
+    console.log("city: " + city + " state: " + state + " zip: " + zip + " cuisine: " + cuisine);
+}
 
 function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHappyHours) { // parameters sent to set values
     // imageLink: link of restaurant image
@@ -139,50 +160,4 @@ function addRestCard(restCard) {
 
 }
 
-
-// global variables
-var cardCount = 0;
-var rowCount = 0;
-var currRow;
-
-
-// SIGN IN MODAL close & submit
-$(".closeSignInModal").click(function () {
-    // if sign in fails, clear form so user can retry
-    $("#signInModal").toggleClass("is-active");
-});
-
-
-// SEARCH FORM submit
-$(document).on("click", "#submitSearch", function () {
-    startSearch();
-})
-
-// SEARCH FORM clear
-$(document).on("click", "#clearSearch", clearSearchForm);
-
-// RESTAURANT CARD onclick
-$(document).on("click", ".restaurant-card", function(){
-    // activate selected Restaurant Modal
-    $("#selResModal").toggleClass("is-active");
-});
-
-// RESTAURANT MODAL close
-$(document).on("click", "#closeSelResModal", function(){
-    $("#selResModal").toggleClass("is-active");
-});
-
-
-
-function clearSearchForm() {
-    $("#citySearch").val("");
-    $("#stateSearch").val("");
-    $("#zipSearch").val("");
-    $("#cuisineSearch").val("");
-}
-
-
-
-
-makeRestaurantCard();
-
+// makeRestaurantCard();

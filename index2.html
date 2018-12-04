@@ -33,7 +33,7 @@
         </div>
     </nav>
 
-    
+
     <!-- main body  -->
     <!-- search -->
     <div class="columns is-centered">
@@ -90,17 +90,49 @@
     <!-- results -->
     <div class="columns is-centered results">
 
-
     </div>
 
-    
+
+
+    <!-- sign in modal -->
+    <div class="modal is-active" id="signInModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Sign in: </p>
+                <button class="delete modal-close closeSignInModal" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" id="usernameInput">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" id="passwordInput">
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link closeSignInModal" id="signInSubmit">Submit</button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
     <!-- bluma javascript -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
     <!-- my own javascript -->
-    <script src="assets/javascript/app.js"></script>
+    <script src="assets/javascript/app2.js"></script>
 </body>
 
 </html>

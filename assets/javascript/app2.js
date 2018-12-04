@@ -8,6 +8,13 @@ $(document).on("click", "#submitSearch", function() {
     startSearch();
 })
 
+$(document).on("click", "#clearSearch", function(){
+    $("#citySearch").val("");
+    $("#stateSearch").val("");
+    $("#zipSearch").val("");
+    $("#cuisineDropdown").val("");
+})
+
 
 
 

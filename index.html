@@ -77,10 +77,10 @@
 
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button is-link">Submit</button>
+                    <button class="button is-link submit">Submit</button>
                 </div>
                 <div class="control">
-                    <button class="button is-text">Clear</button>
+                    <button class="button is-text c">Clear</button>
                 </div>
             </div>
         </div>
@@ -131,6 +131,42 @@
 
 
 
+
+
+    <div class="modal" id="selResModal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <!-- header with tabs -->
+                <div class="navbar-brand">
+                    <div class="navbar-item">
+                        <div class="tabs is-boxed">
+                            <ul>
+                                <li class="is-active" id="selResName">
+                                    <a>
+                                        <span id="selectedRestaurant"></span>
+                                    </a>
+                                </li>
+                                <li class="" id="selResPictures">
+                                    <a>
+                                        <span class="icon is-small"><i class="fas fa-bars" aria-hidden="true"></i></span>
+                                        <span>Pictures</span>
+                                    </a>
+                                </li>
+                                <li class="" id="selResMenu">
+                                    <a>
+                                        <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+                                        <span>Menu</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <button class="modal-close is-large" aria-label="close" id="closeSelResModal"></button>
+    </div>
 
 
 

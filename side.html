@@ -25,6 +25,7 @@
     <div class="modal-background"></div>
     <div class="modal-content">
         <nav class="navbar" role="navigation" aria-label="main navigation">
+            <!-- header with tabs -->
             <div class="navbar-brand">
                 <div class="navbar-item">
                     <div class="tabs is-boxed">
@@ -50,7 +51,22 @@
                     </div>
                 </div>
             </div>
+
         </nav>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
+<script>
+    activateRestaurantInfo(){
+        var resName = $(this).restaurantName;
+        $("#selectedRestaurant").text(ResName);
+        $("#selResModal").toggleClass("is-active");
+    }
+
+
+
+
+
+
+
+</script>

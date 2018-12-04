@@ -34,13 +34,16 @@ function startSearch() {
             console.log(response2);
 
             for (var i = 0; i < 9; i++) {
+                //variable to minimize response2.results
+                var results = response2.results[i]
+                //create all variables to obtain restaurant info
+
                 //we may have to insert this from yelp because
                 //google does not provide images of actual restaurant logo
-                
-                //create all variables to obtain restaurant info
                 console.log(response2.results[0].icon);
-                var gImageLink = response2.results[0].icon;
-                var
+                var gImageLink = results.icon;
+                var gRestName = results.name;
+                var gRestAddress = results.vicinity
 
                 //display all variable in makeRestaurantCard function
             }

@@ -4,15 +4,15 @@ $(".closeSignInModal").click(function () {
     $("#signInModal").toggleClass("is-active");
 });
 
-$(document).on("click", "#submitSearch", function() {
+$(document).on("click", "#submitSearch", function () {
     startSearch();
 })
 
-$(document).on("click", "#clearSearch", function(){
+$(document).on("click", "#clearSearch", function () {
     $("#citySearch").val("");
     $("#stateSearch").val("");
     $("#zipSearch").val("");
-    $("#cuisineDropdown").val("");
+    $("#cuisineSearch").val("");
 })
 
 
@@ -25,6 +25,8 @@ function startSearch() {
     var city = $("#citySearch").val();
     var state = $("#stateSearch").val();
     var zip = $("#zipSearch").val();
+    var cuisine = $("#cuisineSearch").val();
+
 
     // more stuff for when we actually access yelp
     // var queryURL = "https://api.yelp.com/v3/businesses/search?term=by-chloe&location=boston";
@@ -35,5 +37,5 @@ function startSearch() {
     //     console.log(response);
     // })
 
-    console.log("city: " + city + " state: " + state + " zip: " + zip);
+    console.log("city: " + city + " state: " + state + " zip: " + zip + " cuisine: " + cuisine);
 }

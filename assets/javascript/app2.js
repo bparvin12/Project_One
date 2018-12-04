@@ -1,3 +1,9 @@
+// global variables
+var cardCount = 0;
+var rowCount = 0;
+var currRow;
+
+
 // close signInModal when manually closed or information submitted.
 $(".closeSignInModal").click(function () {
     // if sign in fails, clear form so user can retry
@@ -27,6 +33,10 @@ function startSearch() {
     var state = $("#stateSearch").val();
     var zip = $("#zipSearch").val();
     var cuisine = $("#cuisineSearch").val();
+    
+    // reset cardCount and rowCount global variables
+    cardCount = 0;
+    rowCount = 0;
 
     // maybe use google to make sure that this location exists before sending to yelp?
     // if it doesn't exist, we could write a little error message above a cleared search form
@@ -93,7 +103,7 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     // add value to restaurant basics. then to card content
     restaurantBasics.append(restName);
     restaurantBasics.append(restAddress);
-    cardContent.append(restaurantBasics); 
+    cardContent.append(restaurantBasics);
 
     // create div for restaurant happy hours
     var happyHoursDiv = $("<div>");
@@ -102,7 +112,7 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     // happyHoursSpan.attr("id", "happyHours"); // not sure we need to do a span if we just add the hours in this part
 
     //  add value to happy hours. then to card content
-    happyHoursDiv.append("Happy Hours: ");   
+    happyHoursDiv.append("Happy Hours: ");
     happyHoursDiv.append(restHappyHours);
     cardContent.append(happyHoursDiv);
 
@@ -110,7 +120,29 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     card.append(cardContent);
 
     // add restaurant card to page
-    $(".results").append(card);
+    addRestCard(card);
+
 }
 
+function addRestCard(restCard) {
+    cardCount++;
+    // new row
+    if ((cardCount % 3) === 1) {
+        console.log("row");
+        rowCount++;
+        currRow = $("<div>");
+        currRow.addClass("columns is-one-third");
+        var rowClass = "rowNum" + rowCount;
+        currRow.addClass(rowClass);
+        $(".results").append(currRow);
+
+    }
+    currRow.append(restCard);
+    
+}
+
+makeRestaurantCard();
+makeRestaurantCard();
+makeRestaurantCard();
+makeRestaurantCard();
 makeRestaurantCard();

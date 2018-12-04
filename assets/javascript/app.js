@@ -35,17 +35,22 @@ function startSearch() {
 
             for (var i = 0; i < 9; i++) {
                 //variable to minimize response2.results
-                var results = response2.results[i]
+                var result = response2.results[i]
                 //create all variables to obtain restaurant info
 
                 //we may have to insert this from yelp because
                 //google does not provide images of actual restaurant logo
-                console.log(response2.results[0].icon);
-                var gImageLink = results.icon;
-                var gRestName = results.name;
-                var gRestAddress = results.vicinity
+                console.log(result.icon);
+                var gImageLink = result.icon;
+                console.log(result.name);
+                var gRestName = result.name;
+                console.log(result.vicinity);
+                var gRestAddress = result.vicinity;
+                //we may have to insert happy hours from yelp. 
+                
 
                 //display all variable in makeRestaurantCard function
+                makeRestaurantCard(gImageLink, gRestName, gRestAddress)
             }
         })
     });
@@ -60,8 +65,10 @@ function startSearch() {
 
 
 
-
-function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHappyHours) { // parameters sent to set values
+//we need to make a separate ajax calling from yelp to get pcitures and happy hours 
+//g stands for getting from google
+//y stands for getting from yelp
+function makeRestaurantCard(gImageLink, gRestName, gRestAddress, yRestHappyHours) { // yImageLink, yRestName, yRestAddress, yRestHappyHours) { // parameters sent to set values
     // imageLink: link of restaurant image
     // restName: str name of restaurant 
     // restAddress: str address
@@ -80,8 +87,8 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     // set up picture (placeholder for now) for image portion
     var img = $("<img>");
     img.addClass("restImage");
-    img.attr("src", "https://bulma.io/images/placeholders/1280x960.png"); // img.attr("src", imageLink); 
-    img.attr("alt", "Placeholder Image"); //img.attr("alt", restName)
+    img.attr("src", gImageLink); // img.attr("src", imageLink); 
+    img.attr("alt", gRestName); //img.attr("alt", restName)
 
     // add picture to image portion.
     figure.append(img);
@@ -101,12 +108,12 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     // create line for restaurant name add name
     var restName = $("<p>");
     restName.addClass("title is-4 restName");
-    restName.text("restName"); // delete this when parameters filled in.
+    restName.text(gRestName); // delete this when parameters filled in.
 
     // create line for restaurant address. add address
     var restAddress = $("<p>");
     restAddress.addClass("subtitle is-6 restAddress");
-    restAddress.text("restAddress") // delete this when parameters filled in.
+    restAddress.text(gRestAddress) // delete this when parameters filled in.
 
     // add value to restaurant basics. then to card content
     restaurantBasics.append(restName);
@@ -192,10 +199,11 @@ function clearSearchForm() {
     $("#stateSearch").val("");
     $("#zipSearch").val("");
     $("#cuisineSearch").val("");
+    $(".results").empty();
 }
 
 
 
 
-makeRestaurantCard();
+
 

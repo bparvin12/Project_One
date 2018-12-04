@@ -8,13 +8,14 @@ $(document).on("click", "#submitSearch", function () {
     startSearch();
 })
 
-$(document).on("click", "#clearSearch", function () {
+$(document).on("click", "#clearSearch", clearSearchForm);
+
+function clearSearchForm() {
     $("#citySearch").val("");
     $("#stateSearch").val("");
     $("#zipSearch").val("");
     $("#cuisineSearch").val("");
-})
-
+}
 
 
 
@@ -27,6 +28,8 @@ function startSearch() {
     var zip = $("#zipSearch").val();
     var cuisine = $("#cuisineSearch").val();
 
+    // maybe use google to make sure that this location exists before sending to yelp?
+        // if it doesn't exist, we could write a little error message above a cleared 
 
     // more stuff for when we actually access yelp
     // var queryURL = "https://api.yelp.com/v3/businesses/search?term=by-chloe&location=boston";

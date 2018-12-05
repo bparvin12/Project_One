@@ -199,11 +199,49 @@ var cardCount = 0;
 var rowCount = 0;
 var currRow;
 
+// SIGN IN MODAL form validation
+function isEmail(email) {  
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}
 
 // SIGN IN MODAL close & submit
 $(".closeSignInModal").click(function () {
-    // if sign in fails, clear form so user can retry
-    $("#signInModal").toggleClass("is-active");
+        var errorMessage = "";
+        var fieldsMissing = "";
+   
+                
+        if ($("#usernameInput").val() == "") {                    
+            fieldsMissing += "<br>Email";
+            };
+
+        if ($("#passwordInput").val() == "") {                    
+            fieldsMissing += "<br>Password";
+            };
+
+        if (fieldsMissing != "") {                    
+            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+            };
+        
+        if (isEmail($("#usernameInput").val()) == false) {        
+            errorMessage += "<p>Your email address is not valid</p>";
+            };   
+        
+        if (errorMessage != "") {        
+            $(".modal-card-title").html(errorMessage);
+            };
+        
+        if (fieldsMissing != "") {                    
+            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+            }
+
+        else 
+            {
+            //if sign in fails, clear form so user can retry
+            if (errorMessage == "" && fieldsMissing == "") {
+            $("#signInModal").toggleClass("is-active");
+            }
+        };
 });
 
 

@@ -1,7 +1,10 @@
-//need a function to call upon ajax. 
-//this portion needs to call upon google maps, not yelp. 
+
+//making a global variable to call upon address  
+var yRestAddress;
+
+//start search for restaurants 
 function startSearch() {
-    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+
 
     //need to find a way to convert these to long/lat
     var city = $("#citySearch").val().trim();
@@ -34,7 +37,8 @@ function startSearch() {
                 console.log(result.name);
                 var yRestName = result.name;
                 console.log(result.location.display_address[0]);
-                var yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
+                yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
+                console.log(yRestAddress)
                 console.log(result.price);
                 var yPrice = result.price;
                 //ATTENTION: we may have to insert happy hours from the api that reads pictures to text
@@ -200,11 +204,49 @@ var cardCount = 0;
 var rowCount = 0;
 var currRow;
 
+// SIGN IN MODAL form validation
+function isEmail(email) {  
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}
 
 // SIGN IN MODAL close & submit
 $(".closeSignInModal").click(function () {
-    // if sign in fails, clear form so user can retry
-    $("#signInModal").toggleClass("is-active");
+        var errorMessage = "";
+        var fieldsMissing = "";
+   
+                
+        if ($("#usernameInput").val() == "") {                    
+            fieldsMissing += "<br>Email";
+            };
+
+        if ($("#passwordInput").val() == "") {                    
+            fieldsMissing += "<br>Password";
+            };
+
+        if (fieldsMissing != "") {                    
+            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+            };
+        
+        if (isEmail($("#usernameInput").val()) == false) {        
+            errorMessage += "<p>Your email address is not valid</p>";
+            };   
+        
+        if (errorMessage != "") {        
+            $(".modal-card-title").html(errorMessage);
+            };
+        
+        if (fieldsMissing != "") {                    
+            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+            }
+
+        else 
+            {
+            //if sign in fails, clear form so user can retry
+            if (errorMessage == "" && fieldsMissing == "") {
+            $("#signInModal").toggleClass("is-active");
+            }
+        };
 });
 
 
@@ -241,7 +283,7 @@ function clearSearchForm() {
 
 
 
-makeRestaurantCard();
+// makeRestaurantCard();
 
 
 // MAIN MODAL basic
@@ -461,3 +503,21 @@ function addFoodImageCard(foodPicture) {
 $(document).on("click",".foodImage", function(){
     // var 
 });
+
+//this runs the function to get directions
+$(document).on("click", "#directionsSubmitButton", function() {
+    //api key for google
+    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+    //destination equal to 
+    var destination = yRestAddress
+    console.log(yRestAddress)
+    //origin equal to
+    var origin = $("#startLocation").val().trim();
+    //ajax request for directions
+    var googleDirectionsUrl = "https://www.google.com/maps/embed/v1/directions?key=" + apiKeyGoogle + "&origin=" + origin + "&destination=" + destination;
+    
+    var imageDiv = $("<div>");
+        imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
+
+        $("#directionsTabContent").append(imageDiv);
+}) 

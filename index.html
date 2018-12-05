@@ -22,6 +22,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- link to firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!-- bulma carousel -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bulma-carousel.min.css">
 </head>
 
 <body>
@@ -34,6 +36,99 @@
     </nav>
 
     <!-- main body  -->
+    <section class="hero is-medium has-carousel">
+        <div class="hero-carousel carousel-animated carousel-animate-fade">
+          <div class='carousel-container'>
+            <div class='carousel-item has-background is-active'>
+              <img class="is-background" src="https://wikiki.github.io/images/merry-christmas.jpg" alt="" />
+            </div>
+            <div class='carousel-item has-background'>
+              <img class="is-background" src="https://wikiki.github.io/images/singer.jpg" alt="" />
+            </div>
+            <div class='carousel-item has-background'>
+              <img class="is-background" src="https://wikiki.github.io/images/sushi.jpg" alt="" />
+            </div>
+            <div class='carousel-item has-background'>
+              <img class="is-background" src="https://wikiki.github.io/images/life.jpg" alt="" />
+            </div>
+          </div>
+          <div class="carousel-navigation is-overlay">
+            <div class="carousel-nav-left">
+              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </div>
+            <div class="carousel-nav-right">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="hero-head">
+          <nav class="navbar is-transparent">
+            <div class="container">
+              <div class="navbar-brand">
+                <a class="navbar-item">
+                  <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
+                </a>
+                <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </div>
+              <div id="navbarMenuHeroA" class="navbar-menu">
+                <div class="navbar-end">
+                  <a class="navbar-item has-text-white is-active">
+                    Home
+                  </a>
+                  <a class="navbar-item has-text-white">
+                    Examples
+                  </a>
+                  <a class="navbar-item has-text-white">
+                    Documentation
+                  </a>
+                  <span class="navbar-item has-text-white">
+                    <a class="button is-primary is-inverted">
+                      <span class="icon">
+                        <i class="fa fa-github"></i>
+                      </span>
+                      <span>Download</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class="hero-body has-text-centered">
+          <div class="columns is-mobile is-centered">
+            <div class="column is-half is-narrow">
+              <div class="field has-addons">
+                <div class="control is-expanded">
+                  <input class="input" type="text" placeholder="Find a repository">
+                </div>
+                <div class="control">
+                  <a class="button is-info">
+                    Search
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-foot">
+          <nav class="tabs is-boxed is-fullwidth">
+            <div class="container">
+              <ul>
+                <li class="is-active"><a>Overview</a></li>
+                <li><a class="has-text-white">Modifiers</a></li>
+                <li><a class="has-text-white">Grid</a></li>
+                <li><a class="has-text-white">Elements</a></li>
+                <li><a class="has-text-white">Components</a></li>
+                <li><a class="has-text-white">Layout</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </section>
     <!-- search -->
     <div class="columns is-centered">
         <div class="column is-three-quarters">
@@ -92,7 +187,6 @@
 
         </div>
     </div>
-
 
     <div class="modal is-active" id="signInModal">
             <div class="modal-background"></div>
@@ -167,8 +261,17 @@
     
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous"></script>
+
+        <!-- bulma javascript carousel -->   
+            <script type="text/javascript" src="assets/javascript/bulma-carousel.js"></script>
+
         <!-- my own javascript -->
         <script src="assets/javascript/app.js"></script>
+        <script>
+            $(document).ready(function(){
+                   var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
+               });
+        </script>
     </body>
     
     </html>

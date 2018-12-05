@@ -41,61 +41,62 @@ function startSearch() {
 
 
                 //display all variable in makeRestaurantCard function
+                cardCount
                 makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice); //add the yPrice
             }
             //========================================================================================
         }
     });
-    }
+}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //ATTENTION: THIS IS ALL CALLS UPON GOOGLE PLACES/GOOGLE API
-            // //function that converts to long/lat and names it with variable "location"
-            // //which we can actually use geocoding API from google. 
-            // var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
-            // var long;
-            // var lati;
-            // $.ajax({
-            //     url: queryURLGeocoding,
-            //     method: 'GET',
-            // }).then(function (response1) {
-            //     console.log(response1);
-            //     console.log(response1.results[0].geometry.location.lng);
-            //     console.log(response1.results[0].geometry.location.lat);
+// //function that converts to long/lat and names it with variable "location"
+// //which we can actually use geocoding API from google. 
+// var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
+// var long;
+// var lati;
+// $.ajax({
+//     url: queryURLGeocoding,
+//     method: 'GET',
+// }).then(function (response1) {
+//     console.log(response1);
+//     console.log(response1.results[0].geometry.location.lng);
+//     console.log(response1.results[0].geometry.location.lat);
 
-            //     lati = response1.results[0].geometry.location.lat;
-            //     long = response1.results[0].geometry.location.lng;
+//     lati = response1.results[0].geometry.location.lat;
+//     long = response1.results[0].geometry.location.lng;
 
-            //     var cuisine = $("#cuisineSearch").val();
-            //     var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
+//     var cuisine = $("#cuisineSearch").val();
+//     var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
 
-            //     $.ajax({
-            //         url: queryURLGoogleMaps,
-            //         method: 'GET',
-            //     }).then(function (response2) {
-            //         console.log(response2);
+//     $.ajax({
+//         url: queryURLGoogleMaps,
+//         method: 'GET',
+//     }).then(function (response2) {
+//         console.log(response2);
 
-            //         for (var i = 0; i < 9; i++) {
-            //             //variable to minimize response2.results
-            //             var result = response2.results[i]
-            //             //create all variables to obtain restaurant info
+//         for (var i = 0; i < 9; i++) {
+//             //variable to minimize response2.results
+//             var result = response2.results[i]
+//             //create all variables to obtain restaurant info
 
-            //             //we may have to insert this from yelp because
-            //             //google does not provide images of actual restaurant logo
-            //             console.log(result.icon);
-            //             var gImageLink = result.icon;
-            //             console.log(result.name);
-            //             var gRestName = result.name;
-            //             console.log(result.vicinity);
-            //             var gRestAddress = result.vicinity;
-            //             //we may have to insert happy hours from yelp. 
+//             //we may have to insert this from yelp because
+//             //google does not provide images of actual restaurant logo
+//             console.log(result.icon);
+//             var gImageLink = result.icon;
+//             console.log(result.name);
+//             var gRestName = result.name;
+//             console.log(result.vicinity);
+//             var gRestAddress = result.vicinity;
+//             //we may have to insert happy hours from yelp. 
 
 
 
-            //             //display all variable in makeRestaurantCard function
-            //             makeRestaurantCard(gImageLink, gRestName, gRestAddress)
-            //         }
-            //     });
-            // });
+//             //display all variable in makeRestaurantCard function
+//             makeRestaurantCard(gImageLink, gRestName, gRestAddress)
+//         }
+//     });
+// });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -209,6 +210,8 @@ $(".closeSignInModal").click(function () {
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
+    cardCount = 0;
+    rowCount = 0;
     startSearch();
 })
 
@@ -240,6 +243,8 @@ function clearSearchForm() {
 
 makeRestaurantCard();
 
+
+// MAIN MODAL basic
 $(document).on("click", "#selResBasic", function () {
     // if ($("#selResPictures").hasClass("is-active")){
     //     $("#selResPictures").toggleClass("is-active");
@@ -274,9 +279,9 @@ $(document).on("click", "#selResBasic", function () {
 
 });
 
-$(document).on("click", "#selResPictures", function () {
-    console.log("click");
 
+// MAIN MODAL pictures
+$(document).on("click", "#selResPictures", function () {
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -295,6 +300,10 @@ $(document).on("click", "#selResPictures", function () {
         return;
     }
 
+
+    fillPicturesContent(); // get the pictures links of food pictures
+ 
+
     // activate this tab.
     $("#selResPictures").toggleClass("is-active");
 
@@ -303,8 +312,8 @@ $(document).on("click", "#selResPictures", function () {
 
 });
 
+// MAIN MODAL menu
 $(document).on("click", "#selResMenu", function () {
-    console.log("click");
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -332,8 +341,6 @@ $(document).on("click", "#selResMenu", function () {
 
 
 $(document).on("click", "#selResDirections", function () {
-    console.log("click");
-
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -362,5 +369,95 @@ $(document).on("click", "#selResDirections", function () {
 
 
 
-$(document).on("click", "#directionsSubmitButton", function() {
+$(document).on("click", "#directionsSubmitButton", function () {
+});
+
+
+
+function fillPicturesContent() {
+    $(".displayPictures").empty();
+    cardCount = 0;
+    rowCount = 0;
+    // temporary values assigned to stuff for now only temporarily
+    var foodImageLinkArg = "https://bulma.io/images/placeholders/640x480.png";
+    var foodImageAltArg = "alt alt alt";
+
+    makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
+    makeFoodImageCard(foodImageLinkArg, "a");
+
+    makeFoodImageCard(foodImageLinkArg, "b");
+
+    makeFoodImageCard(foodImageLinkArg, "c");
+
+    makeFoodImageCard(foodImageLinkArg, "d");
+    makeFoodImageCard(foodImageLinkArg, "e");
+    makeFoodImageCard(foodImageLinkArg, "f");
+    makeFoodImageCard(foodImageLinkArg, "g");
+    makeFoodImageCard(foodImageLinkArg, "h");
+    makeFoodImageCard(foodImageLinkArg, "i");
+    makeFoodImageCard(foodImageLinkArg, "j");
+    makeFoodImageCard(foodImageLinkArg, "k");
+    makeFoodImageCard(foodImageLinkArg, "l");
+
+}
+
+function makeFoodImageCard(foodImageLink, foodImageAlt) {
+    console.log("click");
+    var card = $("<div>");
+    card.addClass("card foodImage");
+
+    // creates portion of restaurant card with the image.
+    var cardImage = $("<div>");
+    cardImage.addClass("card-image");
+
+    var figure = $("<figure>");
+    figure.addClass("image");
+
+    // add image link
+    var img = $("<img>");
+    img.addClass("foodImage");
+    img.attr("src", foodImageLink);
+    // if alt was sent with image, assign
+    if (foodImageAlt) {
+        img.attr("alt", foodImageAlt);
+    }
+
+    // add picture to image portion.
+    figure.append(img);
+    cardImage.append(figure);
+
+    // add image portion to card
+    card.append(cardImage)
+
+    // add restaurant card to page
+    addFoodImageCard(card);
+
+
+}
+
+function addFoodImageCard(foodPicture) {
+    cardCount++;
+    var colNumber = cardCount % 4;
+    // new row
+    if (colNumber === 1) {
+        rowCount++;
+        currRow = $("<div>");
+        currRow.addClass("columns");
+        var rowClass = "rowNum" + rowCount;
+        currRow.addClass(rowClass);
+        $(".displayPictures").append(currRow);
+
+    }
+
+    var newCard = $("<div>");
+    newCard.addClass("column is-one-quarter");
+    newCard.attr
+    newCard.append(foodPicture);
+    currRow.append(newCard);
+
+}
+
+
+$(document).on("click",".foodImage", function(){
+    // var 
 });

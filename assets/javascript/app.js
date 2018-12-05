@@ -235,3 +235,86 @@ function clearSearchForm() {
     $("#cuisineSearch").val("");
     $(".results").empty();
 }
+
+
+
+
+
+$(document).on("click", "#selResBasic", function () {
+    // if ($("#selResPictures").hasClass("is-active")){
+    //     $("#selResPictures").toggleClass("is-active");
+    // }
+    // else if ($("#selResMenu").hasClass("is-active")){
+    //     $("#selResMenu").toggleClass("is-active");
+    // }
+
+    // deactivate other tab. hide other tab content
+    if ($("#selResPictures").hasClass("is-active")) {
+        $("#selResPictures").toggleClass("is-active");
+        $("#picturesTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResMenu").hasClass("is-active")) {
+        $("#selResMenu").toggleClass("is-active");
+        $("#menuTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResBasic").hasClass("is-active")) {
+        return;
+    }
+
+    // activate this tab.
+    $("#selResBasic").toggleClass("is-active");
+
+    // show tab content
+    $("#basicTabContent").removeAttr("style");
+
+});
+
+$(document).on("click", "#selResPictures", function () {
+    console.log("click");
+
+    // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")) {
+        $("#selResBasic").toggleClass("is-active");
+        $("#basicTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResMenu").hasClass("is-active")) {
+        $("#selResMenu").toggleClass("is-active");
+        $("#menuTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResPictures").hasClass("is-active")) {
+        return;
+    }
+
+    // activate this tab.
+    $("#selResPictures").toggleClass("is-active");
+
+    // show tab content
+    $("#picturesTabContent").removeAttr("style");
+
+});
+
+$(document).on("click", "#selResMenu", function () {
+    console.log("click");
+    // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")) {
+        $("#selResBasic").toggleClass("is-active");
+        $("#basicTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResPictures").hasClass("is-active")) {
+        $("#selResPictures").toggleClass("is-active");
+        $("#picturesTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResMenu").hasClass("is-active")) {
+        return;
+    }
+
+    // activate this tab.
+    $("#selResMenu").toggleClass("is-active");
+
+    // show tab content
+    $("#menuTabContent").removeAttr("style");
+});
+

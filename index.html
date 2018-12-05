@@ -131,8 +131,7 @@
         <div class="modal-background"></div>
         <div class="modal-content">
             <div class="modal-card">
-                <section class="modal-card-body">
-                    <!-- <header class="modal-card-head"> -->
+                <header class="modal-card-head">
                     <div class="tabs is-boxed">
                         <ul>
                             <li class="is-active" id="selResBasic">
@@ -160,6 +159,10 @@
                             </li>
                         </ul>
                     </div>
+                </header>
+                <section class="modal-card-body">
+                    <!-- <header class="modal-card-head"> -->
+
                     <div id="basicTabContent">
                         <div class="columns">
                             <div class="column is-one-half">
@@ -180,10 +183,30 @@
                                 <div>Worth it?</div>
                                 <div class="columns">
                                     <div class="column">
-                                        <i id="yesWorth" class="far fa-thumbs-up"></i>
+                                        <div class="columns">
+                                            <div class="column">
+                                                <i id="yesWorth" class="far fa-thumbs-up"></i>
+                                            </div>
+                                        </div>
+                                        <div class="columns">
+                                            <div class="column">
+                                                +
+                                                <span id="worthCount">3</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="column">
-                                        <i id="notWorth" class="far fa-thumbs-down"></i>
+                                        <div class="columns">
+                                            <div class="column">
+                                                <i id="notWorth" class="far fa-thumbs-down"></i>
+                                            </div>
+                                        </div>
+                                        <div class="columns">
+                                            <div class="column">
+                                                -
+                                                <span id="notWorthCount">1</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -191,8 +214,14 @@
                     </div>
 
                     <div id="picturesTabContent" style="display: none">
-                        picture
+                        <div class="columns is-centered">
+                            <div class="column displayPictures">
+
+                            </div>
+                        </div>
+
                     </div>
+
                     <div id="menuTabContent" style="display: none">
                         menu
                     </div>

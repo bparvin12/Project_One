@@ -45,6 +45,7 @@ function startSearch() {
 
 
                 //display all variable in makeRestaurantCard function
+                cardCount
                 makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice); //add the yPrice
             }
             //========================================================================================
@@ -251,6 +252,8 @@ $(".closeSignInModal").click(function () {
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
+    cardCount = 0;
+    rowCount = 0;
     startSearch();
 })
 
@@ -282,6 +285,8 @@ function clearSearchForm() {
 
 // makeRestaurantCard();
 
+
+// MAIN MODAL basic
 $(document).on("click", "#selResBasic", function () {
     // if ($("#selResPictures").hasClass("is-active")){
     //     $("#selResPictures").toggleClass("is-active");
@@ -316,9 +321,9 @@ $(document).on("click", "#selResBasic", function () {
 
 });
 
-$(document).on("click", "#selResPictures", function () {
-    console.log("click");
 
+// MAIN MODAL pictures
+$(document).on("click", "#selResPictures", function () {
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -337,6 +342,10 @@ $(document).on("click", "#selResPictures", function () {
         return;
     }
 
+
+    fillPicturesContent(); // get the pictures links of food pictures
+ 
+
     // activate this tab.
     $("#selResPictures").toggleClass("is-active");
 
@@ -345,8 +354,8 @@ $(document).on("click", "#selResPictures", function () {
 
 });
 
+// MAIN MODAL menu
 $(document).on("click", "#selResMenu", function () {
-    console.log("click");
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -374,8 +383,6 @@ $(document).on("click", "#selResMenu", function () {
 
 
 $(document).on("click", "#selResDirections", function () {
-    console.log("click");
-
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -400,6 +407,101 @@ $(document).on("click", "#selResDirections", function () {
     // show tab content
     $("#directionsTabContent").removeAttr("style");
 
+});
+
+
+
+$(document).on("click", "#directionsSubmitButton", function () {
+});
+
+
+
+function fillPicturesContent() {
+    $(".displayPictures").empty();
+    cardCount = 0;
+    rowCount = 0;
+    // temporary values assigned to stuff for now only temporarily
+    var foodImageLinkArg = "https://bulma.io/images/placeholders/640x480.png";
+    var foodImageAltArg = "alt alt alt";
+
+    makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
+    makeFoodImageCard(foodImageLinkArg, "a");
+
+    makeFoodImageCard(foodImageLinkArg, "b");
+
+    makeFoodImageCard(foodImageLinkArg, "c");
+
+    makeFoodImageCard(foodImageLinkArg, "d");
+    makeFoodImageCard(foodImageLinkArg, "e");
+    makeFoodImageCard(foodImageLinkArg, "f");
+    makeFoodImageCard(foodImageLinkArg, "g");
+    makeFoodImageCard(foodImageLinkArg, "h");
+    makeFoodImageCard(foodImageLinkArg, "i");
+    makeFoodImageCard(foodImageLinkArg, "j");
+    makeFoodImageCard(foodImageLinkArg, "k");
+    makeFoodImageCard(foodImageLinkArg, "l");
+
+}
+
+function makeFoodImageCard(foodImageLink, foodImageAlt) {
+    console.log("click");
+    var card = $("<div>");
+    card.addClass("card foodImage");
+
+    // creates portion of restaurant card with the image.
+    var cardImage = $("<div>");
+    cardImage.addClass("card-image");
+
+    var figure = $("<figure>");
+    figure.addClass("image");
+
+    // add image link
+    var img = $("<img>");
+    img.addClass("foodImage");
+    img.attr("src", foodImageLink);
+    // if alt was sent with image, assign
+    if (foodImageAlt) {
+        img.attr("alt", foodImageAlt);
+    }
+
+    // add picture to image portion.
+    figure.append(img);
+    cardImage.append(figure);
+
+    // add image portion to card
+    card.append(cardImage)
+
+    // add restaurant card to page
+    addFoodImageCard(card);
+
+
+}
+
+function addFoodImageCard(foodPicture) {
+    cardCount++;
+    var colNumber = cardCount % 4;
+    // new row
+    if (colNumber === 1) {
+        rowCount++;
+        currRow = $("<div>");
+        currRow.addClass("columns");
+        var rowClass = "rowNum" + rowCount;
+        currRow.addClass(rowClass);
+        $(".displayPictures").append(currRow);
+
+    }
+
+    var newCard = $("<div>");
+    newCard.addClass("column is-one-quarter");
+    newCard.attr
+    newCard.append(foodPicture);
+    currRow.append(newCard);
+
+}
+
+
+$(document).on("click",".foodImage", function(){
+    // var 
 });
 
 //this runs the function to get directions

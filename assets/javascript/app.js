@@ -359,3 +359,8 @@ $(document).on("click", "#selResDirections", function () {
     $("#directionsTabContent").removeAttr("style");
 
 });
+
+
+
+$(document).on("click", "#directionsSubmitButton", function() {
+});

@@ -35,11 +35,13 @@ function startSearch() {
                 var yRestName = result.name;
                 console.log(result.location.display_address[0]);
                 var yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
+                console.log(result.price);
+                var yPrice = result.price;
                 //ATTENTION: we may have to insert happy hours from the api that reads pictures to text
 
 
                 //display all variable in makeRestaurantCard function
-                makeRestaurantCard(yImageLink, yRestName, yRestAddress); //add the yRestHappyHours
+                makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice); //add the yPrice
             }
             //========================================================================================
         }
@@ -100,7 +102,7 @@ function startSearch() {
 //we need to make a separate ajax calling from yelp to get pcitures and happy hours 
 //g stands for getting from google
 //y stands for getting from yelp
-function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yRestHappyHours) { // yImageLink, yRestName, yRestAddress, yRestHappyHours) { // parameters sent to set values
+function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice) { // yImageLink, yRestName, yRestAddress, yPrice) { // parameters sent to set values
     // imageLink: link of restaurant image
     // restName: str name of restaurant 
     // restAddress: str address
@@ -153,15 +155,15 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yRestHappyHours
     cardContent.append(restaurantBasics);
 
     // create div for restaurant happy hours
-    var happyHoursDiv = $("<div>");
+    var priceDiv = $("<div>");
     // var restHappyHours = "08:00 - 09:00"
-    var restHappyHours = $("<span>").text("hours");
+    var restPrice = $("<span>").text(yPrice);
     // happyHoursSpan.attr("id", "happyHours"); // not sure we need to do a span if we just add the hours in this part
 
     //  add value to happy hours. then to card content
-    happyHoursDiv.append("Happy Hours: ");
-    happyHoursDiv.append(restHappyHours);
-    cardContent.append(happyHoursDiv);
+    priceDiv.append("Price: ");
+    priceDiv.append(restPrice);
+    cardContent.append(priceDiv);
 
     // add card content to restaurant card
     card.append(cardContent);

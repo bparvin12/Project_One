@@ -1,7 +1,7 @@
 //need a function to call upon ajax. 
 //this portion needs to call upon google maps, not yelp. 
 function startSearch() {
-    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+    // var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
 
     //need to find a way to convert these to long/lat
     var city = $("#citySearch").val().trim();

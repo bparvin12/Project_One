@@ -93,8 +93,8 @@
         </div>
     </div>
 
-
-    <div class="modal is-active" id="signInModal">
+    <!-- must add is-active class below -->
+    <div class="modal" id="signInModal">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -242,6 +242,22 @@
         </div>
         <button class="modal-close is-large" aria-label="close" id="closeSelResModal"></button>
     </div>
+
+
+
+    <!-- display large foood image -->
+    <div class="modal" id="largeFoodImage">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <p class="image is-4by3">
+                <img id="displayLargeFood" src="https://bulma.io/images/placeholders/1280x960.png" alt="">
+            </p>
+        </div>
+        <button class="modal-close is-large" aria-label="close" id="closeLargeFoodModal"></button>
+    </div>
+
+
+
 
     <!-- bluma javascript -->
     <meta name="viewport" content="width=device-width, initial-scale=1">

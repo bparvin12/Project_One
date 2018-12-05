@@ -374,14 +374,10 @@ $(document).on("click", "#directionsSubmitButton", function() {
     //origin equal to
     var origin = $("#startLocation").val().trim();
     //ajax request for directions
-    var googleDirectionsUrl = "https://cors-anywhere.herokuapp.com/https://www.google.com/maps/embed/v1/directions?key=" + apiKeyGoogle + "&origin=" + origin + "&destination=" + destination;
+    var googleDirectionsUrl = "https://www.google.com/maps/embed/v1/directions?key=" + apiKeyGoogle + "&origin=" + origin + "&destination=" + destination;
+    
+    var imageDiv = $("<div>");
+        imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
 
-    $.ajax({
-        url: googleDirectionsUrl,
-        method: 'GET',
-    }).then(function (response) {
-        console.log(response);
-        console.log(destination);
-        
-    });
+        $("#directionsTabContent").append(imageDiv);
 }) 

@@ -1,6 +1,6 @@
 //need a function to call upon ajax. 
 //this portion needs to call upon google maps, not yelp. 
-function startSearch () {
+function startSearch() {
     var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
 
     //need to find a way to convert these to long/lat
@@ -16,7 +16,7 @@ function startSearch () {
     $.ajax({
         url: queryURLGeocoding,
         method: 'GET',
-    }).then(function(response1) {
+    }).then(function (response1) {
         console.log(response1);
         console.log(response1.results[0].geometry.location.lng);
         console.log(response1.results[0].geometry.location.lat);
@@ -29,28 +29,28 @@ function startSearch () {
 
         $.ajax({
             url: queryURLGoogleMaps,
-            method: 'GET',       
-        }).then(function(response2) {
+            method: 'GET',
+        }).then(function (response2) {
             console.log(response2);
         })
     });
 
-   
+
     //radius is set to 8000 meters which is about 5 miles 
     // var queryURLGoogleMaps1 = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + lat + "," + lng + "&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=" + apiKeyGoogle;
-   
 
-    
+
+
 }
 
 
 
-function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yRestHappyHours){ // parameters sent to set values
-                                                                                        // imageLink: link of restaurant image
-                                                                                        // restName: str name of restaurant 
-                                                                                        // restAddress: str address
-                                                                                        // happyHours: str happyHours
-                                                                                        // main div card that everything goes into
+function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yRestHappyHours) { // parameters sent to set values
+    // imageLink: link of restaurant image
+    // restName: str name of restaurant 
+    // restAddress: str address
+    // happyHours: str happyHours
+    // main div card that everything goes into
     var card = $("<div>");
     card.addClass("card restaurant-card");
 
@@ -159,13 +159,13 @@ $(document).on("click", "#submitSearch", function () {
 $(document).on("click", "#clearSearch", clearSearchForm);
 
 // RESTAURANT CARD onclick
-$(document).on("click", ".restaurant-card", function(){
+$(document).on("click", ".restaurant-card", function () {
     // activate selected Restaurant Modal
     $("#selResModal").toggleClass("is-active");
 });
 
 // RESTAURANT MODAL close
-$(document).on("click", "#closeSelResModal", function(){
+$(document).on("click", "#closeSelResModal", function () {
     $("#selResModal").toggleClass("is-active");
 });
 
@@ -183,7 +183,7 @@ function clearSearchForm() {
 
 makeRestaurantCard();
 
-$(document).on("click", "#selResBasic", function(){
+$(document).on("click", "#selResBasic", function () {
     // if ($("#selResPictures").hasClass("is-active")){
     //     $("#selResPictures").toggleClass("is-active");
     // }
@@ -191,17 +191,17 @@ $(document).on("click", "#selResBasic", function(){
     //     $("#selResMenu").toggleClass("is-active");
     // }
 
-     // deactivate other tab. hide other tab content
-     if ($("#selResPictures").hasClass("is-active")){
+    // deactivate other tab. hide other tab content
+    if ($("#selResPictures").hasClass("is-active")) {
         $("#selResPictures").toggleClass("is-active");
         $("#picturesTabContent").attr("style", "display:none")
     }
-    else if ($("#selResMenu").hasClass("is-active")){
+    else if ($("#selResMenu").hasClass("is-active")) {
         $("#selResMenu").toggleClass("is-active");
         $("#menuTabContent").attr("style", "display:none")
     }
     // if this tab is active, just return
-    else if ($("#selResBasic").hasClass("is-active")){
+    else if ($("#selResBasic").hasClass("is-active")) {
         return;
     }
 
@@ -213,20 +213,20 @@ $(document).on("click", "#selResBasic", function(){
 
 });
 
-$(document).on("click", "#selResPictures", function(){
-console.log("click");
+$(document).on("click", "#selResPictures", function () {
+    console.log("click");
 
     // deactivate other tab. hide other tab content
-    if ($("#selResBasic").hasClass("is-active")){
+    if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
         $("#basicTabContent").attr("style", "display:none")
     }
-    else if ($("#selResMenu").hasClass("is-active")){
+    else if ($("#selResMenu").hasClass("is-active")) {
         $("#selResMenu").toggleClass("is-active");
         $("#menuTabContent").attr("style", "display:none")
     }
     // if this tab is active, just return
-    else if ($("#selResPictures").hasClass("is-active")){
+    else if ($("#selResPictures").hasClass("is-active")) {
         return;
     }
 
@@ -235,22 +235,22 @@ console.log("click");
 
     // show tab content
     $("#picturesTabContent").removeAttr("style");
-    
+
 });
 
-$(document).on("click", "#selResMenu", function(){
+$(document).on("click", "#selResMenu", function () {
     console.log("click");
-   // deactivate other tab. hide other tab content
-    if ($("#selResBasic").hasClass("is-active")){
+    // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
         $("#basicTabContent").attr("style", "display:none")
     }
-    else if ($("#selResPictures").hasClass("is-active")){
+    else if ($("#selResPictures").hasClass("is-active")) {
         $("#selResPictures").toggleClass("is-active");
         $("#picturesTabContent").attr("style", "display:none")
     }
     // if this tab is active, just return
-    else if ($("#selResMenu").hasClass("is-active")){
+    else if ($("#selResMenu").hasClass("is-active")) {
         return;
     }
 

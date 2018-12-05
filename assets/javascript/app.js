@@ -1,54 +1,113 @@
-//need a function to call upon ajax. 
-//this portion needs to call upon google maps, not yelp. 
-function startSearch () {
-    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+
+//making a global variable to call upon address  
+var yRestAddress;
+
+//start search for restaurants 
+function startSearch() {
+
 
     //need to find a way to convert these to long/lat
     var city = $("#citySearch").val().trim();
     city = city.trim().replace(/ /g, "+");
     var state = $("#stateSearch").val().trim();
     var zip = $("#zipSearch").val().trim();
-    //function that converts to long/lat and names it with variable "location"
-    //which we can actually use geocoding API from google. 
-    var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
-    var long;
-    var lati;
+    var cuisine = $("#cuisineSearch").val();
+
+    //========================================================================================
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=restaurants&term=by-" + cuisine + "&location=" + city + "," + state + "," + zip;
     $.ajax({
-        url: queryURLGeocoding,
+        url: myurl,
+        headers: {
+            'Authorization': 'Bearer NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx',
+        },
         method: 'GET',
-    }).then(function(response1) {
-        console.log(response1);
-        console.log(response1.results[0].geometry.location.lng);
-        console.log(response1.results[0].geometry.location.lat);
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
 
-        lati = response1.results[0].geometry.location.lat;
-        long = response1.results[0].geometry.location.lng;
+            for (var i = 0; i < 9; i++) {
+                //variable to minimize response2.results
+                var result = data.businesses[i]
+                //create all variables to obtain restaurant info
 
-        var cuisine = $("#cuisineSearch").val();
-        var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
+                //we may have to insert this from yelp because
+                //google does not provide images of actual restaurant logo
+                console.log(result.image_url);
+                var yImageLink = result.image_url;
+                console.log(result.name);
+                var yRestName = result.name;
+                console.log(result.location.display_address[0]);
+                yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
+                console.log(yRestAddress)
+                console.log(result.price);
+                var yPrice = result.price;
+                //ATTENTION: we may have to insert happy hours from the api that reads pictures to text
 
-        $.ajax({
-            url: queryURLGoogleMaps,
-            method: 'GET',       
-        }).then(function(response2) {
-            console.log(response2);
-        })
+
+                //display all variable in makeRestaurantCard function
+                cardCount
+                makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice); //add the yPrice
+            }
+            //========================================================================================
+        }
     });
-
-   
-    //radius is set to 8000 meters which is about 5 miles 
-    // var queryURLGoogleMaps1 = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + lat + "," + lng + "&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=" + apiKeyGoogle;
-   
-
-    
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//ATTENTION: THIS IS ALL CALLS UPON GOOGLE PLACES/GOOGLE API
+// //function that converts to long/lat and names it with variable "location"
+// //which we can actually use geocoding API from google. 
+// var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
+// var long;
+// var lati;
+// $.ajax({
+//     url: queryURLGeocoding,
+//     method: 'GET',
+// }).then(function (response1) {
+//     console.log(response1);
+//     console.log(response1.results[0].geometry.location.lng);
+//     console.log(response1.results[0].geometry.location.lat);
+
+//     lati = response1.results[0].geometry.location.lat;
+//     long = response1.results[0].geometry.location.lng;
+
+//     var cuisine = $("#cuisineSearch").val();
+//     var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
+
+//     $.ajax({
+//         url: queryURLGoogleMaps,
+//         method: 'GET',
+//     }).then(function (response2) {
+//         console.log(response2);
+
+//         for (var i = 0; i < 9; i++) {
+//             //variable to minimize response2.results
+//             var result = response2.results[i]
+//             //create all variables to obtain restaurant info
+
+//             //we may have to insert this from yelp because
+//             //google does not provide images of actual restaurant logo
+//             console.log(result.icon);
+//             var gImageLink = result.icon;
+//             console.log(result.name);
+//             var gRestName = result.name;
+//             console.log(result.vicinity);
+//             var gRestAddress = result.vicinity;
+//             //we may have to insert happy hours from yelp. 
 
 
 
+//             //display all variable in makeRestaurantCard function
+//             makeRestaurantCard(gImageLink, gRestName, gRestAddress)
+//         }
+//     });
+// });
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
-function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHappyHours) { // parameters sent to set values
+//we need to make a separate ajax calling from yelp to get pcitures and happy hours 
+//g stands for getting from google
+//y stands for getting from yelp
+function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice) { // yImageLink, yRestName, yRestAddress, yPrice) { // parameters sent to set values
     // imageLink: link of restaurant image
     // restName: str name of restaurant 
     // restAddress: str address
@@ -67,8 +126,8 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     // set up picture (placeholder for now) for image portion
     var img = $("<img>");
     img.addClass("restImage");
-    img.attr("src", "https://bulma.io/images/placeholders/1280x960.png"); // img.attr("src", imageLink); 
-    img.attr("alt", "Placeholder Image"); //img.attr("alt", restName)
+    img.attr("src", yImageLink); // img.attr("src", imageLink); 
+    img.attr("alt", yRestName); //img.attr("alt", restName)
 
     // add picture to image portion.
     figure.append(img);
@@ -88,12 +147,12 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     // create line for restaurant name add name
     var restName = $("<p>");
     restName.addClass("title is-4 restName");
-    restName.text("restName"); // delete this when parameters filled in.
+    restName.text(yRestName); // delete this when parameters filled in.
 
     // create line for restaurant address. add address
     var restAddress = $("<p>");
     restAddress.addClass("subtitle is-6 restAddress");
-    restAddress.text("restAddress") // delete this when parameters filled in.
+    restAddress.text(yRestAddress) // delete this when parameters filled in.
 
     // add value to restaurant basics. then to card content
     restaurantBasics.append(restName);
@@ -101,15 +160,15 @@ function makeRestaurantCard() { // yImageLink, yRestName, yRestAddress, yRestHap
     cardContent.append(restaurantBasics);
 
     // create div for restaurant happy hours
-    var happyHoursDiv = $("<div>");
-    var restHappyHours = "08:00 - 09:00"
-    // var happyHoursSpan = $("<span>");
+    var priceDiv = $("<div>");
+    // var restHappyHours = "08:00 - 09:00"
+    var restPrice = $("<span>").text(yPrice);
     // happyHoursSpan.attr("id", "happyHours"); // not sure we need to do a span if we just add the hours in this part
 
     //  add value to happy hours. then to card content
-    happyHoursDiv.append("Happy Hours: ");
-    happyHoursDiv.append(restHappyHours);
-    cardContent.append(happyHoursDiv);
+    priceDiv.append("Price: ");
+    priceDiv.append(restPrice);
+    cardContent.append(priceDiv);
 
     // add card content to restaurant card
     card.append(cardContent);
@@ -145,16 +204,56 @@ var cardCount = 0;
 var rowCount = 0;
 var currRow;
 
+// SIGN IN MODAL form validation
+function isEmail(email) {  
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}
 
 // SIGN IN MODAL close & submit
 $(".closeSignInModal").click(function () {
-    // if sign in fails, clear form so user can retry
-    $("#signInModal").toggleClass("is-active");
+        var errorMessage = "";
+        var fieldsMissing = "";
+   
+                
+        if ($("#usernameInput").val() == "") {                    
+            fieldsMissing += "<br>Email";
+            };
+
+        if ($("#passwordInput").val() == "") {                    
+            fieldsMissing += "<br>Password";
+            };
+
+        if (fieldsMissing != "") {                    
+            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+            };
+        
+        if (isEmail($("#usernameInput").val()) == false) {        
+            errorMessage += "<p>Your email address is not valid</p>";
+            };   
+        
+        if (errorMessage != "") {        
+            $(".modal-card-title").html(errorMessage);
+            };
+        
+        if (fieldsMissing != "") {                    
+            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+            }
+
+        else 
+            {
+            //if sign in fails, clear form so user can retry
+            if (errorMessage == "" && fieldsMissing == "") {
+            $("#signInModal").toggleClass("is-active");
+            }
+        };
 });
 
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
+    cardCount = 0;
+    rowCount = 0;
     startSearch();
 })
 
@@ -162,13 +261,13 @@ $(document).on("click", "#submitSearch", function () {
 $(document).on("click", "#clearSearch", clearSearchForm);
 
 // RESTAURANT CARD onclick
-$(document).on("click", ".restaurant-card", function(){
+$(document).on("click", ".restaurant-card", function () {
     // activate selected Restaurant Modal
     $("#selResModal").toggleClass("is-active");
 });
 
 // RESTAURANT MODAL close
-$(document).on("click", "#closeSelResModal", function(){
+$(document).on("click", "#closeSelResModal", function () {
     $("#selResModal").toggleClass("is-active");
 });
 
@@ -179,10 +278,246 @@ function clearSearchForm() {
     $("#stateSearch").val("");
     $("#zipSearch").val("");
     $("#cuisineSearch").val("");
+    $(".results").empty();
 }
 
 
 
+// makeRestaurantCard();
 
-makeRestaurantCard();
 
+// MAIN MODAL basic
+$(document).on("click", "#selResBasic", function () {
+    // if ($("#selResPictures").hasClass("is-active")){
+    //     $("#selResPictures").toggleClass("is-active");
+    // }
+    // else if ($("#selResMenu").hasClass("is-active")){
+    //     $("#selResMenu").toggleClass("is-active");
+    // }
+
+    // deactivate other tab. hide other tab content
+    if ($("#selResPictures").hasClass("is-active")) {
+        $("#selResPictures").toggleClass("is-active");
+        $("#picturesTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResMenu").hasClass("is-active")) {
+        $("#selResMenu").toggleClass("is-active");
+        $("#menuTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResDirections").hasClass("is-active")) {
+        $("#selResDirections").toggleClass("is-active");
+        $("#directionsTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResBasic").hasClass("is-active")) {
+        return;
+    }
+
+    // activate this tab.
+    $("#selResBasic").toggleClass("is-active");
+
+    // show tab content
+    $("#basicTabContent").removeAttr("style");
+
+});
+
+
+// MAIN MODAL pictures
+$(document).on("click", "#selResPictures", function () {
+    // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")) {
+        $("#selResBasic").toggleClass("is-active");
+        $("#basicTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResMenu").hasClass("is-active")) {
+        $("#selResMenu").toggleClass("is-active");
+        $("#menuTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResDirections").hasClass("is-active")) {
+        $("#selResDirections").toggleClass("is-active");
+        $("#directionsTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResPictures").hasClass("is-active")) {
+        return;
+    }
+
+
+    fillPicturesContent(); // get the pictures links of food pictures
+ 
+
+    // activate this tab.
+    $("#selResPictures").toggleClass("is-active");
+
+    // show tab content
+    $("#picturesTabContent").removeAttr("style");
+
+});
+
+// MAIN MODAL menu
+$(document).on("click", "#selResMenu", function () {
+    // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")) {
+        $("#selResBasic").toggleClass("is-active");
+        $("#basicTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResPictures").hasClass("is-active")) {
+        $("#selResPictures").toggleClass("is-active");
+        $("#picturesTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResDirections").hasClass("is-active")) {
+        $("#selResDirections").toggleClass("is-active");
+        $("#directionsTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResMenu").hasClass("is-active")) {
+        return;
+    }
+
+    // activate this tab.
+    $("#selResMenu").toggleClass("is-active");
+
+    // show tab content
+    $("#menuTabContent").removeAttr("style");
+});
+
+
+$(document).on("click", "#selResDirections", function () {
+    // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")) {
+        $("#selResBasic").toggleClass("is-active");
+        $("#basicTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResPictures").hasClass("is-active")) {
+        $("#selResPictures").toggleClass("is-active");
+        $("#picturesTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResMenu").hasClass("is-active")) {
+        $("#selResMenu").toggleClass("is-active");
+        $("#menuTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResDirections").hasClass("is-active")) {
+        return;
+    }
+
+    // activate this tab.
+    $("#selResDirections").toggleClass("is-active");
+
+    // show tab content
+    $("#directionsTabContent").removeAttr("style");
+
+});
+
+
+
+$(document).on("click", "#directionsSubmitButton", function () {
+});
+
+
+
+function fillPicturesContent() {
+    $(".displayPictures").empty();
+    cardCount = 0;
+    rowCount = 0;
+    // temporary values assigned to stuff for now only temporarily
+    var foodImageLinkArg = "https://bulma.io/images/placeholders/640x480.png";
+    var foodImageAltArg = "alt alt alt";
+
+    makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
+    makeFoodImageCard(foodImageLinkArg, "a");
+
+    makeFoodImageCard(foodImageLinkArg, "b");
+
+    makeFoodImageCard(foodImageLinkArg, "c");
+
+    makeFoodImageCard(foodImageLinkArg, "d");
+    makeFoodImageCard(foodImageLinkArg, "e");
+    makeFoodImageCard(foodImageLinkArg, "f");
+    makeFoodImageCard(foodImageLinkArg, "g");
+    makeFoodImageCard(foodImageLinkArg, "h");
+    makeFoodImageCard(foodImageLinkArg, "i");
+    makeFoodImageCard(foodImageLinkArg, "j");
+    makeFoodImageCard(foodImageLinkArg, "k");
+    makeFoodImageCard(foodImageLinkArg, "l");
+
+}
+
+function makeFoodImageCard(foodImageLink, foodImageAlt) {
+    console.log("click");
+    var card = $("<div>");
+    card.addClass("card foodImage");
+
+    // creates portion of restaurant card with the image.
+    var cardImage = $("<div>");
+    cardImage.addClass("card-image");
+
+    var figure = $("<figure>");
+    figure.addClass("image");
+
+    // add image link
+    var img = $("<img>");
+    img.addClass("foodImage");
+    img.attr("src", foodImageLink);
+    // if alt was sent with image, assign
+    if (foodImageAlt) {
+        img.attr("alt", foodImageAlt);
+    }
+
+    // add picture to image portion.
+    figure.append(img);
+    cardImage.append(figure);
+
+    // add image portion to card
+    card.append(cardImage)
+
+    // add restaurant card to page
+    addFoodImageCard(card);
+
+
+}
+
+function addFoodImageCard(foodPicture) {
+    cardCount++;
+    var colNumber = cardCount % 4;
+    // new row
+    if (colNumber === 1) {
+        rowCount++;
+        currRow = $("<div>");
+        currRow.addClass("columns");
+        var rowClass = "rowNum" + rowCount;
+        currRow.addClass(rowClass);
+        $(".displayPictures").append(currRow);
+
+    }
+
+    var newCard = $("<div>");
+    newCard.addClass("column is-one-quarter");
+    newCard.attr
+    newCard.append(foodPicture);
+    currRow.append(newCard);
+
+}
+
+
+$(document).on("click",".foodImage", function(){
+    // var 
+});
+
+//this runs the function to get directions
+$(document).on("click", "#directionsSubmitButton", function() {
+    //api key for google
+    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+    //destination equal to 
+    var destination = yRestAddress
+    console.log(yRestAddress)
+    //origin equal to
+    var origin = $("#startLocation").val().trim();
+    //ajax request for directions
+    var googleDirectionsUrl = "https://www.google.com/maps/embed/v1/directions?key=" + apiKeyGoogle + "&origin=" + origin + "&destination=" + destination;
+    
+    var imageDiv = $("<div>");
+        imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
+
+        $("#directionsTabContent").append(imageDiv);
+}) 

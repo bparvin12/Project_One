@@ -1,6 +1,9 @@
 
 //making a global variable to call upon address  
 var yRestAddress;
+var yImageLink;
+var yRestName;
+var yPrice;
 
 //start search for restaurants 
 function startSearch() {
@@ -33,14 +36,14 @@ function startSearch() {
                 //we may have to insert this from yelp because
                 //google does not provide images of actual restaurant logo
                 console.log(result.image_url);
-                var yImageLink = result.image_url;
+                yImageLink = result.image_url;
                 console.log(result.name);
-                var yRestName = result.name;
+                yRestName = result.name;
                 console.log(result.location.display_address[0]);
                 yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
                 console.log(yRestAddress)
                 console.log(result.price);
-                var yPrice = result.price;
+                yPrice = result.price;
                 //ATTENTION: we may have to insert happy hours from the api that reads pictures to text
 
 
@@ -205,48 +208,47 @@ var rowCount = 0;
 var currRow;
 
 // SIGN IN MODAL form validation
-function isEmail(email) {  
+function isEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
 }
 
 // SIGN IN MODAL close & submit
 $(".closeSignInModal").click(function () {
-        var errorMessage = "";
-        var fieldsMissing = "";
-   
-                
-        if ($("#usernameInput").val() == "") {                    
-            fieldsMissing += "<br>Email";
-            };
+    var errorMessage = "";
+    var fieldsMissing = "";
 
-        if ($("#passwordInput").val() == "") {                    
-            fieldsMissing += "<br>Password";
-            };
 
-        if (fieldsMissing != "") {                    
-            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
-            };
-        
-        if (isEmail($("#usernameInput").val()) == false) {        
-            errorMessage += "<p>Your email address is not valid</p>";
-            };   
-        
-        if (errorMessage != "") {        
-            $(".modal-card-title").html(errorMessage);
-            };
-        
-        if (fieldsMissing != "") {                    
-            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
-            }
+    if ($("#usernameInput").val() == "") {
+        fieldsMissing += "<br>Email";
+    };
 
-        else 
-            {
-            //if sign in fails, clear form so user can retry
-            if (errorMessage == "" && fieldsMissing == "") {
+    if ($("#passwordInput").val() == "") {
+        fieldsMissing += "<br>Password";
+    };
+
+    if (fieldsMissing != "") {
+        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+    };
+
+    if (isEmail($("#usernameInput").val()) == false) {
+        errorMessage += "<p>Your email address is not valid</p>";
+    };
+
+    if (errorMessage != "") {
+        $(".modal-card-title").html(errorMessage);
+    };
+
+    if (fieldsMissing != "") {
+        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+    }
+
+    else {
+        //if sign in fails, clear form so user can retry
+        if (errorMessage == "" && fieldsMissing == "") {
             $("#signInModal").toggleClass("is-active");
-            }
-        };
+        }
+    };
 });
 
 
@@ -264,260 +266,279 @@ $(document).on("click", "#clearSearch", clearSearchForm);
 $(document).on("click", ".restaurant-card", function () {
     // activate selected Restaurant Modal
     $("#selResModal").toggleClass("is-active");
-});
+    //adds image to main info modal 
+    var mainResImage = $("<img>");
+    mainResImage.attr("id", "mainResImage");
+    mainResImage.attr("src", yImageLink);
+    mainResImage.attr("alt", "Restaurant Image");
+    $("#resImageHolder").append(mainResImage);
+    //add address to main info modal 
+    $("#rAddress").html(yRestAddress);
+    //add price to main info 
+    $("#rPrice").html(yPrice);
+    console.log(yPrice);
+    //add link to menu
 
-// RESTAURANT MODAL close
-$(document).on("click", "#closeSelResModal", function () {
-    $("#selResModal").toggleClass("is-active");
-});
-
-
-
-function clearSearchForm() {
-    $("#citySearch").val("");
-    $("#stateSearch").val("");
-    $("#zipSearch").val("");
-    $("#cuisineSearch").val("");
-    $(".results").empty();
-}
-
-
-
-// makeRestaurantCard();
-
-
-// MAIN MODAL basic
-$(document).on("click", "#selResBasic", function () {
-    // if ($("#selResPictures").hasClass("is-active")){
-    //     $("#selResPictures").toggleClass("is-active");
-    // }
-    // else if ($("#selResMenu").hasClass("is-active")){
-    //     $("#selResMenu").toggleClass("is-active");
-    // }
-
-    // deactivate other tab. hide other tab content
-    if ($("#selResPictures").hasClass("is-active")) {
-        $("#selResPictures").toggleClass("is-active");
-        $("#picturesTabContent").attr("style", "display:none")
-    }
-    else if ($("#selResMenu").hasClass("is-active")) {
-        $("#selResMenu").toggleClass("is-active");
-        $("#menuTabContent").attr("style", "display:none")
-    }
-    else if ($("#selResDirections").hasClass("is-active")) {
-        $("#selResDirections").toggleClass("is-active");
-        $("#directionsTabContent").attr("style", "display:none")
-    }
-    // if this tab is active, just return
-    else if ($("#selResBasic").hasClass("is-active")) {
-        return;
-    }
-
-    // activate this tab.
-    $("#selResBasic").toggleClass("is-active");
-
-    // show tab content
-    $("#basicTabContent").removeAttr("style");
+    //add link to restaurant
+    // $("rWebLink").attr("href", )
+   
 
 });
 
+    // RESTAURANT MODAL close
+    $(document).on("click", "#closeSelResModal", function () {
+        $("#selResModal").toggleClass("is-active");
+    });
 
-// MAIN MODAL pictures
-$(document).on("click", "#selResPictures", function () {
-    // deactivate other tab. hide other tab content
-    if ($("#selResBasic").hasClass("is-active")) {
+
+
+    function clearSearchForm() {
+        $("#citySearch").val("");
+        $("#stateSearch").val("");
+        $("#zipSearch").val("");
+        $("#cuisineSearch").val("");
+        $(".results").empty();
+    }
+
+
+
+    // makeRestaurantCard();
+
+
+    // MAIN MODAL basic
+    $(document).on("click", "#selResBasic", function () {
+        // if ($("#selResPictures").hasClass("is-active")){
+        //     $("#selResPictures").toggleClass("is-active");
+        // }
+        // else if ($("#selResMenu").hasClass("is-active")){
+        //     $("#selResMenu").toggleClass("is-active");
+        // }
+
+        // deactivate other tab. hide other tab content
+        if ($("#selResPictures").hasClass("is-active")) {
+            $("#selResPictures").toggleClass("is-active");
+            $("#picturesTabContent").attr("style", "display:none")
+        }
+        else if ($("#selResMenu").hasClass("is-active")) {
+            $("#selResMenu").toggleClass("is-active");
+            $("#menuTabContent").attr("style", "display:none")
+        }
+        else if ($("#selResDirections").hasClass("is-active")) {
+            $("#selResDirections").toggleClass("is-active");
+            $("#directionsTabContent").attr("style", "display:none")
+        }
+        // if this tab is active, just return
+        else if ($("#selResBasic").hasClass("is-active")) {
+            return;
+        }
+
+        // activate this tab.
         $("#selResBasic").toggleClass("is-active");
-        $("#basicTabContent").attr("style", "display:none")
-    }
-    else if ($("#selResMenu").hasClass("is-active")) {
-        $("#selResMenu").toggleClass("is-active");
-        $("#menuTabContent").attr("style", "display:none")
-    }
-    else if ($("#selResDirections").hasClass("is-active")) {
-        $("#selResDirections").toggleClass("is-active");
-        $("#directionsTabContent").attr("style", "display:none")
-    }
-    // if this tab is active, just return
-    else if ($("#selResPictures").hasClass("is-active")) {
-        return;
-    }
+
+        // show tab content
+        $("#basicTabContent").removeAttr("style");
+
+    });
 
 
-    fillPicturesContent(); // get the pictures links of food pictures
- 
+    // MAIN MODAL pictures
+    $(document).on("click", "#selResPictures", function () {
+        // deactivate other tab. hide other tab content
+        if ($("#selResBasic").hasClass("is-active")) {
+            $("#selResBasic").toggleClass("is-active");
+            $("#basicTabContent").attr("style", "display:none")
+        }
+        else if ($("#selResMenu").hasClass("is-active")) {
+            $("#selResMenu").toggleClass("is-active");
+            $("#menuTabContent").attr("style", "display:none")
+        }
+        else if ($("#selResDirections").hasClass("is-active")) {
+            $("#selResDirections").toggleClass("is-active");
+            $("#directionsTabContent").attr("style", "display:none")
+        }
+        // if this tab is active, just return
+        else if ($("#selResPictures").hasClass("is-active")) {
+            return;
+        }
 
-    // activate this tab.
-    $("#selResPictures").toggleClass("is-active");
 
-    // show tab content
-    $("#picturesTabContent").removeAttr("style");
+        fillPicturesContent(); // get the pictures links of food pictures
 
-});
 
-// MAIN MODAL menu
-$(document).on("click", "#selResMenu", function () {
-    // deactivate other tab. hide other tab content
-    if ($("#selResBasic").hasClass("is-active")) {
-        $("#selResBasic").toggleClass("is-active");
-        $("#basicTabContent").attr("style", "display:none")
-    }
-    else if ($("#selResPictures").hasClass("is-active")) {
+        // activate this tab.
         $("#selResPictures").toggleClass("is-active");
-        $("#picturesTabContent").attr("style", "display:none")
-    }
-    else if ($("#selResDirections").hasClass("is-active")) {
-        $("#selResDirections").toggleClass("is-active");
-        $("#directionsTabContent").attr("style", "display:none")
-    }
-    // if this tab is active, just return
-    else if ($("#selResMenu").hasClass("is-active")) {
-        return;
-    }
 
-    // activate this tab.
-    $("#selResMenu").toggleClass("is-active");
+        // show tab content
+        $("#picturesTabContent").removeAttr("style");
 
-    // show tab content
-    $("#menuTabContent").removeAttr("style");
-});
+    });
 
+    // MAIN MODAL menu
+    $(document).on("click", "#selResMenu", function () {
+        // deactivate other tab. hide other tab content
+        if ($("#selResBasic").hasClass("is-active")) {
+            $("#selResBasic").toggleClass("is-active");
+            $("#basicTabContent").attr("style", "display:none")
+        }
+        else if ($("#selResPictures").hasClass("is-active")) {
+            $("#selResPictures").toggleClass("is-active");
+            $("#picturesTabContent").attr("style", "display:none")
+        }
+        else if ($("#selResDirections").hasClass("is-active")) {
+            $("#selResDirections").toggleClass("is-active");
+            $("#directionsTabContent").attr("style", "display:none")
+        }
+        // if this tab is active, just return
+        else if ($("#selResMenu").hasClass("is-active")) {
+            return;
+        }
 
-$(document).on("click", "#selResDirections", function () {
-    // deactivate other tab. hide other tab content
-    if ($("#selResBasic").hasClass("is-active")) {
-        $("#selResBasic").toggleClass("is-active");
-        $("#basicTabContent").attr("style", "display:none")
-    }
-    else if ($("#selResPictures").hasClass("is-active")) {
-        $("#selResPictures").toggleClass("is-active");
-        $("#picturesTabContent").attr("style", "display:none")
-    }
-    else if ($("#selResMenu").hasClass("is-active")) {
+        // activate this tab.
         $("#selResMenu").toggleClass("is-active");
-        $("#menuTabContent").attr("style", "display:none")
-    }
-    // if this tab is active, just return
-    else if ($("#selResDirections").hasClass("is-active")) {
-        return;
-    }
 
-    // activate this tab.
-    $("#selResDirections").toggleClass("is-active");
-
-    // show tab content
-    $("#directionsTabContent").removeAttr("style");
-
-});
+        // show tab content
+        $("#menuTabContent").removeAttr("style");
+    });
 
 
+    $(document).on("click", "#selResDirections", function () {
+        // deactivate other tab. hide other tab content
+        if ($("#selResBasic").hasClass("is-active")) {
+            $("#selResBasic").toggleClass("is-active");
+            $("#basicTabContent").attr("style", "display:none")
+        }
+        else if ($("#selResPictures").hasClass("is-active")) {
+            $("#selResPictures").toggleClass("is-active");
+            $("#picturesTabContent").attr("style", "display:none")
+        }
+        else if ($("#selResMenu").hasClass("is-active")) {
+            $("#selResMenu").toggleClass("is-active");
+            $("#menuTabContent").attr("style", "display:none")
+        }
+        // if this tab is active, just return
+        else if ($("#selResDirections").hasClass("is-active")) {
+            return;
+        }
 
-$(document).on("click", "#directionsSubmitButton", function () {
-});
+        // activate this tab.
+        $("#selResDirections").toggleClass("is-active");
 
+        // show tab content
+        $("#directionsTabContent").removeAttr("style");
 
-
-function fillPicturesContent() {
-    $(".displayPictures").empty();
-    cardCount = 0;
-    rowCount = 0;
-    // temporary values assigned to stuff for now only temporarily
-    var foodImageLinkArg = "https://bulma.io/images/placeholders/640x480.png";
-    var foodImageAltArg = "alt alt alt";
-
-    makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
-    makeFoodImageCard(foodImageLinkArg, "a");
-
-    makeFoodImageCard(foodImageLinkArg, "b");
-
-    makeFoodImageCard(foodImageLinkArg, "c");
-
-    makeFoodImageCard(foodImageLinkArg, "d");
-    makeFoodImageCard(foodImageLinkArg, "e");
-    makeFoodImageCard(foodImageLinkArg, "f");
-    makeFoodImageCard(foodImageLinkArg, "g");
-    makeFoodImageCard(foodImageLinkArg, "h");
-    makeFoodImageCard(foodImageLinkArg, "i");
-    makeFoodImageCard(foodImageLinkArg, "j");
-    makeFoodImageCard(foodImageLinkArg, "k");
-    makeFoodImageCard(foodImageLinkArg, "l");
-
-}
-
-function makeFoodImageCard(foodImageLink, foodImageAlt) {
-    console.log("click");
-    var card = $("<div>");
-    card.addClass("card foodImage");
-
-    // creates portion of restaurant card with the image.
-    var cardImage = $("<div>");
-    cardImage.addClass("card-image");
-
-    var figure = $("<figure>");
-    figure.addClass("image");
-
-    // add image link
-    var img = $("<img>");
-    img.addClass("foodImage");
-    img.attr("src", foodImageLink);
-    // if alt was sent with image, assign
-    if (foodImageAlt) {
-        img.attr("alt", foodImageAlt);
-    }
-
-    // add picture to image portion.
-    figure.append(img);
-    cardImage.append(figure);
-
-    // add image portion to card
-    card.append(cardImage)
-
-    // add restaurant card to page
-    addFoodImageCard(card);
+    });
 
 
-}
 
-function addFoodImageCard(foodPicture) {
-    cardCount++;
-    var colNumber = cardCount % 4;
-    // new row
-    if (colNumber === 1) {
-        rowCount++;
-        currRow = $("<div>");
-        currRow.addClass("columns");
-        var rowClass = "rowNum" + rowCount;
-        currRow.addClass(rowClass);
-        $(".displayPictures").append(currRow);
+    $(document).on("click", "#directionsSubmitButton", function () {
+    });
+
+
+
+    function fillPicturesContent() {
+        $(".displayPictures").empty();
+        cardCount = 0;
+        rowCount = 0;
+        // temporary values assigned to stuff for now only temporarily
+        var foodImageLinkArg = "https://bulma.io/images/placeholders/640x480.png";
+        var foodImageAltArg = "alt alt alt";
+
+        makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
+        makeFoodImageCard(foodImageLinkArg, "a");
+
+        makeFoodImageCard(foodImageLinkArg, "b");
+
+        makeFoodImageCard(foodImageLinkArg, "c");
+
+        makeFoodImageCard(foodImageLinkArg, "d");
+        makeFoodImageCard(foodImageLinkArg, "e");
+        makeFoodImageCard(foodImageLinkArg, "f");
+        makeFoodImageCard(foodImageLinkArg, "g");
+        makeFoodImageCard(foodImageLinkArg, "h");
+        makeFoodImageCard(foodImageLinkArg, "i");
+        makeFoodImageCard(foodImageLinkArg, "j");
+        makeFoodImageCard(foodImageLinkArg, "k");
+        makeFoodImageCard(foodImageLinkArg, "l");
 
     }
 
-    var newCard = $("<div>");
-    newCard.addClass("column is-one-quarter");
-    newCard.attr
-    newCard.append(foodPicture);
-    currRow.append(newCard);
+    function makeFoodImageCard(foodImageLink, foodImageAlt) {
+        console.log("click");
+        var card = $("<div>");
+        card.addClass("card foodImage");
 
-}
+        // creates portion of restaurant card with the image.
+        var cardImage = $("<div>");
+        cardImage.addClass("card-image");
+
+        var figure = $("<figure>");
+        figure.addClass("image");
+
+        // add image link
+        var img = $("<img>");
+        img.addClass("foodImage");
+        img.attr("src", foodImageLink);
+        // if alt was sent with image, assign
+        if (foodImageAlt) {
+            img.attr("alt", foodImageAlt);
+        }
+
+        // add picture to image portion.
+        figure.append(img);
+        cardImage.append(figure);
+
+        // add image portion to card
+        card.append(cardImage)
+
+        // add restaurant card to page
+        addFoodImageCard(card);
 
 
-$(document).on("click",".foodImage", function(){
-    // var 
-});
+    }
 
-//this runs the function to get directions
-$(document).on("click", "#directionsSubmitButton", function() {
-    //api key for google
-    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
-    //destination equal to 
-    var destination = yRestAddress
-    console.log(yRestAddress)
-    //origin equal to
-    var origin = $("#startLocation").val().trim();
-    //ajax request for directions
-    var googleDirectionsUrl = "https://www.google.com/maps/embed/v1/directions?key=" + apiKeyGoogle + "&origin=" + origin + "&destination=" + destination;
-    
-    var imageDiv = $("<div>");
+    function addFoodImageCard(foodPicture) {
+        cardCount++;
+        var colNumber = cardCount % 4;
+        // new row
+        if (colNumber === 1) {
+            rowCount++;
+            currRow = $("<div>");
+            currRow.addClass("columns");
+            var rowClass = "rowNum" + rowCount;
+            currRow.addClass(rowClass);
+            $(".displayPictures").append(currRow);
+
+        }
+
+        var newCard = $("<div>");
+        newCard.addClass("column is-one-quarter");
+        newCard.attr
+        newCard.append(foodPicture);
+        currRow.append(newCard);
+
+    }
+
+
+    $(document).on("click", ".foodImage", function () {
+        // var 
+    });
+
+    //this runs the function to get directions
+    $(document).on("click", "#directionsSubmitButton", function () {
+        //api key for google
+        var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+        //destination equal to 
+        var destination = yRestAddress
+        console.log(yRestAddress)
+        //origin equal to
+        var origin = $("#startLocation").val().trim();
+        //ajax request for directions
+        var googleDirectionsUrl = "https://www.google.com/maps/embed/v1/directions?key=" + apiKeyGoogle + "&origin=" + origin + "&destination=" + destination;
+
+        var imageDiv = $("<div>");
         imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
 
         $("#directionsTabContent").append(imageDiv);
-}) 
+    })
+
+

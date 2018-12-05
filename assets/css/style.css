@@ -1,2 +1,11 @@
 /* background color */
 
+.columns is-centered{
+    float: right;
+    align-content: center;
+    
+}
+
+.hero-body .label {
+    color: white;
+}

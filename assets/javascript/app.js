@@ -1,7 +1,10 @@
-//need a function to call upon ajax. 
-//this portion needs to call upon google maps, not yelp. 
+
+//making a global variable to call upon address  
+var yRestAddress;
+
+//start search for restaurants 
 function startSearch() {
-    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+
 
     //need to find a way to convert these to long/lat
     var city = $("#citySearch").val().trim();
@@ -34,7 +37,8 @@ function startSearch() {
                 console.log(result.name);
                 var yRestName = result.name;
                 console.log(result.location.display_address[0]);
-                var yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
+                yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
+                console.log(yRestAddress)
                 console.log(result.price);
                 var yPrice = result.price;
                 //ATTENTION: we may have to insert happy hours from the api that reads pictures to text
@@ -46,56 +50,56 @@ function startSearch() {
             //========================================================================================
         }
     });
-    }
+}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //ATTENTION: THIS IS ALL CALLS UPON GOOGLE PLACES/GOOGLE API
-            // //function that converts to long/lat and names it with variable "location"
-            // //which we can actually use geocoding API from google. 
-            // var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
-            // var long;
-            // var lati;
-            // $.ajax({
-            //     url: queryURLGeocoding,
-            //     method: 'GET',
-            // }).then(function (response1) {
-            //     console.log(response1);
-            //     console.log(response1.results[0].geometry.location.lng);
-            //     console.log(response1.results[0].geometry.location.lat);
+// //function that converts to long/lat and names it with variable "location"
+// //which we can actually use geocoding API from google. 
+// var queryURLGeocoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "," + state + "&key=" + apiKeyGoogle;
+// var long;
+// var lati;
+// $.ajax({
+//     url: queryURLGeocoding,
+//     method: 'GET',
+// }).then(function (response1) {
+//     console.log(response1);
+//     console.log(response1.results[0].geometry.location.lng);
+//     console.log(response1.results[0].geometry.location.lat);
 
-            //     lati = response1.results[0].geometry.location.lat;
-            //     long = response1.results[0].geometry.location.lng;
+//     lati = response1.results[0].geometry.location.lat;
+//     long = response1.results[0].geometry.location.lng;
 
-            //     var cuisine = $("#cuisineSearch").val();
-            //     var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
+//     var cuisine = $("#cuisineSearch").val();
+//     var queryURLGoogleMaps = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lati + "," + long + "&radius=8000&type=restaurant&keyword=" + cuisine + "&key=" + apiKeyGoogle;
 
-            //     $.ajax({
-            //         url: queryURLGoogleMaps,
-            //         method: 'GET',
-            //     }).then(function (response2) {
-            //         console.log(response2);
+//     $.ajax({
+//         url: queryURLGoogleMaps,
+//         method: 'GET',
+//     }).then(function (response2) {
+//         console.log(response2);
 
-            //         for (var i = 0; i < 9; i++) {
-            //             //variable to minimize response2.results
-            //             var result = response2.results[i]
-            //             //create all variables to obtain restaurant info
+//         for (var i = 0; i < 9; i++) {
+//             //variable to minimize response2.results
+//             var result = response2.results[i]
+//             //create all variables to obtain restaurant info
 
-            //             //we may have to insert this from yelp because
-            //             //google does not provide images of actual restaurant logo
-            //             console.log(result.icon);
-            //             var gImageLink = result.icon;
-            //             console.log(result.name);
-            //             var gRestName = result.name;
-            //             console.log(result.vicinity);
-            //             var gRestAddress = result.vicinity;
-            //             //we may have to insert happy hours from yelp. 
+//             //we may have to insert this from yelp because
+//             //google does not provide images of actual restaurant logo
+//             console.log(result.icon);
+//             var gImageLink = result.icon;
+//             console.log(result.name);
+//             var gRestName = result.name;
+//             console.log(result.vicinity);
+//             var gRestAddress = result.vicinity;
+//             //we may have to insert happy hours from yelp. 
 
 
 
-            //             //display all variable in makeRestaurantCard function
-            //             makeRestaurantCard(gImageLink, gRestName, gRestAddress)
-            //         }
-            //     });
-            // });
+//             //display all variable in makeRestaurantCard function
+//             makeRestaurantCard(gImageLink, gRestName, gRestAddress)
+//         }
+//     });
+// });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -276,7 +280,7 @@ function clearSearchForm() {
 
 
 
-makeRestaurantCard();
+// makeRestaurantCard();
 
 $(document).on("click", "#selResBasic", function () {
     // if ($("#selResPictures").hasClass("is-active")){
@@ -398,7 +402,20 @@ $(document).on("click", "#selResDirections", function () {
 
 });
 
-
-
+//this runs the function to get directions
 $(document).on("click", "#directionsSubmitButton", function() {
-});
+    //api key for google
+    var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
+    //destination equal to 
+    var destination = yRestAddress
+    console.log(yRestAddress)
+    //origin equal to
+    var origin = $("#startLocation").val().trim();
+    //ajax request for directions
+    var googleDirectionsUrl = "https://www.google.com/maps/embed/v1/directions?key=" + apiKeyGoogle + "&origin=" + origin + "&destination=" + destination;
+    
+    var imageDiv = $("<div>");
+        imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
+
+        $("#directionsTabContent").append(imageDiv);
+}) 

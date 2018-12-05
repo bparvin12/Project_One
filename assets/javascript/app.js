@@ -238,7 +238,7 @@ function clearSearchForm() {
 
 
 
-
+makeRestaurantCard();
 
 $(document).on("click", "#selResBasic", function () {
     // if ($("#selResPictures").hasClass("is-active")){
@@ -256,6 +256,10 @@ $(document).on("click", "#selResBasic", function () {
     else if ($("#selResMenu").hasClass("is-active")) {
         $("#selResMenu").toggleClass("is-active");
         $("#menuTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResDirections").hasClass("is-active")) {
+        $("#selResDirections").toggleClass("is-active");
+        $("#directionsTabContent").attr("style", "display:none")
     }
     // if this tab is active, just return
     else if ($("#selResBasic").hasClass("is-active")) {
@@ -282,6 +286,10 @@ $(document).on("click", "#selResPictures", function () {
         $("#selResMenu").toggleClass("is-active");
         $("#menuTabContent").attr("style", "display:none")
     }
+    else if ($("#selResDirections").hasClass("is-active")) {
+        $("#selResDirections").toggleClass("is-active");
+        $("#directionsTabContent").attr("style", "display:none")
+    }
     // if this tab is active, just return
     else if ($("#selResPictures").hasClass("is-active")) {
         return;
@@ -306,6 +314,10 @@ $(document).on("click", "#selResMenu", function () {
         $("#selResPictures").toggleClass("is-active");
         $("#picturesTabContent").attr("style", "display:none")
     }
+    else if ($("#selResDirections").hasClass("is-active")) {
+        $("#selResDirections").toggleClass("is-active");
+        $("#directionsTabContent").attr("style", "display:none")
+    }
     // if this tab is active, just return
     else if ($("#selResMenu").hasClass("is-active")) {
         return;
@@ -318,3 +330,37 @@ $(document).on("click", "#selResMenu", function () {
     $("#menuTabContent").removeAttr("style");
 });
 
+
+$(document).on("click", "#selResDirections", function () {
+    console.log("click");
+
+    // deactivate other tab. hide other tab content
+    if ($("#selResBasic").hasClass("is-active")) {
+        $("#selResBasic").toggleClass("is-active");
+        $("#basicTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResPictures").hasClass("is-active")) {
+        $("#selResPictures").toggleClass("is-active");
+        $("#picturesTabContent").attr("style", "display:none")
+    }
+    else if ($("#selResMenu").hasClass("is-active")) {
+        $("#selResMenu").toggleClass("is-active");
+        $("#menuTabContent").attr("style", "display:none")
+    }
+    // if this tab is active, just return
+    else if ($("#selResDirections").hasClass("is-active")) {
+        return;
+    }
+
+    // activate this tab.
+    $("#selResDirections").toggleClass("is-active");
+
+    // show tab content
+    $("#directionsTabContent").removeAttr("style");
+
+});
+
+
+
+$(document).on("click", "#directionsSubmitButton", function() {
+});

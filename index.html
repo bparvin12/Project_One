@@ -152,6 +152,12 @@
                                     <span>Menu</span>
                                 </a>
                             </li>
+                            <li class="" id="selResDirections">
+                                <a>
+                                    <span class="icon is-small"><i class="fas fa-bars" aria-hidden="true"></i></span>
+                                    <span>Directions</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div id="basicTabContent">
@@ -190,9 +196,17 @@
                         picture
                     </div>
                     <div id="menuTabContent" style="display: none">
-                        <div class="columns is-centered">
-                            <div class="column is-three-quarters menuDisplay">
-
+                        menu
+                    </div>
+                    <div id="directionsTabContent" style="display: none">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Starting Location" id="startLocation">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-link" id="directionsSubmitButton">Submit</button>
                             </div>
                         </div>
                     </div>

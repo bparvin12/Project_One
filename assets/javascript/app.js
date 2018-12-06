@@ -214,7 +214,7 @@ function addRestCard(restCard) {
             event.preventDefault();
             if (event.keyCode === 13) {
                 document.getElementById('signInSubmit').click();
-                }
+                } 
             });
 //=================================================
 

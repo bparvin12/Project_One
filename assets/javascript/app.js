@@ -313,9 +313,24 @@ $(".closeSignInModal").click(function () {
                 $("#signInModal").toggleClass("is-active");
             }
         };
-            
-});    
+    //prevent page from refresing when form tries to submit itself 
+    event.preventDefault();
 
+    var email = $('#usernameInput').val().trim();
+
+    //console log each of the user 
+    console.log(email);
+    $("welcome").text(email);
+
+    //local storage clear
+    localStorage.clear();
+    
+    //Store all content into localStorage 
+    localStorage.setItem("email", email);   
+    
+    $("#welcome").text(localStorage.getItem("email"));
+});    
+    $("#welcome").text(localStorage.getItem("email"));
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
@@ -382,7 +397,7 @@ function clearSearchForm() {
 
 
 
-makeRestaurantCard();
+// makeRestaurantCard();
 
 
 // MAIN MODAL basic

@@ -11,7 +11,11 @@ var state;
 var zip;
 var cuisine;
 
+checkPersistantSignIn();
 
+function checkPersistantSignIn(){
+    
+}
 
 //start search for restaurants 
 function startSearch() {
@@ -124,6 +128,8 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
     // happyHours: str happyHours
     // main div card that everything goes into
     $("#selectedRestaurant").text(yRestName);
+
+    activateBasicsTab();
 
     var card = $("<div>");
     card.addClass("card restaurant-card");
@@ -353,6 +359,7 @@ $(document).on("click", "#clearSearch", clearSearchForm);
 $(document).on("click", ".restaurant-card", function () {
     // activate selected Restaurant Modal
     $("#selResModal").toggleClass("is-active");
+    activateBasicsTab();
     //adds image to main info modal 
     var mainResImage = $("<img>");
     mainResImage.attr("id", "mainResImage");
@@ -409,7 +416,9 @@ function clearSearchForm() {
 
 
 // MAIN MODAL basic
-$(document).on("click", "#selResBasic", function () {
+$(document).on("click", "#selResBasics", activateBasicsTab);
+
+function activateBasicsTab(){
     // if ($("#selResPictures").hasClass("is-active")){
     //     $("#selResPictures").toggleClass("is-active");
     // }
@@ -441,11 +450,13 @@ $(document).on("click", "#selResBasic", function () {
     // show tab content
     $("#basicTabContent").removeAttr("style");
 
-});
+};
 
 
 // MAIN MODAL pictures
-$(document).on("click", "#selResPictures", function () {
+$(document).on("click", "#selResPictures", activatePicturesTab);
+
+function activatePicturesTab(){
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -474,10 +485,12 @@ $(document).on("click", "#selResPictures", function () {
     // show tab content
     $("#picturesTabContent").removeAttr("style");
 
-});
+}
 
 // MAIN MODAL menu
-$(document).on("click", "#selResMenu", function () {
+$(document).on("click", "#selResMenu", activateMenuTab);
+
+function activateMenuTab(){
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -501,10 +514,12 @@ $(document).on("click", "#selResMenu", function () {
 
     // show tab content
     $("#menuTabContent").removeAttr("style");
-});
+}
 
 
-$(document).on("click", "#selResDirections", function () {
+$(document).on("click", "#selResDirections", activateDirectionsTab);
+
+function activateDirectionsTab(){
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -529,7 +544,7 @@ $(document).on("click", "#selResDirections", function () {
     // show tab content
     $("#directionsTabContent").removeAttr("style");
 
-});
+}
 
 
 
@@ -658,13 +673,10 @@ $(document).ready(function () {
 function formatNumber(yelpNum) { // +15622360141 562.236.0141
     var formatNum = [];
     var formatCounter = 0;
-    console.log(yelpNum);
 
     for (i = 2; i < yelpNum.length; i++) {
         var tempNum = yelpNum[i];
         formatNum[formatCounter] = tempNum;
-        console.log(formatNum);
-        // console.log(formatNum[formatCounter]);
         formatCounter++
         if ((i === 4) || (i === 7)) {
             formatNum[formatCounter] = ".";
@@ -673,5 +685,4 @@ function formatNumber(yelpNum) { // +15622360141 562.236.0141
     }
 
     return formatNum.join("");
-    // console.log(formatNum);
 }

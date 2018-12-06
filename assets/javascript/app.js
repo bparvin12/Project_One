@@ -285,6 +285,51 @@ $(".closeSignInModal").click(function () {
                 messagingSenderId: "307620256786"
             };
 
+<<<<<<< HEAD
+        else 
+            {
+            //if sign in fails, clear form so user can retry
+            if (errorMessage == "" && fieldsMissing == "") {
+                
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
+                    authDomain: "project-01-1543881106905.firebaseapp.com",
+                    databaseURL: "https://project-01-1543881106905.firebaseio.com",
+                    projectId: "project-01-1543881106905",
+                    storageBucket: "project-01-1543881106905.appspot.com",
+                    messagingSenderId: "307620256786"
+                  };
+
+                  firebase.initializeApp(config);
+
+                // Capture and send data to Firebase
+                var database = firebase.database();
+                database.ref().push({
+                    Name: $('#usernameInput').val(),
+                    Password: $('#passwordInput').val()
+                });
+
+                //========== confirm user account in Firebase ==============
+
+                function checkUser(user) {
+                    var user = firebase.auth().currentUser;
+
+                    if (user != null) {
+                    user.providerData.forEach(function (profile) {
+                        console.log("Sign-in provider: " + profile.providerId);
+                        console.log("  Provider-specific UID: " + profile.uid);
+                        console.log("  Name: " + profile.displayName);
+                        console.log("  Email: " + profile.email);
+                    });
+                    }
+                }
+                //==========================================================
+
+                $("#signInModal").toggleClass("is-active");
+            }
+        };
+=======
             firebase.initializeApp(config);
 
             // Capture and send data to Firebase
@@ -297,6 +342,7 @@ $(".closeSignInModal").click(function () {
             $("#signInModal").toggleClass("is-active");
         }
     };
+>>>>>>> origin/gh-pages
 });
 
 

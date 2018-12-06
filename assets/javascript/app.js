@@ -1,4 +1,3 @@
-
 //making a global variable to call upon address  
 var yRestAddress;
 var yRestNumber

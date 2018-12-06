@@ -1,0 +1,14 @@
+.columns is-centered{
+    float: right;
+    align-content: center;
+}
+
+.hero-body .label {
+    color: white;
+}
+
+#clearSearch {
+    color: lightblue;
+    background-color: #3273dc;
+    box-decoration-break: slice;
+}

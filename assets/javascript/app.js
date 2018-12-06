@@ -285,14 +285,7 @@ $(".closeSignInModal").click(function () {
                     messagingSenderId: "307620256786"
                   };
 
-                  firebase.initializeApp(config);
-
-                // Capture and send data to Firebase
-                var database = firebase.database();
-                database.ref().push({
-                    Name: $('#usernameInput').val(),
-                    Password: $('#passwordInput').val()
-                });
+                 
 
                 //========== confirm user account in Firebase ==============
 

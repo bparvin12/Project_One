@@ -244,7 +244,26 @@ $(".closeSignInModal").click(function () {
             {
             //if sign in fails, clear form so user can retry
             if (errorMessage == "" && fieldsMissing == "") {
-            $("#signInModal").toggleClass("is-active");
+                
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
+                    authDomain: "project-01-1543881106905.firebaseapp.com",
+                    databaseURL: "https://project-01-1543881106905.firebaseio.com",
+                    projectId: "project-01-1543881106905",
+                    storageBucket: "project-01-1543881106905.appspot.com",
+                    messagingSenderId: "307620256786"
+                  };
+                  
+                  firebase.initializeApp(config);
+                
+                var database = firebase.database();
+                database.ref().set({
+                    Name: 'richard',
+                    Password: 'pass'
+                });
+
+                $("#signInModal").toggleClass("is-active");
             }
         };
 });

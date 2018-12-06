@@ -698,3 +698,44 @@ $(document).on("click", "#clearUser", function(){
     $("#welcome").text("");
     checkPersistantSignIn();
 });
+
+//============================================================================
+//create a function with firebase to list thumbs up and thumbs down
+  // Initialize Firebase
+  var something = {
+    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
+    authDomain: "project-01-1543881106905.firebaseapp.com",
+    databaseURL: "https://project-01-1543881106905.firebaseio.com",
+    projectId: "project-01-1543881106905",
+    storageBucket: "project-01-1543881106905.appspot.com",
+    messagingSenderId: "307620256786"
+  };
+  firebase.initializeApp(something);
+
+  var database = firebase.database()
+
+  var likeCount = 0;
+  $("#worthCount").html(likeCount);
+
+  var dislikeCount = 0;
+  $("#notWorthCount").html(dislikeCount);
+
+$(document).on('click', '#yesWorth', function() {
+    likeCount++;
+    $("#worthCount").html(likeCount);
+
+    database.ref("name").set({
+        Likes: likeCount
+    });
+});
+
+$(document).on('click', '#notWorth', function() {
+    dislikeCount++;
+    $("#notWorthCount").html(dislikeCount);
+
+
+    database.ref("name").set({
+        Dislikes: dislikeCount
+    });
+});
+//============================================================================

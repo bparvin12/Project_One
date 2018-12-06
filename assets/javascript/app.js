@@ -161,13 +161,17 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
     restAddress.addClass("subtitle is-6 restAddress");
     restAddress.text(yRestAddress) // delete this when parameters filled in.
 
-    // create line for restaurant address. add address
+    // create line for restaurant Number  . add Number
     var restNumber = $("<p>");
     restNumber.addClass("subtitle is-6 restNumber");
     restNumber.text(yRestNumber) // delete this when parameters filled in.
 
-    // add value to restaurant basics. then to card content
+    var restName = $("<p>");
+    restName.addClass("subtitle is-4 restName");
+    restName.text(yRestName) // delete this when parameters filled in
 
+    // add value to restaurant basics. then to card content
+    restaurantBasics.append(restName);
     restaurantBasics.append(restAddress);
     restaurantBasics.append(restNumber);
     cardContent.append(restaurantBasics);
@@ -273,49 +277,48 @@ $(".closeSignInModal").click(function () {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
     }
 
-        else 
-            {
-            //if sign in fails, clear form so user can retry
-            if (errorMessage == "" && fieldsMissing == "") {
-                
-                // Initialize Firebase
-                var config = {
-                    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
-                    authDomain: "project-01-1543881106905.firebaseapp.com",
-                    databaseURL: "https://project-01-1543881106905.firebaseio.com",
-                    projectId: "project-01-1543881106905",
-                    storageBucket: "project-01-1543881106905.appspot.com",
-                    messagingSenderId: "307620256786"
-                  };
+    else {
+        //if sign in fails, clear form so user can retry
+        if (errorMessage == "" && fieldsMissing == "") {
 
-                  firebase.initializeApp(config);
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
+                authDomain: "project-01-1543881106905.firebaseapp.com",
+                databaseURL: "https://project-01-1543881106905.firebaseio.com",
+                projectId: "project-01-1543881106905",
+                storageBucket: "project-01-1543881106905.appspot.com",
+                messagingSenderId: "307620256786"
+            };
 
-                // Capture and send data to Firebase
-                var database = firebase.database();
-                database.ref().push({
-                    Name: $('#usernameInput').val(),
-                    Password: $('#passwordInput').val()
-                });
+            firebase.initializeApp(config);
 
-                //========== confirm user account in Firebase ==============
+            // Capture and send data to Firebase
+            var database = firebase.database();
+            database.ref().push({
+                Name: $('#usernameInput').val(),
+                Password: $('#passwordInput').val()
+            });
 
-                function checkUser(user) {
-                    var user = firebase.auth().currentUser;
+            //========== confirm user account in Firebase ==============
 
-                    if (user != null) {
+            function checkUser(user) {
+                var user = firebase.auth().currentUser;
+
+                if (user != null) {
                     user.providerData.forEach(function (profile) {
                         console.log("Sign-in provider: " + profile.providerId);
                         console.log("  Provider-specific UID: " + profile.uid);
                         console.log("  Name: " + profile.displayName);
                         console.log("  Email: " + profile.email);
                     });
-                    }
                 }
-                //==========================================================
-
-                $("#signInModal").toggleClass("is-active");
             }
-        };
+            //==========================================================
+
+            $("#signInModal").toggleClass("is-active");
+        }
+    };
     //prevent page from refresing when form tries to submit itself 
     event.preventDefault();
 
@@ -327,13 +330,13 @@ $(".closeSignInModal").click(function () {
 
     //local storage clear
     localStorage.clear();
-    
+
     //Store all content into localStorage 
-    localStorage.setItem("email", email);   
-    
+    localStorage.setItem("email", email);
+
     $("#welcome").text(localStorage.getItem("email"));
-});    
-    $("#welcome").text(localStorage.getItem("email"));
+});
+$("#welcome").text(localStorage.getItem("email"));
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
@@ -648,7 +651,7 @@ $(document).on("click", "#directionsSubmitButton", function () {
     $("#directionsTabContent").append(imageDiv);
 })
 
-$(document).ready(function(){
+$(document).ready(function () {
     var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
 });
 

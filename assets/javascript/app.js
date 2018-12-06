@@ -313,16 +313,7 @@ $(".closeSignInModal").click(function () {
                 $("#signInModal").toggleClass("is-active");
             }
         };
-            firebase.initializeApp(config);
-
-            // Capture and send data to Firebase
-            var database = firebase.database();
-            database.ref().push({
-                Name: $('#usernameInput').val(),
-                Password: $('#passwordInput').val()
-            });
-
-            $("#signInModal").toggleClass("is-active");
+            
 });    
 
 

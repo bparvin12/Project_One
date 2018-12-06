@@ -252,7 +252,6 @@ $(".closeSignInModal").click(function () {
     if ($("#passwordInput").val() == "") {
         fieldsMissing += "<br>Password";
     };
-<<<<<<< HEAD
 
     if (fieldsMissing != "") {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
@@ -277,80 +276,6 @@ $(".closeSignInModal").click(function () {
         }
     };
 });
-=======
-
-    if (fieldsMissing != "") {
-        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
-    };
-
-    if (isEmail($("#usernameInput").val()) == false) {
-        errorMessage += "<p>Your email address is not valid</p>";
-    };
-
-    if (errorMessage != "") {
-        $(".modal-card-title").html(errorMessage);
-    };
-
-    if (fieldsMissing != "") {
-        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
-    }
-
-    
-        else 
-            {
-            //if sign in fails, clear form so user can retry
-            if (errorMessage == "" && fieldsMissing == "") {
-                
-                // Initialize Firebase
-                var config = {
-                    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
-                    authDomain: "project-01-1543881106905.firebaseapp.com",
-                    databaseURL: "https://project-01-1543881106905.firebaseio.com",
-                    projectId: "project-01-1543881106905",
-                    storageBucket: "project-01-1543881106905.appspot.com",
-                    messagingSenderId: "307620256786"
-                  };
-
-                  firebase.initializeApp(config);
-
-                // Capture and send data to Firebase
-                var database = firebase.database();
-                database.ref().push({
-                    Name: $('#usernameInput').val(),
-                    Password: $('#passwordInput').val()
-                });
-
-                //========== confirm user account in Firebase ==============
-
-                function checkUser(user) {
-                    var user = firebase.auth().currentUser;
-
-                    if (user != null) {
-                    user.providerData.forEach(function (profile) {
-                        console.log("Sign-in provider: " + profile.providerId);
-                        console.log("  Provider-specific UID: " + profile.uid);
-                        console.log("  Name: " + profile.displayName);
-                        console.log("  Email: " + profile.email);
-                    });
-                    }
-                }
-                //==========================================================
-
-                $("#signInModal").toggleClass("is-active");
-            }
-        };
-            firebase.initializeApp(config);
-
-            // Capture and send data to Firebase
-            var database = firebase.database();
-            database.ref().push({
-                Name: $('#usernameInput').val(),
-                Password: $('#passwordInput').val()
-            });
-
-            $("#signInModal").toggleClass("is-active");
-});    
->>>>>>> origin/gh-pages
 
 
 // SEARCH FORM submit
@@ -635,20 +560,8 @@ function addFoodImageCard(foodPicture, fILink) {
 }
 
 
-<<<<<<< HEAD
-$(document).on("click", ".foodImageCard", function () {
-    $("#largeFoodImage").toggleClass("is-active")
-    var fPLink = $(this).attr("foodPictureLink");
-    console.log(fPLink);
-    $("#displayLargeFood").attr("src", fPLink);
-});
-
-$(document).on("click", "#closeLargeFoodModal", function () {
-    $("#largeFoodImage").toggleClass("is-active")
-=======
 $(document).on("click", ".foodImage", function () {
     // var 
->>>>>>> origin/gh-pages
 });
 
 //this runs the function to get directions
@@ -665,14 +578,8 @@ $(document).on("click", "#directionsSubmitButton", function () {
 
     var imageDiv = $("<div>");
     imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
-<<<<<<< HEAD
-
-    $("#directionsTabContent").append(imageDiv);
-}) 
-=======
 
     $("#directionsTabContent").append(imageDiv);
 })
 
 
->>>>>>> origin/gh-pages

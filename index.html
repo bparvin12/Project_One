@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <head>
     <meta charset="UTF-8">
@@ -21,7 +25,22 @@
     <!-- my own styles -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- link to firebase -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script> --> 
+    
+   <!-- Firebase App is always required and must be first -->
+<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+
+<!-- Add additional services that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-functions.js"></script>
+
+<!-- Comment out (or don't include) services that you don't want to use -->
+<!-- <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-storage.js"></script> -->
+
+
 </head>
 
 <body>
@@ -42,7 +61,7 @@
                 <div class="control">
                     <div class="columns">
                         <div class="column is-one-third">
-                            <input class="input" type="text" placeholder="City" id="citySearch">
+                            <input class="input" type="text" placeholder="City" id="citySearch" autofocus required>
                         </div>
                         <div class="column is-one-third">
                             <input class="input" type="text" placeholder="State" id="stateSearch">
@@ -77,7 +96,7 @@
 
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button is-link submit" id="submitSearch">Submit</button>
+                    <button class="button is-link submit" id="submitSearch" type="submit">Submit</button>
                 </div>
                 <div class="control">
                     <button class="button is-text" id="clearSearch">Clear</button>
@@ -105,7 +124,7 @@
                 <div class="field">
                     <label class="label" id="userName">Email</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="jdoe@email.com" value="jdoe@email.com" id="usernameInput">
+                        <input class="input" type="text" placeholder="jdoe@email.com" value="jdoe@email.com" id="usernameInput" autofocus>
                     </div>
                 </div>
                 <div class="field">
@@ -118,14 +137,12 @@
             <footer class="modal-card-foot">
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="button is-link closeSignInModal" id="signInSubmit">Submit</button>
+                        <button class="button is-link closeSignInModal submit" id="signInSubmit" type="submit">Submit</button>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-
-
 
     <div class="modal" id="selResModal">
         <div class="modal-background"></div>
@@ -232,7 +249,7 @@
                                 <input class="input" type="text" placeholder="Starting Location" id="startLocation">
                             </div>
                             <div class="control">
-                                <a class="button is-info" id="directionsSubmitButton">
+                                <a class="button is-info" id="directionsSubmitButton" type="submit">
                                     Get Directions
                                 </a>
                             </div>

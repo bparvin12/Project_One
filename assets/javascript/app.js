@@ -254,13 +254,13 @@ $(".closeSignInModal").click(function () {
                     storageBucket: "project-01-1543881106905.appspot.com",
                     messagingSenderId: "307620256786"
                   };
-                  
+
                   firebase.initializeApp(config);
                 
                 var database = firebase.database();
                 database.ref().set({
-                    Name: 'richard',
-                    Password: 'pass'
+                    Name: $('#usernameInput').val(),
+                    Password: $('#passwordInput').val()
                 });
 
                 $("#signInModal").toggleClass("is-active");

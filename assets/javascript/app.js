@@ -257,8 +257,6 @@ $(".closeSignInModal").click(function () {
     if ($("#passwordInput").val() == "") {
         fieldsMissing += "<br>Password";
     };
-<<<<<<< HEAD
-=======
 
     if (fieldsMissing != "") {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
@@ -276,24 +274,6 @@ $(".closeSignInModal").click(function () {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
     }
 
-
-    else {
-        //if sign in fails, clear form so user can retry
-        if (errorMessage == "" && fieldsMissing == "") {
->>>>>>> origin/gh-pages
-
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
-                authDomain: "project-01-1543881106905.firebaseapp.com",
-                databaseURL: "https://project-01-1543881106905.firebaseio.com",
-                projectId: "project-01-1543881106905",
-                storageBucket: "project-01-1543881106905.appspot.com",
-                messagingSenderId: "307620256786"
-            };
-
-<<<<<<< HEAD
-    
         else 
             {
             //if sign in fails, clear form so user can retry
@@ -339,40 +319,12 @@ $(".closeSignInModal").click(function () {
         };
     //prevent page from refresing when form tries to submit itself 
     event.preventDefault();
-=======
-            firebase.initializeApp(config);
->>>>>>> origin/gh-pages
 
     var email = $('#usernameInput').val().trim();
 
-<<<<<<< HEAD
     //console log each of the user 
     console.log(email);
     $("welcome").text(email);
-=======
-            //========== confirm user account in Firebase ==============
-
-            function checkUser(user) {
-                var user = firebase.auth().currentUser;
-
-                if (user != null) {
-                    user.providerData.forEach(function (profile) {
-                        // console.log("Sign-in provider: " + profile.providerId);
-                        // console.log("  Provider-specific UID: " + profile.uid);
-                        // console.log("  Name: " + profile.displayName);
-                        // console.log("  Email: " + profile.email);
-                    });
-                }
-            }
-            //==========================================================
-
-            $("#signInModal").toggleClass("is-active");
-        }
-    };
-
-
-});
->>>>>>> origin/gh-pages
 
     //local storage clear
     localStorage.clear();
@@ -677,11 +629,6 @@ $(document).on("click", ".foodImageCard", function () {
 
 $(document).on("click", "#closeLargeFoodModal", function () {
     $("#largeFoodImage").toggleClass("is-active")
-<<<<<<< HEAD
-$(document).on("click", ".foodImage", function () {
-    // var 
-=======
->>>>>>> origin/gh-pages
 });
 
 //this runs the function to get directions
@@ -698,14 +645,6 @@ $(document).on("click", "#directionsSubmitButton", function () {
 
     var imageDiv = $("<div>");
     imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
-<<<<<<< HEAD
-
-
-    $("#directionsTabContent").append(imageDiv);
-}) 
-
-=======
->>>>>>> origin/gh-pages
 
     $("#directionsTabContent").append(imageDiv);
 })
@@ -714,8 +653,6 @@ $(document).ready(function(){
     var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
 });
 
-<<<<<<< HEAD
-=======
 function formatNumber(yelpNum) { // +15622360141 562.236.0141
     var formatNum = [];
     var formatCounter = 0;
@@ -736,4 +673,3 @@ function formatNumber(yelpNum) { // +15622360141 562.236.0141
     return formatNum.join("");
     // console.log(formatNum);
 }
->>>>>>> origin/gh-pages

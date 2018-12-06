@@ -99,39 +99,25 @@
 
         <!-- navbar/header -->
         <div class="hero-head">
-            <nav class="navbar is-transparent">
-                <div class="container">
-                    <div class="navbar-brand">
-                        <a class="navbar-item">
-                            <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
-                        </a>
-                        <span class="navbar-burger burger" data-target="navbarMenuHeroA">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </span>
-                    </div>
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a class="navbar-item has-text-white is-active">
-                                Home
-                            </a>
-                            <a class="navbar-item has-text-white">
-                                Favorites
-                            </a>
-                            <a class="navbar-item has-text-white">
-                                Daily Specials
-                            </a>
-                            <span class="navbar-item has-text-white">
-                                <a class="button is-primary is-inverted">
-                                    <span class="icon">
-                                        <i class="fa fa-github"></i>
-                                    </span>
-                                    <span>Download</span>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
+          <nav class="navbar is-transparent">
+            <div class="container">
+              <div class="navbar-brand">
+                <a class="navbar-item">
+                  <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
+                </a>
+                <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </div>
+              <div id="navbarMenuHeroA" class="navbar-menu">
+                <div class="navbar-end">
+                  <span class="navbar-item has-text-white">
+                    <a class="button is-primary is-inverted">
+                      <span>Welcome: <span id="welcome"></span></span>
+                    </a>
+                  </span>
                 </div>
             </nav>
         </div>
@@ -201,69 +187,21 @@
                         </div>
                     </div>
                 </div>
-                <!--       <div class="hero-foot">
-          <nav class="tabs is-boxed is-fullwidth">
-            <div class="container">
-              <ul>
-                <li class="is-active"><a>Overview</a></li>
-                <li><a class="has-text-white">Modifiers</a></li>
-                <li><a class="has-text-white">Grid</a></li>
-                <li><a class="has-text-white">Elements</a></li>
-                <li><a class="has-text-white">Components</a></li>
-                <li><a class="has-text-white">Layout</a></li>
-              </ul>
             </div>
-          </nav>
-        </div>-->
-    </section>
+                <div class="control">
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
     <!-- search -->
     <div class="columns is-centered">
         <div class="column is-three-quarters">
-            <!--<div class="field">
-                <label class="label">Location </label>
-                <div class="control">
-                    <div class="columns">
-                        <div class="column is-one-third">
-                            <input class="input" type="text" placeholder="City" id="citySearch" autofocus required>
-                        </div>
-                        <div class="column is-one-third">
-                            <input class="input" type="text" placeholder="State" id="stateSearch">
-                        </div>
-                        <div class="column is-one-third">
-                            <input class="input" type="text" placeholder="Zip Code (Optional)" id="zipSearch">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">Cuisine</label>
-                <div class="control">
-                    <div class="select">
-                        <select id="cuisineSearch">
-                            <option id="everything" value="">---------</option>
-                            <option id="beer" value="beer">Beer</option>
-                            <option id="cocktails" value="cocktails">Cocktails</option>
-                            <option id="wine" value="wine">Wine</option>
-                            <option id="mexican" value="mexican">Mexican</option>
-                            <option id="meditteranean" value="meditteranean">Meditteranean</option>
-                            <option id="sushi" value="sushi">Sushi</option>
-                            <option id="italian" value="italian">Italian</option>
-                            <option id="american" value="american">American</option>
-                            <option id="chinese" value="chinese">Chinese</option>
-                            <option id="french" value="french">French</option>
-                        </select>
-                    </div>
-                </div>
-            </div>-->
-
-            <!-- <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link submit" id="submitSearch" type="submit">Submit</button>
-                </div>
-                <div class="control">
-                    <button class="button is-text" id="clearSearch">Clear</button>
-                </div>-->
+          
+            </div> 
         </div>
     </div>
     </div>
@@ -478,27 +416,21 @@
                         </div>
                     </div>
                 </div>
-            </nav>
-        </div>
-        <button class="modal-close is-large" aria-label="close" id="closeSelResModal"></button>
-    </div>
+                <button class="modal-close is-large" aria-label="close" id="closeSelResModal"></button>
+            </div>
+        
+        <!-- bulma javascript -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
 
-    <!-- bulma javascript -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- bulma javascript carousel -->   
+            <script type="text/javascript" src="assets/javascript/bulma-carousel.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
-
-    <!-- bulma javascript carousel -->
-    <script type="text/javascript" src="assets/javascript/bulma-carousel.js"></script>
-
-    <!-- my own javascript -->
-    <script src="assets/javascript/app.js"></script>
-    <script>
-        $(document).ready(function () {
-            var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
-        });
-    </script>
-</body>
-
-</html>
+        <!-- my own javascript -->
+        <script src="assets/javascript/app.js"></script>
+        
+    </body>
+    
+    </html>

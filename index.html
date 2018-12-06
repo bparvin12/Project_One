@@ -1,98 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lunch Selector</title>
-
-    <!-- reset -->
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <!-- link to jquery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- bulma -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <!-- font awesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <!-- bootstrap -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" -->
-    <!-- crossorigin="anonymous"> -->
-    <!-- my own styles -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!-- link to firebase -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-    <!-- bulma carousel -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bulma-carousel.min.css">
-    <!-- <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script> --> 
-    
-   <!-- Firebase App is always required and must be first -->
-<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
-
-<!-- Add additional services that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-messaging.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-functions.js"></script>
-
-<!-- Comment out (or don't include) services that you don't want to use -->
-<!-- <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-storage.js"></script> -->
 
 
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Lunch Selector</title>
+
+        <!-- reset -->
+        <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+        <!-- link to jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- bulma -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+        <!-- font awesome -->
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <!-- bootstrap -->
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" -->
+        <!-- crossorigin="anonymous"> -->
+        <!-- my own styles -->
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <!-- link to firebase -->
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+        <!-- bulma carousel -->
+        <link rel="stylesheet" type="text/css" href="assets/css/bulma-carousel.min.css">
+        <!-- <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script> -->
+
+        <!-- Firebase App is always required and must be first -->
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+
+        <!-- Add additional services that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-functions.js"></script>
+
+        <!-- Comment out (or don't include) services that you don't want to use -->
+        <!-- <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-storage.js"></script> -->
+
+
+    </head>
 
 <body>
 
     <!-- main body  -->
     <section class="hero is-medium has-carousel">
         <div class='hero-carousel carousel-animated carousel-animate-slide' data-autoplay="true">
-          <div class='carousel-container'>
-            <div class='carousel-item has-background is-active'>
-              <img class="is-background" src="assets/images/neon-170182_640.jpg" alt="" width="640" height="310" />
-              <div class="title">Helooooo! Happy Hour!</div>
-            </div>
-            <div class='carousel-item has-background'>
-              <img class="is-background" src="assets/images/taco-438540_640.jpg" alt="" width="640" height="310" />
-              <div class="title">Feliz Taco Tuesday Amigos! Street Tacos for $1.25!</div>
-            </div>
-            <div class='carousel-item has-background'>
-              <img class="is-background" src="assets/images/sushi-2853382_640.jpg" alt="" width="640" height="310" />
-              <div class="title">1/2 Off All specialty rolls!</div>
-            </div>
-            <div class='carousel-item has-background'>
-              <img class="is-background" src="assets/images/scott-warman-525554-unsplash.jpg" alt="" width="640" height="310" />
-              <div class="title">1/2 Off Beers on draft & Premium Wine by the glass</div>
-            </div>
-            <div class='carousel-item has-background'>
-                <img class="is-background" src="assets/images/sasha-stories-280916-unsplash.jpg" alt="" width="640" height="310" />
-                <div class="title">Happy Hour with a View!</div>
-            </div>
-            <div class='carousel-item has-background'>
-                <img class="is-background" src="assets/images/brenda-godinez-227278-unsplash.jpg" alt="" width="640" height="310" />
-                <div class="title">Aloha! Happy Hour!</div>
-            </div>
-            <div class='carousel-item has-background'>
-                    <img class="is-background" src="assets/images/shubhesh-aggarwal-739421-unsplash.jpg" alt="" width="640" height="310" />
+            <div class='carousel-container'>
+                <div class='carousel-item has-background is-active'>
+                    <img class="is-background" src="assets/images/neon-170182_640.jpg" alt="" width="640" height="310" />
+                    <div class="title">Helooooo! Happy Hour!</div>
+                </div>
+                <div class='carousel-item has-background'>
+                    <img class="is-background" src="assets/images/taco-438540_640.jpg" alt="" width="640" height="310" />
+                    <div class="title">Feliz Taco Tuesday Amigos! Street Tacos for $1.25!</div>
+                </div>
+                <div class='carousel-item has-background'>
+                    <img class="is-background" src="assets/images/sushi-2853382_640.jpg" alt="" width="640" height="310" />
+                    <div class="title">1/2 Off All specialty rolls!</div>
+                </div>
+                <div class='carousel-item has-background'>
+                    <img class="is-background" src="assets/images/scott-warman-525554-unsplash.jpg" alt="" width="640"
+                        height="310" />
+                    <div class="title">1/2 Off Beers on draft & Premium Wine by the glass</div>
+                </div>
+                <div class='carousel-item has-background'>
+                    <img class="is-background" src="assets/images/sasha-stories-280916-unsplash.jpg" alt="" width="640"
+                        height="310" />
+                    <div class="title">Happy Hour with a View!</div>
+                </div>
+                <div class='carousel-item has-background'>
+                    <img class="is-background" src="assets/images/brenda-godinez-227278-unsplash.jpg" alt="" width="640"
+                        height="310" />
+                    <div class="title">Aloha! Happy Hour!</div>
+                </div>
+                <div class='carousel-item has-background'>
+                    <img class="is-background" src="assets/images/shubhesh-aggarwal-739421-unsplash.jpg" alt="" width="640"
+                        height="310" />
                     <div class="title">Sunday Brunch just got a whole lot Happier! Bottomless Mimosas $6.99!!!</div>
+                </div>
             </div>
-          </div>
-          <div class="carousel-navigation is-overlay">
-            <div class="carousel-nav-left">
-              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <div class="carousel-navigation is-overlay">
+                <div class="carousel-nav-left">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </div>
+                <div class="carousel-nav-right">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </div>
             </div>
-            <div class="carousel-nav-right">
-              <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </div>
-          </div>
         </div>
 
-    <!-- navbar/header -->
+        <!-- navbar/header -->
         <div class="hero-head">
           <nav class="navbar is-transparent">
             <div class="container">
@@ -108,158 +113,97 @@
               </div>
               <div id="navbarMenuHeroA" class="navbar-menu">
                 <div class="navbar-end">
-                  <a class="navbar-item has-text-white is-active">
-                    Home
-                  </a>
-                  <a class="navbar-item has-text-white">
-                    Favorites
-                  </a>
-                  <a class="navbar-item has-text-white">
-                    Daily Specials
-                  </a>
                   <span class="navbar-item has-text-white">
                     <a class="button is-primary is-inverted">
-                      <span class="icon">
-                        <i class="fa fa-github"></i>
-                      </span>
-                      <span>Download</span>
+                      <span>Welcome: <span id="welcome"></span></span>
                     </a>
                   </span>
                 </div>
-              </div>
-            </div>
-          </nav>
+            </nav>
         </div>
         <div class="hero-body has-text-centered">
-          <div class="columns is-mobile is-centered">
-            <div class="column is-half is-narrow">
-              <div class="field has-addons">
-                <div class="control is-expanded">
-                <!-- <input class="input" type="text" placeholder="Find your happy place"> -->
-                <div class="columns is-centered">
-                    <div class="column is-three-quarters">
-                        <div class="field">
-                            <label class="label">Location </label>
-                            <div class="control">
-                                <div class="columns">
-                                    <div class="column is-one-third">
-                                        <input class="input" type="text" placeholder="City" id="citySearch">
+            <div class="columns is-mobile is-centered">
+                <div class="column is-half is-narrow">
+                    <div class="field has-addons">
+                        <div class="control is-expanded">
+                            <!-- <input class="input" type="text" placeholder="Find your happy place"> -->
+                            <div class="columns is-centered">
+                                <div class="column is-three-quarters">
+                                    <div class="field">
+                                        <label class="label">Location </label>
+                                        <div class="control">
+                                            <div class="columns">
+                                                <div class="column is-one-third">
+                                                    <input class="input" type="text" placeholder="City" id="citySearch">
+                                                </div>
+                                                <div class="column is-one-third">
+                                                    <input class="input" type="text" placeholder="State" id="stateSearch">
+                                                </div>
+                                                <div class="column is-one-third">
+                                                    <input class="input" type="text" placeholder="Zip Code (Optional)"
+                                                        id="zipSearch">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="column is-one-third">
-                                        <input class="input" type="text" placeholder="State" id="stateSearch">
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <input class="input" type="text" placeholder="Zip Code (Optional)" id="zipSearch">
+                                    <div class="field">
+                                        <label class="label">Cuisine</label>
+                                        <div class="control">
+                                            <!--Adding in columns-->
+                                            <div class="columns">
+                                                <div class="column is-one-third">
+                                                    <div class="select">
+                                                        <select id="cuisineSearch">
+                                                            <option id="everything" value="">---------</option>
+                                                            <option id="beer" value="beer">Beer</option>
+                                                            <option id="cocktails" value="cocktails">Cocktails</option>
+                                                            <option id="wine" value="wine">Wine</option>
+                                                            <option id="mexican" value="mexican">Mexican</option>
+                                                            <option id="meditteranean" value="meditteranean">Meditteranean</option>
+                                                            <option id="sushi" value="sushi">Sushi</option>
+                                                            <option id="italian" value="italian">Italian</option>
+                                                            <option id="american" value="american">American</option>
+                                                            <option id="chinese" value="chinese">Chinese</option>
+                                                            <option id="french" value="french">French</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="column is-one-third">
+                                                    <button class="button is-link submit" id="submitSearch">Submit</button>
+                                                </div>
+                                                <div class="column is-one-third">
+                                                    <button class="button is-text" id="clearSearch">Clear</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                <div class="field">
-                    <label class="label">Cuisine</label>
-                    <div class="control">
-                        <!--Adding in columns-->
-                        <div class="columns">
-                            <div class="column is-one-third">
-                                <div class="select">
-                                    <select id="cuisineSearch">
-                                        <option id="everything" value="">---------</option>
-                                        <option id="beer" value="beer">Beer</option>
-                                        <option id="cocktails" value="cocktails">Cocktails</option>
-                                        <option id="wine" value="wine">Wine</option>
-                                        <option id="mexican" value="mexican">Mexican</option>
-                                        <option id="meditteranean" value="meditteranean">Meditteranean</option>
-                                        <option id="sushi" value="sushi">Sushi</option>
-                                        <option id="italian" value="italian">Italian</option>
-                                        <option id="american" value="american">American</option>
-                                        <option id="chinese" value="chinese">Chinese</option>
-                                        <option id="french" value="french">French</option>
-                                    </select>
+                                <div class="control">
+                                    <!--  <a class="button is-info">
+                    Search
+                  </a> -->
                                 </div>
-                            </div>
-                            <div class="column is-one-third">
-                                <button class="button is-link submit" id="submitSearch">Submit</button>
-                            </div>
-                            <div class="column is-one-third">
-                                <button class="button is-text" id="clearSearch">Clear</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
                 <div class="control">
-                 <!--  <a class="button is-info">
-                    Search
-                  </a> -->
+                 
                 </div>
               </div>
             </div>
           </div>
         </div>
-<!--       <div class="hero-foot">
-          <nav class="tabs is-boxed is-fullwidth">
-            <div class="container">
-              <ul>
-                <li class="is-active"><a>Overview</a></li>
-                <li><a class="has-text-white">Modifiers</a></li>
-                <li><a class="has-text-white">Grid</a></li>
-                <li><a class="has-text-white">Elements</a></li>
-                <li><a class="has-text-white">Components</a></li>
-                <li><a class="has-text-white">Layout</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>--> 
+
       </section>
     <!-- search -->
     <div class="columns is-centered">
         <div class="column is-three-quarters">
-           <!--<div class="field">
-                <label class="label">Location </label>
-                <div class="control">
-                    <div class="columns">
-                        <div class="column is-one-third">
-                            <input class="input" type="text" placeholder="City" id="citySearch" autofocus required>
-                        </div>
-                        <div class="column is-one-third">
-                            <input class="input" type="text" placeholder="State" id="stateSearch">
-                        </div>
-                        <div class="column is-one-third">
-                            <input class="input" type="text" placeholder="Zip Code (Optional)" id="zipSearch">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">Cuisine</label>
-                <div class="control">
-                    <div class="select">
-                        <select id="cuisineSearch">
-                            <option id="everything" value="">---------</option>
-                            <option id="beer" value="beer">Beer</option>
-                            <option id="cocktails" value="cocktails">Cocktails</option>
-                            <option id="wine" value="wine">Wine</option>
-                            <option id="mexican" value="mexican">Mexican</option>
-                            <option id="meditteranean" value="meditteranean">Meditteranean</option>
-                            <option id="sushi" value="sushi">Sushi</option>
-                            <option id="italian" value="italian">Italian</option>
-                            <option id="american" value="american">American</option>
-                            <option id="chinese" value="chinese">Chinese</option>
-                            <option id="french" value="french">French</option>
-                        </select>
-                    </div>
-                </div>
-            </div>-->
-
-        <!-- <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link submit" id="submitSearch" type="submit">Submit</button>
-                </div>
-                <div class="control">
-                    <button class="button is-text" id="clearSearch">Clear</button>
-                </div>-->
+          
             </div> 
         </div>
+    </div>
     </div>
 
     <!-- results -->
@@ -280,13 +224,14 @@
                 <div class="field">
                     <label class="label" id="userName">Email</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="jdoe@email.com" value="jdoe@email.com" id="usernameInput" autofocus>
+                        <input class="input" type="text" placeholder="jdoe@email.com" value="jdoe@email.com" id="usernameInput"
+                            autofocus>
                     </div>
                 </div>
                 <div class="field">
                     <label class="label" id="password">Password</label>
                     <div class="control">
-                        <input class="input" type="password" placeholder="" value="strongpassword"id="passwordInput">
+                        <input class="input" type="password" placeholder="" value="strongpassword" id="passwordInput">
                     </div>
                 </div>
             </section>
@@ -347,9 +292,8 @@
                                 <h2><span id="rRestName"></span></h2>
                                 <p>Today's Hours: <span id="rHours">00:00 - 00:00</span></p>
                                 <p>Price: <span id="rPrice">$$$$$</span></p>
-                                <p>Address: <span id="rAddress">1234 Road St. City, ST 56789</span></p>
-                                <p><a id="rMenuLink" href="">Official Menu</a></p>
-                                <p><a id="rWebLink" href="">Website</a></p>
+                                <p id="rAddress">1234 Road St. City, ST 56789</p>
+                                <p id="rNumber"></p>
                             </div>
                         </div>
                         <footer>
@@ -414,41 +358,63 @@
                 </section>
             </div>
         </div>
+        <button class="modal-close is-large" aria-label="close" id="closeSelResModal"></button>
+    </div>
+
+
+
+    <!-- display large foood image -->
+    <div class="modal" id="largeFoodImage">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <p class="image is-4by3">
+                <img id="displayLargeFood" src="https://bulma.io/images/placeholders/1280x960.png" alt="">
+            </p>
+        </div>
+        <button class="modal-close is-large" aria-label="close" id="closeLargeFoodModal"></button>
+    </div>
+
+
+
+
+    <!-- bluma javascript -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
     <!-- my own javascript -->
-    
-    
-        
-        <div class="modal" id="selResModal">
-                <div class="modal-background"></div>
-                <div class="modal-content">
-                    <nav class="navbar" role="navigation" aria-label="main navigation">
-                        <!-- header with tabs -->
-                        <div class="navbar-brand">
-                            <div class="navbar-item">
-                                <div class="tabs is-boxed">
-                                    <ul>
-                                        <li class="is-active" id="selResName">
-                                            <a>
-                                                <span id="selectedRestaurant"></span>
-                                            </a>
-                                        </li>
-                                        <li class="" id="selResPictures">
-                                            <a>
-                                                <span class="icon is-small"><i class="fas fa-bars" aria-hidden="true"></i></span>
-                                                <span>Pictures</span>
-                                            </a>
-                                        </li>
-                                        <li class="" id="selResMenu">
-                                            <a>
-                                                <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
-                                                <span>Menu</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+
+
+
+    <div class="modal" id="selResModal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <!-- header with tabs -->
+                <div class="navbar-brand">
+                    <div class="navbar-item">
+                        <div class="tabs is-boxed">
+                            <ul>
+                                <li class="is-active" id="selResName">
+                                    <a>
+                                        <span id="selectedRestaurant"></span>
+                                    </a>
+                                </li>
+                                <li class="" id="selResPictures">
+                                    <a>
+                                        <span class="icon is-small"><i class="fas fa-bars" aria-hidden="true"></i></span>
+                                        <span>Pictures</span>
+                                    </a>
+                                </li>
+                                <li class="" id="selResMenu">
+                                    <a>
+                                        <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+                                        <span>Menu</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                    </nav>
+                    </div>
                 </div>
                 <button class="modal-close is-large" aria-label="close" id="closeSelResModal"></button>
             </div>
@@ -464,11 +430,7 @@
 
         <!-- my own javascript -->
         <script src="assets/javascript/app.js"></script>
-        <script>
-            $(document).ready(function(){
-                   var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
-               });
-        </script>
+        
     </body>
     
     </html>

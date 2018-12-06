@@ -1,6 +1,6 @@
-
 //making a global variable to call upon address  
 var yRestAddress;
+var yRestNumber
 var yImageLink;
 var yRestName;
 var yPrice;
@@ -31,7 +31,7 @@ function startSearch() {
         method: 'GET',
         dataType: 'json',
         success: function (data) {
-            console.log(data)
+            // console.log(data)
 
             for (var i = 0; i < 9; i++) {
                 //variable to minimize response2.results
@@ -40,14 +40,15 @@ function startSearch() {
 
                 //we may have to insert this from yelp because
                 //google does not provide images of actual restaurant logo
-                console.log(result.image_url);
+                // console.log(result.image_url);
                 yImageLink = result.image_url;
-                console.log(result.name);
+                // console.log(result.name);
                 yRestName = result.name;
-                console.log(result.location.display_address[0]);
+                // console.log(result.location.display_address[0]);
                 yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
-                console.log(yRestAddress)
-                console.log(result.price);
+                // console.log(yRestAddress)
+                yRestNumber = formatNumber(result.phone);
+                // console.log(result.price);
                 yPrice = result.price;
                 restId = result.id
                 //ATTENTION: we may have to insert happy hours from the api that reads pictures to text
@@ -55,7 +56,7 @@ function startSearch() {
 
                 //display all variable in makeRestaurantCard function
                 cardCount
-                makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice); //add the yPrice
+                makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNumber); //add the yPrice
             }
             //========================================================================================
         }
@@ -116,12 +117,14 @@ function startSearch() {
 //we need to make a separate ajax calling from yelp to get pcitures and happy hours 
 //g stands for getting from google
 //y stands for getting from yelp
-function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice) { // yImageLink, yRestName, yRestAddress, yPrice) { // parameters sent to set values
+function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNumber) { // yImageLink, yRestName, yRestAddress, yPrice) { // parameters sent to set values
     // imageLink: link of restaurant image
     // restName: str name of restaurant 
     // restAddress: str address
     // happyHours: str happyHours
     // main div card that everything goes into
+    $("#selectedRestaurant").text(yRestName);
+
     var card = $("<div>");
     card.addClass("card restaurant-card");
 
@@ -153,19 +156,20 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice) { // yI
     var restaurantBasics = $("<div>");
     restaurantBasics.addClass("restaurantBasics");
 
-    // create line for restaurant name add name
-    var restName = $("<p>");
-    restName.addClass("title is-4 restName");
-    restName.text(yRestName); // delete this when parameters filled in.
-
     // create line for restaurant address. add address
     var restAddress = $("<p>");
     restAddress.addClass("subtitle is-6 restAddress");
     restAddress.text(yRestAddress) // delete this when parameters filled in.
 
+    // create line for restaurant address. add address
+    var restNumber = $("<p>");
+    restNumber.addClass("subtitle is-6 restNumber");
+    restNumber.text(yRestNumber) // delete this when parameters filled in.
+
     // add value to restaurant basics. then to card content
-    restaurantBasics.append(restName);
+
     restaurantBasics.append(restAddress);
+    restaurantBasics.append(restNumber);
     cardContent.append(restaurantBasics);
 
     // create div for restaurant happy hours
@@ -269,7 +273,6 @@ $(".closeSignInModal").click(function () {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
     }
 
-    
         else 
             {
             //if sign in fails, clear form so user can retry
@@ -313,23 +316,30 @@ $(".closeSignInModal").click(function () {
                 $("#signInModal").toggleClass("is-active");
             }
         };
-            firebase.initializeApp(config);
+    //prevent page from refresing when form tries to submit itself 
+    event.preventDefault();
 
-            // Capture and send data to Firebase
-            var database = firebase.database();
-            database.ref().push({
-                Name: $('#usernameInput').val(),
-                Password: $('#passwordInput').val()
-            });
+    var email = $('#usernameInput').val().trim();
 
-            $("#signInModal").toggleClass("is-active");
+    //console log each of the user 
+    console.log(email);
+    $("welcome").text(email);
+
+    //local storage clear
+    localStorage.clear();
+    
+    //Store all content into localStorage 
+    localStorage.setItem("email", email);   
+    
+    $("#welcome").text(localStorage.getItem("email"));
 });    
-
+    $("#welcome").text(localStorage.getItem("email"));
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
     cardCount = 0;
     rowCount = 0;
+    $(".results").empty();
     startSearch();
 })
 
@@ -348,11 +358,12 @@ $(document).on("click", ".restaurant-card", function () {
     $("#resImageHolder").html(mainResImage);
     //add address to main info modal 
     $("#rAddress").html(yRestAddress);
+    //add phone number to main info modal
+    $("#rNumber").html(yRestNumber)
     //add price to main info 
     $("#rPrice").html(yPrice);
-    console.log(yPrice);
-    //adding rest name
-    $("#rRestName").html(yRestName);
+    // console.log(yPrice);
+
     //add link to menu
 
     //add link to restaurant
@@ -366,7 +377,7 @@ $(document).on("click", ".restaurant-card", function () {
         method: 'GET',
         dataType: 'json',
         success: function (response2) {
-            console.log(response2);
+            // console.log(response2);
             //this diplays the hours in the main rest info modal 
             $("#rHours").html(response2.hours[0].open[0].start + "-" + response2.hours[0].open[0].end)
         }
@@ -533,13 +544,13 @@ function fillPicturesContent() {
     var foodImageAltArg = "alt alt alt";
 
     makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
-    makeFoodImageCard(foodImageLinkArg, "a");
+    makeFoodImageCard("http://www.studyabroadcorner.com/wp-content/uploads/2015/06/Fast-food.jpg", "a");
 
-    makeFoodImageCard(foodImageLinkArg, "b");
+    makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Eggs-as-food.jpg/1200px-Eggs-as-food.jpg", "b");
 
-    makeFoodImageCard(foodImageLinkArg, "c");
+    makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Momo_nepal.jpg/1200px-Momo_nepal.jpg", "c");
 
-    makeFoodImageCard(foodImageLinkArg, "d");
+    makeFoodImageCard("http://thenextweb.com/wp-content/blogs.dir/1/files/2012/10/Food.jpg", "d");
     makeFoodImageCard(foodImageLinkArg, "e");
     makeFoodImageCard(foodImageLinkArg, "f");
     makeFoodImageCard(foodImageLinkArg, "g");
@@ -552,7 +563,6 @@ function fillPicturesContent() {
 }
 
 function makeFoodImageCard(foodImageLink, foodImageAlt) {
-    console.log("click");
     var card = $("<div>");
     card.addClass("card foodImage");
 
@@ -580,12 +590,12 @@ function makeFoodImageCard(foodImageLink, foodImageAlt) {
     card.append(cardImage)
 
     // add restaurant card to page
-    addFoodImageCard(card);
+    addFoodImageCard(card, foodImageLink);
 
 
 }
 
-function addFoodImageCard(foodPicture) {
+function addFoodImageCard(foodPicture, fILink) {
     cardCount++;
     var colNumber = cardCount % 4;
     // new row
@@ -600,16 +610,24 @@ function addFoodImageCard(foodPicture) {
     }
 
     var newCard = $("<div>");
-    newCard.addClass("column is-one-quarter");
-    newCard.attr
+    newCard.addClass("column is-one-quarter foodImageCard");
+    newCard.addClass(cardCount);
+    newCard.attr("foodPictureLink", fILink);
     newCard.append(foodPicture);
     currRow.append(newCard);
 
 }
 
 
-$(document).on("click", ".foodImage", function () {
-    // var 
+$(document).on("click", ".foodImageCard", function () {
+    $("#largeFoodImage").toggleClass("is-active")
+    var fPLink = $(this).attr("foodPictureLink");
+    // console.log(fPLink);
+    $("#displayLargeFood").attr("src", fPLink);
+});
+
+$(document).on("click", "#closeLargeFoodModal", function () {
+    $("#largeFoodImage").toggleClass("is-active")
 });
 
 //this runs the function to get directions
@@ -618,7 +636,7 @@ $(document).on("click", "#directionsSubmitButton", function () {
     var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
     //destination equal to 
     var destination = yRestAddress
-    console.log(yRestAddress)
+    // console.log(yRestAddress)
     //origin equal to
     var origin = $("#startLocation").val().trim();
     //ajax request for directions
@@ -630,4 +648,27 @@ $(document).on("click", "#directionsSubmitButton", function () {
     $("#directionsTabContent").append(imageDiv);
 })
 
+$(document).ready(function(){
+    var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
+});
 
+function formatNumber(yelpNum) { // +15622360141 562.236.0141
+    var formatNum = [];
+    var formatCounter = 0;
+    console.log(yelpNum);
+
+    for (i = 2; i < yelpNum.length; i++) {
+        var tempNum = yelpNum[i];
+        formatNum[formatCounter] = tempNum;
+        console.log(formatNum);
+        // console.log(formatNum[formatCounter]);
+        formatCounter++
+        if ((i === 4) || (i === 7)) {
+            formatNum[formatCounter] = ".";
+            formatCounter++;
+        }
+    }
+
+    return formatNum.join("");
+    // console.log(formatNum);
+}

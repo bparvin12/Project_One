@@ -256,10 +256,10 @@ $(".closeSignInModal").click(function () {
                   };
 
                   firebase.initializeApp(config);
-                  
+
                 // Capture and send data to Firebase
                 var database = firebase.database();
-                database.ref().update({
+                database.ref().push({
                     Name: $('#usernameInput').val(),
                     Password: $('#passwordInput').val()
                 });

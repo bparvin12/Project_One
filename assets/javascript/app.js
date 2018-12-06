@@ -273,15 +273,6 @@ $(".closeSignInModal").click(function () {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
     }
 
-<<<<<<< HEAD
-    else {
-        //if sign in fails, clear form so user can retry
-        if (errorMessage == "" && fieldsMissing == "") {
-            $("#signInModal").toggleClass("is-active");
-        }
-    };
-});
-=======
         else 
             {
             //if sign in fails, clear form so user can retry
@@ -333,7 +324,6 @@ $(".closeSignInModal").click(function () {
     //console log each of the user 
     console.log(email);
     $("welcome").text(email);
->>>>>>> 3cfaa49eadc44acf18e682e2d761d2aa62d1d70c
 
     //local storage clear
     localStorage.clear();
@@ -629,10 +619,6 @@ function addFoodImageCard(foodPicture, fILink) {
 }
 
 
-<<<<<<< HEAD
-$(document).on("click", ".foodImage", function () {
-    // var 
-=======
 $(document).on("click", ".foodImageCard", function () {
     $("#largeFoodImage").toggleClass("is-active")
     var fPLink = $(this).attr("foodPictureLink");
@@ -642,7 +628,6 @@ $(document).on("click", ".foodImageCard", function () {
 
 $(document).on("click", "#closeLargeFoodModal", function () {
     $("#largeFoodImage").toggleClass("is-active")
->>>>>>> 3cfaa49eadc44acf18e682e2d761d2aa62d1d70c
 });
 
 //this runs the function to get directions
@@ -667,8 +652,6 @@ $(document).ready(function(){
     var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
 });
 
-<<<<<<< HEAD
-=======
 function formatNumber(yelpNum) { // +15622360141 562.236.0141
     var formatNum = [];
     var formatCounter = 0;
@@ -689,4 +672,3 @@ function formatNumber(yelpNum) { // +15622360141 562.236.0141
     return formatNum.join("");
     // console.log(formatNum);
 }
->>>>>>> 3cfaa49eadc44acf18e682e2d761d2aa62d1d70c

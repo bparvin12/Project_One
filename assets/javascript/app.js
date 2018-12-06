@@ -11,10 +11,16 @@ var state;
 var zip;
 var cuisine;
 
+
+
 checkPersistantSignIn();
 
 function checkPersistantSignIn(){
-    
+    var isEmail = localStorage.getItem("email"); 
+    console.log(isEmail);
+    if(!isEmail){
+        $("#signInModal").addClass("is-active");
+    }
 }
 
 //start search for restaurants 
@@ -683,3 +689,9 @@ function formatNumber(yelpNum) { // +15622360141 562.236.0141
 
     return formatNum.join("");
 }
+
+$(document).on("click", "#clearUser", function(){
+    localStorage.clear();
+    $("#welcome").text("");
+    checkPersistantSignIn();
+});

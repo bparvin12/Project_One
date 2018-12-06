@@ -199,6 +199,26 @@ function addRestCard(restCard) {
 }
 
 
+//====== Press ENTER key to submit ================
+
+        var input = document.getElementById('passwordInput');
+        var input2 = document.getElementById('usernameInput');
+
+        input.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById('signInSubmit').click();
+            }
+        });
+        input2.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById('signInSubmit').click();
+                }
+            });
+//=================================================
+
+
 // global variables
 var cardCount = 0;
 var rowCount = 0;

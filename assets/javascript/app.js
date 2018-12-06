@@ -252,32 +252,6 @@ $(".closeSignInModal").click(function () {
     if ($("#passwordInput").val() == "") {
         fieldsMissing += "<br>Password";
     };
-<<<<<<< HEAD
-
-    if (fieldsMissing != "") {
-        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
-    };
-
-    if (isEmail($("#usernameInput").val()) == false) {
-        errorMessage += "<p>Your email address is not valid</p>";
-    };
-
-    if (errorMessage != "") {
-        $(".modal-card-title").html(errorMessage);
-    };
-
-    if (fieldsMissing != "") {
-        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
-    }
-
-    else {
-        //if sign in fails, clear form so user can retry
-        if (errorMessage == "" && fieldsMissing == "") {
-            $("#signInModal").toggleClass("is-active");
-        }
-    };
-});
-=======
 
     if (fieldsMissing != "") {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
@@ -350,13 +324,13 @@ $(".closeSignInModal").click(function () {
 
             $("#signInModal").toggleClass("is-active");
 });    
->>>>>>> origin/gh-pages
 
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
     cardCount = 0;
     rowCount = 0;
+    $(".results").empty();
     startSearch();
 })
 
@@ -418,7 +392,7 @@ function clearSearchForm() {
 
 
 
-makeRestaurantCard();
+// makeRestaurantCard();
 
 
 // MAIN MODAL basic
@@ -635,7 +609,6 @@ function addFoodImageCard(foodPicture, fILink) {
 }
 
 
-<<<<<<< HEAD
 $(document).on("click", ".foodImageCard", function () {
     $("#largeFoodImage").toggleClass("is-active")
     var fPLink = $(this).attr("foodPictureLink");
@@ -645,10 +618,6 @@ $(document).on("click", ".foodImageCard", function () {
 
 $(document).on("click", "#closeLargeFoodModal", function () {
     $("#largeFoodImage").toggleClass("is-active")
-=======
-$(document).on("click", ".foodImage", function () {
-    // var 
->>>>>>> origin/gh-pages
 });
 
 //this runs the function to get directions
@@ -665,14 +634,8 @@ $(document).on("click", "#directionsSubmitButton", function () {
 
     var imageDiv = $("<div>");
     imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
-<<<<<<< HEAD
-
-    $("#directionsTabContent").append(imageDiv);
-}) 
-=======
 
     $("#directionsTabContent").append(imageDiv);
 })
 
 
->>>>>>> origin/gh-pages

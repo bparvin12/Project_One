@@ -75,10 +75,10 @@
                     Home
                   </a>
                   <a class="navbar-item has-text-white">
-                    Examples
+                    Favorites
                   </a>
                   <a class="navbar-item has-text-white">
-                    Documentation
+                    Daily Specials
                   </a>
                   <span class="navbar-item has-text-white">
                     <a class="button is-primary is-inverted">
@@ -117,27 +117,38 @@
                                 </div>
                             </div>
                         </div>
-                  <div class="field">
+                <div class="field">
                     <label class="label">Cuisine</label>
                     <div class="control">
-                        <div class="select">
-                            <select id="cuisineSearch">
-                                <option id="everything" value="">---------</option>
-                                <option id="beer" value="beer">Beer</option>
-                                <option id="cocktails" value="cocktails">Cocktails</option>
-                                <option id="wine" value="wine">Wine</option>
-                                <option id="mexican" value="mexican">Mexican</option>
-                                <option id="meditteranean" value="meditteranean">Meditteranean</option>
-                                <option id="sushi" value="sushi">Sushi</option>
-                                <option id="italian" value="italian">Italian</option>
-                                <option id="american" value="american">American</option>
-                                <option id="chinese" value="chinese">Chinese</option>
-                                <option id="french" value="french">French</option>
-                            </select>
+                        <!--Adding in columns-->
+                        <div class="columns">
+                            <div class="column is-one-third">
+                                <div class="select">
+                                    <select id="cuisineSearch">
+                                        <option id="everything" value="">---------</option>
+                                        <option id="beer" value="beer">Beer</option>
+                                        <option id="cocktails" value="cocktails">Cocktails</option>
+                                        <option id="wine" value="wine">Wine</option>
+                                        <option id="mexican" value="mexican">Mexican</option>
+                                        <option id="meditteranean" value="meditteranean">Meditteranean</option>
+                                        <option id="sushi" value="sushi">Sushi</option>
+                                        <option id="italian" value="italian">Italian</option>
+                                        <option id="american" value="american">American</option>
+                                        <option id="chinese" value="chinese">Chinese</option>
+                                        <option id="french" value="french">French</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="column is-one-third">
+                                <button class="button is-link submit" id="submitSearch">Submit</button>
+                            </div>
+                            <div class="column is-one-third">
+                                <button class="button is-text" id="clearSearch">Clear</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
                 <div class="control">
                  <!--  <a class="button is-info">
                     Search
@@ -203,14 +214,14 @@
                 </div>
             </div>-->
 
-            <div class="field is-grouped">
+        <!-- <div class="field is-grouped">
                 <div class="control">
                     <button class="button is-link submit" id="submitSearch">Submit</button>
                 </div>
                 <div class="control">
                     <button class="button is-text" id="clearSearch">Clear</button>
-                </div>
-            </div>
+                </div>-->
+            </div> 
         </div>
     </div>
 

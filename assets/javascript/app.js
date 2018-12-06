@@ -252,6 +252,32 @@ $(".closeSignInModal").click(function () {
     if ($("#passwordInput").val() == "") {
         fieldsMissing += "<br>Password";
     };
+<<<<<<< HEAD
+
+    if (fieldsMissing != "") {
+        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+    };
+
+    if (isEmail($("#usernameInput").val()) == false) {
+        errorMessage += "<p>Your email address is not valid</p>";
+    };
+
+    if (errorMessage != "") {
+        $(".modal-card-title").html(errorMessage);
+    };
+
+    if (fieldsMissing != "") {
+        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+    }
+
+    else {
+        //if sign in fails, clear form so user can retry
+        if (errorMessage == "" && fieldsMissing == "") {
+            $("#signInModal").toggleClass("is-active");
+        }
+    };
+});
+=======
 
     if (fieldsMissing != "") {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
@@ -324,6 +350,7 @@ $(".closeSignInModal").click(function () {
 
             $("#signInModal").toggleClass("is-active");
 });    
+>>>>>>> origin/gh-pages
 
 
 // SEARCH FORM submit
@@ -391,7 +418,7 @@ function clearSearchForm() {
 
 
 
-// makeRestaurantCard();
+makeRestaurantCard();
 
 
 // MAIN MODAL basic
@@ -533,13 +560,13 @@ function fillPicturesContent() {
     var foodImageAltArg = "alt alt alt";
 
     makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
-    makeFoodImageCard(foodImageLinkArg, "a");
+    makeFoodImageCard("http://www.studyabroadcorner.com/wp-content/uploads/2015/06/Fast-food.jpg", "a");
 
-    makeFoodImageCard(foodImageLinkArg, "b");
+    makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Eggs-as-food.jpg/1200px-Eggs-as-food.jpg", "b");
 
-    makeFoodImageCard(foodImageLinkArg, "c");
+    makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Momo_nepal.jpg/1200px-Momo_nepal.jpg", "c");
 
-    makeFoodImageCard(foodImageLinkArg, "d");
+    makeFoodImageCard("http://thenextweb.com/wp-content/blogs.dir/1/files/2012/10/Food.jpg", "d");
     makeFoodImageCard(foodImageLinkArg, "e");
     makeFoodImageCard(foodImageLinkArg, "f");
     makeFoodImageCard(foodImageLinkArg, "g");
@@ -552,7 +579,6 @@ function fillPicturesContent() {
 }
 
 function makeFoodImageCard(foodImageLink, foodImageAlt) {
-    console.log("click");
     var card = $("<div>");
     card.addClass("card foodImage");
 
@@ -580,12 +606,12 @@ function makeFoodImageCard(foodImageLink, foodImageAlt) {
     card.append(cardImage)
 
     // add restaurant card to page
-    addFoodImageCard(card);
+    addFoodImageCard(card, foodImageLink);
 
 
 }
 
-function addFoodImageCard(foodPicture) {
+function addFoodImageCard(foodPicture, fILink) {
     cardCount++;
     var colNumber = cardCount % 4;
     // new row
@@ -600,16 +626,29 @@ function addFoodImageCard(foodPicture) {
     }
 
     var newCard = $("<div>");
-    newCard.addClass("column is-one-quarter");
-    newCard.attr
+    newCard.addClass("column is-one-quarter foodImageCard");
+    newCard.addClass(cardCount);
+    newCard.attr("foodPictureLink", fILink);
     newCard.append(foodPicture);
     currRow.append(newCard);
 
 }
 
 
+<<<<<<< HEAD
+$(document).on("click", ".foodImageCard", function () {
+    $("#largeFoodImage").toggleClass("is-active")
+    var fPLink = $(this).attr("foodPictureLink");
+    console.log(fPLink);
+    $("#displayLargeFood").attr("src", fPLink);
+});
+
+$(document).on("click", "#closeLargeFoodModal", function () {
+    $("#largeFoodImage").toggleClass("is-active")
+=======
 $(document).on("click", ".foodImage", function () {
     // var 
+>>>>>>> origin/gh-pages
 });
 
 //this runs the function to get directions
@@ -626,8 +665,14 @@ $(document).on("click", "#directionsSubmitButton", function () {
 
     var imageDiv = $("<div>");
     imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
+<<<<<<< HEAD
+
+    $("#directionsTabContent").append(imageDiv);
+}) 
+=======
 
     $("#directionsTabContent").append(imageDiv);
 })
 
 
+>>>>>>> origin/gh-pages

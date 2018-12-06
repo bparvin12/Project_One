@@ -270,21 +270,6 @@ $(".closeSignInModal").click(function () {
     }
 
     
-        else
-        {
-        //if sign in fails, clear form so user can retry
-        if (errorMessage == "" && fieldsMissing == "") {
-
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
-                authDomain: "project-01-1543881106905.firebaseapp.com",
-                databaseURL: "https://project-01-1543881106905.firebaseio.com",
-                projectId: "project-01-1543881106905",
-                storageBucket: "project-01-1543881106905.appspot.com",
-                messagingSenderId: "307620256786"
-            };
-
         else 
             {
             //if sign in fails, clear form so user can retry
@@ -338,9 +323,7 @@ $(".closeSignInModal").click(function () {
             });
 
             $("#signInModal").toggleClass("is-active");
-        }
-    };
-});
+});    
 
 
 // SEARCH FORM submit

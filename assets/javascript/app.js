@@ -199,6 +199,26 @@ function addRestCard(restCard) {
 }
 
 
+//====== Press ENTER key to submit ================
+
+        var input = document.getElementById('passwordInput');
+        var input2 = document.getElementById('usernameInput');
+
+        input.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById('signInSubmit').click();
+            }
+        });
+        input2.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById('signInSubmit').click();
+                } 
+            });
+//=================================================
+
+
 // global variables
 var cardCount = 0;
 var rowCount = 0;
@@ -244,7 +264,27 @@ $(".closeSignInModal").click(function () {
             {
             //if sign in fails, clear form so user can retry
             if (errorMessage == "" && fieldsMissing == "") {
-            $("#signInModal").toggleClass("is-active");
+                
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
+                    authDomain: "project-01-1543881106905.firebaseapp.com",
+                    databaseURL: "https://project-01-1543881106905.firebaseio.com",
+                    projectId: "project-01-1543881106905",
+                    storageBucket: "project-01-1543881106905.appspot.com",
+                    messagingSenderId: "307620256786"
+                  };
+
+                  firebase.initializeApp(config);
+
+                // Capture and send data to Firebase
+                var database = firebase.database();
+                database.ref().push({
+                    Name: $('#usernameInput').val(),
+                    Password: $('#passwordInput').val()
+                });
+
+                $("#signInModal").toggleClass("is-active");
             }
         };
 });

@@ -1,17 +1,30 @@
 
 //making a global variable to call upon address  
 var yRestAddress;
+var yRestNumber
+var yImageLink;
+var yRestName;
+var yPrice;
+var restId;
+
+var city;
+var state;
+var zip;
+var cuisine;
+
+checkPersistantSignIn();
+
+function checkPersistantSignIn(){
+    
+}
 
 //start search for restaurants 
 function startSearch() {
-
-
-    //need to find a way to convert these to long/lat
-    var city = $("#citySearch").val().trim();
+    city = $("#citySearch").val().trim();
     city = city.trim().replace(/ /g, "+");
-    var state = $("#stateSearch").val().trim();
-    var zip = $("#zipSearch").val().trim();
-    var cuisine = $("#cuisineSearch").val();
+    state = $("#stateSearch").val().trim();
+    zip = $("#zipSearch").val().trim();
+    cuisine = $("#cuisineSearch").val();
 
     //========================================================================================
     var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=restaurants&term=by-" + cuisine + "&location=" + city + "," + state + "," + zip;
@@ -23,7 +36,7 @@ function startSearch() {
         method: 'GET',
         dataType: 'json',
         success: function (data) {
-            console.log(data)
+            // console.log(data)
 
             for (var i = 0; i < 9; i++) {
                 //variable to minimize response2.results
@@ -32,21 +45,23 @@ function startSearch() {
 
                 //we may have to insert this from yelp because
                 //google does not provide images of actual restaurant logo
-                console.log(result.image_url);
-                var yImageLink = result.image_url;
-                console.log(result.name);
-                var yRestName = result.name;
-                console.log(result.location.display_address[0]);
+                // console.log(result.image_url);
+                yImageLink = result.image_url;
+                // console.log(result.name);
+                yRestName = result.name;
+                // console.log(result.location.display_address[0]);
                 yRestAddress = result.location.display_address[0] + ", " + result.location.display_address[1];
-                console.log(yRestAddress)
-                console.log(result.price);
-                var yPrice = result.price;
+                // console.log(yRestAddress)
+                yRestNumber = formatNumber(result.phone);
+                // console.log(result.price);
+                yPrice = result.price;
+                restId = result.id
                 //ATTENTION: we may have to insert happy hours from the api that reads pictures to text
 
 
                 //display all variable in makeRestaurantCard function
                 cardCount
-                makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice); //add the yPrice
+                makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNumber); //add the yPrice
             }
             //========================================================================================
         }
@@ -107,12 +122,16 @@ function startSearch() {
 //we need to make a separate ajax calling from yelp to get pcitures and happy hours 
 //g stands for getting from google
 //y stands for getting from yelp
-function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice) { // yImageLink, yRestName, yRestAddress, yPrice) { // parameters sent to set values
+function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNumber) { // yImageLink, yRestName, yRestAddress, yPrice) { // parameters sent to set values
     // imageLink: link of restaurant image
     // restName: str name of restaurant 
     // restAddress: str address
     // happyHours: str happyHours
     // main div card that everything goes into
+    $("#selectedRestaurant").text(yRestName);
+
+    activateBasicsTab();
+
     var card = $("<div>");
     card.addClass("card restaurant-card");
 
@@ -144,19 +163,20 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice) { // yI
     var restaurantBasics = $("<div>");
     restaurantBasics.addClass("restaurantBasics");
 
-    // create line for restaurant name add name
-    var restName = $("<p>");
-    restName.addClass("title is-4 restName");
-    restName.text(yRestName); // delete this when parameters filled in.
-
     // create line for restaurant address. add address
     var restAddress = $("<p>");
     restAddress.addClass("subtitle is-6 restAddress");
     restAddress.text(yRestAddress) // delete this when parameters filled in.
 
+    // create line for restaurant address. add address
+    var restNumber = $("<p>");
+    restNumber.addClass("subtitle is-6 restNumber");
+    restNumber.text(yRestNumber) // delete this when parameters filled in.
+
     // add value to restaurant basics. then to card content
-    restaurantBasics.append(restName);
+
     restaurantBasics.append(restAddress);
+    restaurantBasics.append(restNumber);
     cardContent.append(restaurantBasics);
 
     // create div for restaurant happy hours
@@ -201,21 +221,21 @@ function addRestCard(restCard) {
 
 //====== Press ENTER key to submit ================
 
-        var input = document.getElementById('passwordInput');
-        var input2 = document.getElementById('usernameInput');
+var input = document.getElementById('passwordInput');
+var input2 = document.getElementById('usernameInput');
 
-        input.addEventListener("keyup", function(event) {
-        event.preventDefault();
-        if (event.keyCode === 13) {
-            document.getElementById('signInSubmit').click();
-            }
-        });
-        input2.addEventListener("keyup", function(event) {
-            event.preventDefault();
-            if (event.keyCode === 13) {
-                document.getElementById('signInSubmit').click();
-                }
-            });
+input.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('signInSubmit').click();
+    }
+});
+input2.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('signInSubmit').click();
+    }
+});
 //=================================================
 
 
@@ -225,40 +245,40 @@ var rowCount = 0;
 var currRow;
 
 // SIGN IN MODAL form validation
-function isEmail(email) {  
+function isEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
 }
 
 // SIGN IN MODAL close & submit
 $(".closeSignInModal").click(function () {
-        var errorMessage = "";
-        var fieldsMissing = "";
-   
-                
-        if ($("#usernameInput").val() == "") {                    
-            fieldsMissing += "<br>Email";
-            };
+    var errorMessage = "";
+    var fieldsMissing = "";
 
-        if ($("#passwordInput").val() == "") {                    
-            fieldsMissing += "<br>Password";
-            };
 
-        if (fieldsMissing != "") {                    
-            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
-            };
-        
-        if (isEmail($("#usernameInput").val()) == false) {        
-            errorMessage += "<p>Your email address is not valid</p>";
-            };   
-        
-        if (errorMessage != "") {        
-            $(".modal-card-title").html(errorMessage);
-            };
-        
-        if (fieldsMissing != "") {                    
-            errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
-            }
+    if ($("#usernameInput").val() == "") {
+        fieldsMissing += "<br>Email";
+    };
+
+    if ($("#passwordInput").val() == "") {
+        fieldsMissing += "<br>Password";
+    };
+
+    if (fieldsMissing != "") {
+        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+    };
+
+    if (isEmail($("#usernameInput").val()) == false) {
+        errorMessage += "<p>Your email address is not valid</p>";
+    };
+
+    if (errorMessage != "") {
+        $(".modal-card-title").html(errorMessage);
+    };
+
+    if (fieldsMissing != "") {
+        errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
+    }
 
         else 
             {
@@ -284,16 +304,49 @@ $(".closeSignInModal").click(function () {
                     Password: $('#passwordInput').val()
                 });
 
+                //========== confirm user account in Firebase ==============
+
+                function checkUser(user) {
+                    var user = firebase.auth().currentUser;
+
+                    if (user != null) {
+                    user.providerData.forEach(function (profile) {
+                        console.log("Sign-in provider: " + profile.providerId);
+                        console.log("  Provider-specific UID: " + profile.uid);
+                        console.log("  Name: " + profile.displayName);
+                        console.log("  Email: " + profile.email);
+                    });
+                    }
+                }
+                //==========================================================
+
                 $("#signInModal").toggleClass("is-active");
             }
         };
-});
+    //prevent page from refresing when form tries to submit itself 
+    event.preventDefault();
 
+    var email = $('#usernameInput').val().trim();
+
+    //console log each of the user 
+    console.log(email);
+    $("welcome").text(email);
+
+    //local storage clear
+    localStorage.clear();
+    
+    //Store all content into localStorage 
+    localStorage.setItem("email", email);   
+    
+    $("#welcome").text(localStorage.getItem("email"));
+});    
+    $("#welcome").text(localStorage.getItem("email"));
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
     cardCount = 0;
     rowCount = 0;
+    $(".results").empty();
     startSearch();
 })
 
@@ -304,6 +357,40 @@ $(document).on("click", "#clearSearch", clearSearchForm);
 $(document).on("click", ".restaurant-card", function () {
     // activate selected Restaurant Modal
     $("#selResModal").toggleClass("is-active");
+    activateBasicsTab();
+    //adds image to main info modal 
+    var mainResImage = $("<img>");
+    mainResImage.attr("id", "mainResImage");
+    mainResImage.attr("src", yImageLink);
+    mainResImage.attr("alt", "Restaurant Image");
+    $("#resImageHolder").html(mainResImage);
+    //add address to main info modal 
+    $("#rAddress").html(yRestAddress);
+    //add phone number to main info modal
+    $("#rNumber").html(yRestNumber)
+    //add price to main info 
+    $("#rPrice").html(yPrice);
+    // console.log(yPrice);
+
+    //add link to menu
+
+    //add link to restaurant
+    // $("rWebLink").attr("href", )
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + restId;
+    $.ajax({
+        url: myurl,
+        headers: {
+            'Authorization': 'Bearer NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx',
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function (response2) {
+            // console.log(response2);
+            //this diplays the hours in the main rest info modal 
+            $("#rHours").html(response2.hours[0].open[0].start + "-" + response2.hours[0].open[0].end)
+        }
+    });
+
 });
 
 // RESTAURANT MODAL close
@@ -327,7 +414,9 @@ function clearSearchForm() {
 
 
 // MAIN MODAL basic
-$(document).on("click", "#selResBasic", function () {
+$(document).on("click", "#selResBasics", activateBasicsTab);
+
+function activateBasicsTab(){
     // if ($("#selResPictures").hasClass("is-active")){
     //     $("#selResPictures").toggleClass("is-active");
     // }
@@ -359,11 +448,13 @@ $(document).on("click", "#selResBasic", function () {
     // show tab content
     $("#basicTabContent").removeAttr("style");
 
-});
+};
 
 
 // MAIN MODAL pictures
-$(document).on("click", "#selResPictures", function () {
+$(document).on("click", "#selResPictures", activatePicturesTab);
+
+function activatePicturesTab(){
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -384,7 +475,7 @@ $(document).on("click", "#selResPictures", function () {
 
 
     fillPicturesContent(); // get the pictures links of food pictures
- 
+
 
     // activate this tab.
     $("#selResPictures").toggleClass("is-active");
@@ -392,10 +483,12 @@ $(document).on("click", "#selResPictures", function () {
     // show tab content
     $("#picturesTabContent").removeAttr("style");
 
-});
+}
 
 // MAIN MODAL menu
-$(document).on("click", "#selResMenu", function () {
+$(document).on("click", "#selResMenu", activateMenuTab);
+
+function activateMenuTab(){
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -419,10 +512,12 @@ $(document).on("click", "#selResMenu", function () {
 
     // show tab content
     $("#menuTabContent").removeAttr("style");
-});
+}
 
 
-$(document).on("click", "#selResDirections", function () {
+$(document).on("click", "#selResDirections", activateDirectionsTab);
+
+function activateDirectionsTab(){
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -447,7 +542,7 @@ $(document).on("click", "#selResDirections", function () {
     // show tab content
     $("#directionsTabContent").removeAttr("style");
 
-});
+}
 
 
 
@@ -465,13 +560,13 @@ function fillPicturesContent() {
     var foodImageAltArg = "alt alt alt";
 
     makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
-    makeFoodImageCard(foodImageLinkArg, "a");
+    makeFoodImageCard("http://www.studyabroadcorner.com/wp-content/uploads/2015/06/Fast-food.jpg", "a");
 
-    makeFoodImageCard(foodImageLinkArg, "b");
+    makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Eggs-as-food.jpg/1200px-Eggs-as-food.jpg", "b");
 
-    makeFoodImageCard(foodImageLinkArg, "c");
+    makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Momo_nepal.jpg/1200px-Momo_nepal.jpg", "c");
 
-    makeFoodImageCard(foodImageLinkArg, "d");
+    makeFoodImageCard("http://thenextweb.com/wp-content/blogs.dir/1/files/2012/10/Food.jpg", "d");
     makeFoodImageCard(foodImageLinkArg, "e");
     makeFoodImageCard(foodImageLinkArg, "f");
     makeFoodImageCard(foodImageLinkArg, "g");
@@ -484,7 +579,6 @@ function fillPicturesContent() {
 }
 
 function makeFoodImageCard(foodImageLink, foodImageAlt) {
-    console.log("click");
     var card = $("<div>");
     card.addClass("card foodImage");
 
@@ -512,12 +606,12 @@ function makeFoodImageCard(foodImageLink, foodImageAlt) {
     card.append(cardImage)
 
     // add restaurant card to page
-    addFoodImageCard(card);
+    addFoodImageCard(card, foodImageLink);
 
 
 }
 
-function addFoodImageCard(foodPicture) {
+function addFoodImageCard(foodPicture, fILink) {
     cardCount++;
     var colNumber = cardCount % 4;
     // new row
@@ -532,32 +626,61 @@ function addFoodImageCard(foodPicture) {
     }
 
     var newCard = $("<div>");
-    newCard.addClass("column is-one-quarter");
-    newCard.attr
+    newCard.addClass("column is-one-quarter foodImageCard");
+    newCard.addClass(cardCount);
+    newCard.attr("foodPictureLink", fILink);
     newCard.append(foodPicture);
     currRow.append(newCard);
 
 }
 
 
-$(document).on("click",".foodImage", function(){
-    // var 
+$(document).on("click", ".foodImageCard", function () {
+    $("#largeFoodImage").toggleClass("is-active")
+    var fPLink = $(this).attr("foodPictureLink");
+    // console.log(fPLink);
+    $("#displayLargeFood").attr("src", fPLink);
+});
+
+$(document).on("click", "#closeLargeFoodModal", function () {
+    $("#largeFoodImage").toggleClass("is-active")
 });
 
 //this runs the function to get directions
-$(document).on("click", "#directionsSubmitButton", function() {
+$(document).on("click", "#directionsSubmitButton", function () {
     //api key for google
     var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
     //destination equal to 
     var destination = yRestAddress
-    console.log(yRestAddress)
+    // console.log(yRestAddress)
     //origin equal to
     var origin = $("#startLocation").val().trim();
     //ajax request for directions
     var googleDirectionsUrl = "https://www.google.com/maps/embed/v1/directions?key=" + apiKeyGoogle + "&origin=" + origin + "&destination=" + destination;
-    
-    var imageDiv = $("<div>");
-        imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
 
-        $("#directionsTabContent").append(imageDiv);
-}) 
+    var imageDiv = $("<div>");
+    imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
+
+    $("#directionsTabContent").append(imageDiv);
+})
+
+$(document).ready(function(){
+    var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
+});
+
+function formatNumber(yelpNum) { // +15622360141 562.236.0141
+    var formatNum = [];
+    var formatCounter = 0;
+
+    for (i = 2; i < yelpNum.length; i++) {
+        var tempNum = yelpNum[i];
+        formatNum[formatCounter] = tempNum;
+        formatCounter++
+        if ((i === 4) || (i === 7)) {
+            formatNum[formatCounter] = ".";
+            formatCounter++;
+        }
+    }
+
+    return formatNum.join("");
+}

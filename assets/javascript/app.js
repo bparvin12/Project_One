@@ -12,7 +12,11 @@ var state;
 var zip;
 var cuisine;
 
+checkPersistantSignIn();
 
+function checkPersistantSignIn(){
+    
+}
 
 //start search for restaurants 
 function startSearch() {
@@ -337,6 +341,7 @@ $(document).on("click", "#clearSearch", clearSearchForm);
 $(document).on("click", ".restaurant-card", function () {
     // activate selected Restaurant Modal
     $("#selResModal").toggleClass("is-active");
+    activateBasicTab();
     //adds image to main info modal 
     var mainResImage = $("<img>");
     mainResImage.attr("id", "mainResImage");
@@ -461,7 +466,9 @@ $(document).on("click", "#selResPictures", function () {
 });
 
 // MAIN MODAL menu
-$(document).on("click", "#selResMenu", function () {
+$(document).on("click", "#selMenuDirections", activateMenuTab());
+
+function activateMenuTab(){
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -488,7 +495,9 @@ $(document).on("click", "#selResMenu", function () {
 });
 
 
-$(document).on("click", "#selResDirections", function () {
+$(document).on("click", "#selResDirections", activateDirectionsTab());
+
+function activateDirectionsTab(){
     // deactivate other tab. hide other tab content
     if ($("#selResBasic").hasClass("is-active")) {
         $("#selResBasic").toggleClass("is-active");
@@ -639,13 +648,10 @@ $(document).on("click", "#directionsSubmitButton", function () {
 function formatNumber(yelpNum) { // +15622360141 562.236.0141
     var formatNum = [];
     var formatCounter = 0;
-    console.log(yelpNum);
 
     for (i = 2; i < yelpNum.length; i++) {
         var tempNum = yelpNum[i];
         formatNum[formatCounter] = tempNum;
-        console.log(formatNum);
-        // console.log(formatNum[formatCounter]);
         formatCounter++
         if ((i === 4) || (i === 7)) {
             formatNum[formatCounter] = ".";
@@ -654,5 +660,4 @@ function formatNumber(yelpNum) { // +15622360141 562.236.0141
     }
 
     return formatNum.join("");
-    // console.log(formatNum);
 }

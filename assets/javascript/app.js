@@ -228,6 +228,9 @@ function addRestCard(restCard) {
 
 var input = document.getElementById('passwordInput');
 var input2 = document.getElementById('usernameInput');
+var input3 = document.getElementById('citySearch');
+var input4 = document.getElementById('startLocation');
+
 
 input.addEventListener("keyup", function (event) {
     event.preventDefault();
@@ -239,6 +242,18 @@ input2.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
         document.getElementById('signInSubmit').click();
+    }
+});
+input3.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('submitSearch').click();
+    }
+});
+input4.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('directionSubmitButton').click();
     }
 });
 //=================================================
@@ -694,4 +709,5 @@ $(document).on("click", "#clearUser", function(){
     localStorage.clear();
     $("#welcome").text("");
     checkPersistantSignIn();
+    location.reload();
 });

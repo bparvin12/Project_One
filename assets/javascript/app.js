@@ -636,19 +636,23 @@ $(document).on("click", "#directionsSubmitButton", function () {
 })
 
 
-function formatNumber(yelpNum) {
-    var formatNum = "";
+function formatNumber(yelpNum) { // +15622360141 562.236.0141
+    var formatNum = [];
     var formatCounter = 0;
     console.log(yelpNum);
 
     for (i = 2; i < yelpNum.length; i++) {
         var tempNum = yelpNum[i];
         formatNum[formatCounter] = tempNum;
-        console.log(formatCounter);
+        console.log(formatNum);
+        // console.log(formatNum[formatCounter]);
         formatCounter++
         if ((i === 4) || (i === 7)) {
             formatNum[formatCounter] = ".";
+            formatCounter++;
         }
     }
-    console.log(formatNum);
+
+    return formatNum.join("");
+    // console.log(formatNum);
 }

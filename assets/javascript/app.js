@@ -358,7 +358,7 @@ $(".closeSignInModal").click(function () {
         //if sign in fails, clear form so user can retry
         if (errorMessage == "" && fieldsMissing == "") {
 
-            // ====================user login=====================================
+            // ====================user login========================rom=============
 
                 
                 var email = $('#usernameInput').val();
@@ -374,7 +374,11 @@ $(".closeSignInModal").click(function () {
                     var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
                     console.log('signIn error', error);
                     $('.modal-card-title').html("Login Error Please Try Again");
-                    $('#submitTarget').append(newAccount);
+                                           
+                    if ($('#submitTarget').text().length == 0 ) {
+                        $('#submitTarget').append(newAccount);
+                        };  
+
                     newAccount.click(register);
                     $("#signInModal").toggleClass("is-active");
                     // Event.observe(btnNewAccount, 'click', register);

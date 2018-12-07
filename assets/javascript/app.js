@@ -755,7 +755,7 @@ $(document).on("click", "#clearUser", function(){
     storageBucket: "project-01-1543881106905.appspot.com",
     messagingSenderId: "307620256786"
   };
-//   firebase.initializeApp(something);
+  firebase.initializeApp(something);
 
   var database = firebase.database()
 

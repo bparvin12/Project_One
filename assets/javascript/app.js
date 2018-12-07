@@ -329,18 +329,20 @@ $(".closeSignInModal").click(function () {
 
             //========== confirm user account in Firebase ==============
 
-            function checkUser(user) {
-                var user = firebase.auth().currentUser;
+            // function checkUser(user) {
+            //     var user = firebase.auth().currentUser;
 
-                if (user != null) {
-                    user.providerData.forEach(function (profile) {
-                        console.log("Sign-in provider: " + profile.providerId);
-                        console.log("  Provider-specific UID: " + profile.uid);
-                        console.log("  Name: " + profile.displayName);
-                        console.log("  Email: " + profile.email);
-                    });
-                }
-            }
+            //     if (user != null) {
+            //         user.providerData.forEach(function (profile) {
+            //             console.log("Sign-in provider: " + profile.providerId);
+            //             console.log("  Provider-specific UID: " + profile.uid);
+            //             console.log("  Name: " + profile.displayName);
+            //             console.log("  Email: " + profile.email);
+            //             console.log("  Password: " + profile.Password);
+            //         });
+            //     }
+            //     checkUser($('#usernameInput').val());
+            // }
             //==========================================================
 
             $("#signInModal").toggleClass("is-active");
@@ -718,7 +720,8 @@ $(document).on("click", "#clearUser", function(){
 //============================================================================
 //create a function with firebase to list thumbs up and thumbs down
   // Initialize Firebase
-  var something = {
+  function thumbs() {
+      var something = {
     apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
     authDomain: "project-01-1543881106905.firebaseapp.com",
     databaseURL: "https://project-01-1543881106905.firebaseio.com",
@@ -754,4 +757,5 @@ $(document).on('click', '#notWorth', function() {
         Dislikes: dislikeCount
     });
 });
+};
 //============================================================================

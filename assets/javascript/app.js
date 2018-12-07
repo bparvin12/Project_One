@@ -11,6 +11,17 @@ var state;
 var zip;
 var cuisine;
 
+// ================ Initialize Firebase =========================
+var config = {
+    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
+    authDomain: "project-01-1543881106905.firebaseapp.com",
+    databaseURL: "https://project-01-1543881106905.firebaseio.com",
+    projectId: "project-01-1543881106905",
+    storageBucket: "project-01-1543881106905.appspot.com",
+    messagingSenderId: "307620256786"
+};
+firebase.initializeApp(config);
+
 
 
 checkPersistantSignIn();
@@ -228,10 +239,13 @@ function addRestCard(restCard) {
 }
 
 
-//====== Press ENTER key to submit ================
+//====== Press ENTER key to submit ===========rom=====
 
 var input = document.getElementById('passwordInput');
 var input2 = document.getElementById('usernameInput');
+var input3 = document.getElementById('citySearch');
+var input4 = document.getElementById('startLocation');
+
 
 input.addEventListener("keyup", function (event) {
     event.preventDefault();
@@ -243,6 +257,18 @@ input2.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
         document.getElementById('signInSubmit').click();
+    }
+});
+input3.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('submitSearch').click();
+    }
+});
+input4.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('directionSubmitButton').click();
     }
 });
 //=================================================
@@ -293,45 +319,62 @@ $(".closeSignInModal").click(function () {
         //if sign in fails, clear form so user can retry
         if (errorMessage == "" && fieldsMissing == "") {
 
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
-                authDomain: "project-01-1543881106905.firebaseapp.com",
-                databaseURL: "https://project-01-1543881106905.firebaseio.com",
-                projectId: "project-01-1543881106905",
-                storageBucket: "project-01-1543881106905.appspot.com",
-                messagingSenderId: "307620256786"
+            // ====================user login=====================================
+
+                
+                var email = $('#usernameInput').val();
+                var password = $('#passwordInput').val();
+
+                if (!email || !password) {
+                    return console.log('email and password required');
+                }
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log('signIn error', error);
+                    $('.modal-card-title').html("Login Error Please Try Again");
+                    $('#submitTarget').append("<a href='#' id='newAccount'>New? Create Account</a>");
+                    $("#signInModal").toggleClass("is-active");
+
+                    // register();
+                });                
+            
+
+            function register() {
+
+                var email = $('#usernameInput').val();
+                var password = $('#passwordInput').val();
+
+                if (!email || !password) {
+                    return console.log('email and password required');
+                }
+                    Event.observe( $('#newAccount'), 'click', function(event) {
+                        firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error) {
+                            console.log('register error', error);
+                            if (error.code === 'auth/email-already-in-use') {
+                                var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+                            }
+                        });
+                
+                        Event.stop(event);
+                    });
+                
             };
 
-            firebase.initializeApp(config);
-
+            // =========================================================
+                        
             // Capture and send data to Firebase
-            var database = firebase.database();
-            database.ref().push({
-                Name: $('#usernameInput').val(),
-                Password: $('#passwordInput').val()
-            });
-
-            //========== confirm user account in Firebase ==============
-
-            function checkUser(user) {
-                var user = firebase.auth().currentUser;
-
-                if (user != null) {
-                    user.providerData.forEach(function (profile) {
-                        console.log("Sign-in provider: " + profile.providerId);
-                        console.log("  Provider-specific UID: " + profile.uid);
-                        console.log("  Name: " + profile.displayName);
-                        console.log("  Email: " + profile.email);
-                    });
-                }
-            }
-            //==========================================================
+            // var database = firebase.database();
+            // database.ref().push({
+            //     Name: $('#usernameInput').val(),
+            //     Password: $('#passwordInput').val()
+            // });
 
             $("#signInModal").toggleClass("is-active");
         }
     };
-    //prevent page from refresing when form tries to submit itself 
+    
+       //prevent page from refresing when form tries to submit itself 
     event.preventDefault();
 
     var email = $('#usernameInput').val().trim();
@@ -697,12 +740,14 @@ $(document).on("click", "#clearUser", function(){
     localStorage.clear();
     $("#welcome").text("");
     checkPersistantSignIn();
+    location.reload();
 });
 
 //============================================================================
 //create a function with firebase to list thumbs up and thumbs down
   // Initialize Firebase
-  var something = {
+  function thumbs() {
+      var something = {
     apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
     authDomain: "project-01-1543881106905.firebaseapp.com",
     databaseURL: "https://project-01-1543881106905.firebaseio.com",
@@ -710,7 +755,7 @@ $(document).on("click", "#clearUser", function(){
     storageBucket: "project-01-1543881106905.appspot.com",
     messagingSenderId: "307620256786"
   };
-  firebase.initializeApp(something);
+//   firebase.initializeApp(something);
 
   var database = firebase.database()
 
@@ -738,4 +783,5 @@ $(document).on('click', '#notWorth', function() {
         Dislikes: dislikeCount
     });
 });
+};
 //============================================================================

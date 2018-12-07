@@ -590,11 +590,16 @@ function activateMenuTab() {
         return;
     }
 
+    var menuImg = $("<img>")
+    menuImg.attr("src", "http://2.bp.blogspot.com/-qFpiuhpv0UE/UxokalWN24I/AAAAAAAANmQ/YQKSM__mFF0/s1600/ES-MainMenu-page-001.jpg");
+    $("#menuImg").html(menuImg);
     // activate this tab.
     $("#selResMenu").toggleClass("is-active");
 
     // show tab content
     $("#menuTabContent").removeAttr("style");
+
+    
 }
 
 
@@ -642,7 +647,7 @@ function fillPicturesContent() {
     var foodImageLinkArg = "https://bulma.io/images/placeholders/640x480.png";
     var foodImageAltArg = "alt alt alt";
 
-    makeFoodImageCard(foodImageLinkArg, foodImageAltArg);
+    
     makeFoodImageCard("http://www.studyabroadcorner.com/wp-content/uploads/2015/06/Fast-food.jpg", "a");
 
     makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Eggs-as-food.jpg/1200px-Eggs-as-food.jpg", "b");
@@ -650,14 +655,7 @@ function fillPicturesContent() {
     makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Momo_nepal.jpg/1200px-Momo_nepal.jpg", "c");
 
     makeFoodImageCard("http://thenextweb.com/wp-content/blogs.dir/1/files/2012/10/Food.jpg", "d");
-    makeFoodImageCard(foodImageLinkArg, "e");
-    makeFoodImageCard(foodImageLinkArg, "f");
-    makeFoodImageCard(foodImageLinkArg, "g");
-    makeFoodImageCard(foodImageLinkArg, "h");
-    makeFoodImageCard(foodImageLinkArg, "i");
-    makeFoodImageCard(foodImageLinkArg, "j");
-    makeFoodImageCard(foodImageLinkArg, "k");
-    makeFoodImageCard(foodImageLinkArg, "l");
+    
 
 }
 

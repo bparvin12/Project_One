@@ -332,6 +332,7 @@ $(".closeSignInModal").click(function () {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     console.log('signIn error', error);
+                    $('.modal-card-title').html("Login Error Please Try Again");
                     $("#signInModal").toggleClass("is-active");
 
                     // register();

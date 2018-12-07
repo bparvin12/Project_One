@@ -56,35 +56,35 @@
             <div class='carousel-container'>
                 <div class='carousel-item has-background is-active'>
                     <img class="is-background" src="assets/images/neon-170182_640.jpg" alt="" width="640" height="310" />
-                    <div class="title">Helooooo! Happy Hour!</div>
+                    <div class="title" style="font-size:1.5em; padding: 0.5em;">Helooooo! Happy Hour!</div>
                 </div>
                 <div class='carousel-item has-background'>
                     <img class="is-background" src="assets/images/taco-438540_640.jpg" alt="" width="640" height="310" />
-                    <div class="title">Feliz Taco Tuesday Amigos! Street Tacos for $1.25!</div>
+                    <div class="title" style="font-size:1.5em; padding: 0.5em;">Feliz Taco Tuesday Amigos! Street Tacos for $1.25!</div>
                 </div>
                 <div class='carousel-item has-background'>
                     <img class="is-background" src="assets/images/sushi-2853382_640.jpg" alt="" width="640" height="310" />
-                    <div class="title">1/2 Off All specialty rolls!</div>
+                    <div class="title" style="font-size:1.5em; padding: 0.5em;">1/2 Off All specialty rolls!</div>
                 </div>
                 <div class='carousel-item has-background'>
                     <img class="is-background" src="assets/images/scott-warman-525554-unsplash.jpg" alt="" width="640"
                         height="310" />
-                    <div class="title">1/2 Off Beers on draft & Premium Wine by the glass</div>
+                        <div class="title" style="font-size:1.5em; padding: 0.5em;">1/2 Off Beers on draft & Premium Wine by the glass</div>
                 </div>
                 <div class='carousel-item has-background'>
                     <img class="is-background" src="assets/images/sasha-stories-280916-unsplash.jpg" alt="" width="640"
                         height="310" />
-                    <div class="title">Happy Hour with a View!</div>
+                        <div class="title" style="font-size:1.5em; padding: 0.5em;">Happy Hour with a View!</div>
                 </div>
                 <div class='carousel-item has-background'>
                     <img class="is-background" src="assets/images/brenda-godinez-227278-unsplash.jpg" alt="" width="640"
                         height="310" />
-                    <div class="title">Aloha! Happy Hour!</div>
+                        <div class="title" style="font-size:1.5em; padding: 0.5em;">Aloha! Happy Hour!</div>
                 </div>
                 <div class='carousel-item has-background'>
                     <img class="is-background" src="assets/images/shubhesh-aggarwal-739421-unsplash.jpg" alt="" width="640"
                         height="310" />
-                    <div class="title">Sunday Brunch just got a whole lot Happier! Bottomless Mimosas $6.99!!!</div>
+                        <div class="title" style="font-size:1.5em; padding: 0.5em;">Sunday Brunch just got a whole lot Happier! Bottomless Mimosas $6.99!!!</div>
                 </div>
             </div>
             <div class="carousel-navigation is-overlay">
@@ -96,14 +96,14 @@
                 </div>
             </div>
         </div>
-
+  
         <!-- navbar/header -->
         <div class="hero-head">
             <nav class="navbar is-transparent">
                 <div class="container">
                     <div class="navbar-brand">
                         <a class="navbar-item">
-                            <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
+                            <img src="assets/images/TipseeSquirrel_Logo_HorizontalBadge.png" alt="Logo">
                         </a>
                         <span class="navbar-burger burger" data-target="navbarMenuHeroA">
                             <span></span>
@@ -155,8 +155,8 @@
                                             <!--Adding in columns-->
                                             <div class="columns">
                                                 <div class="column is-one-third">
-                                                    <div class="select">
-                                                        <select id="cuisineSearch">
+                                                    <div class="select" style="width:100%;">
+                                                        <select id="cuisineSearch" style="width:100%;">
                                                             <option id="everything" value="">---------</option>
                                                             <option id="beer" value="beer">Beer</option>
                                                             <option id="cocktails" value="cocktails">Cocktails</option>
@@ -171,11 +171,17 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="column is-one-third">
-                                                    <button class="button is-link submit" id="submitSearch">Submit</button>
-                                                </div>
-                                                <div class="column is-one-third">
-                                                    <button class="button is-text" id="clearSearch">Clear</button>
+                                                <div class="column is-half">
+                                                    <div class="column">
+                                                        <button class="button is-link submit" id="submitSearch">
+                                                            <!-- replaced "submit" with *search* icon button -->
+                                                            <i class="fas fa-spinner fa-pulse fa-search"></i></button>
+                                                        <!--</div>
+                                                                                                <div class="column">-->
+                                                        <button class="button is-text" id="clearSearch">
+                                                            <!-- replaced "clear" with *redo* icon button -->
+                                                            <i class="fas fa-redo"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,7 +246,7 @@
             </section>
             <footer class="modal-card-foot">
                 <div class="field is-grouped">
-                    <div class="control">
+                    <div class="control" id="submitTarget">
                         <button class="button is-link closeSignInModal submit" id="signInSubmit" type="submit">Submit</button>
                     </div>
                 </div>

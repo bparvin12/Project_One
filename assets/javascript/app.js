@@ -5,11 +5,11 @@ var yImageLink;
 var yRestName;
 var yPrice;
 var restId;
-
+var user;
 var city;
 var state;
 var zip;
-var cuisine; 
+var cuisine;
 
 // ================ Initialize Firebase =============rom============
 var config = {
@@ -145,7 +145,7 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
     // happyHours: str happyHours
     // main div card that everything goes into
 
-    activateBasicsTab();
+
 
     var card = $("<div>");
     card.addClass("card restaurant-card");
@@ -158,9 +158,10 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
     figure.addClass("image is-4by3");
 
     // set up picture (placeholder for now) for image portion
-    var img = $("<img>");
+    var img = $("<img>"); 
     img.addClass("restImage");
-    img.attr("src", yImageLink); // img.attr("src", imageLink); 
+    img.attr("src", yImageLink); // img.attr("src", imageLink);
+
     img.attr("alt", yRestName); //img.attr("alt", restName)
 
     // add picture to image portion.
@@ -360,10 +361,6 @@ $(".closeSignInModal").click(function () {
 
             // ====================user login========================rom=============
 
-                
-                var email = $('#usernameInput').val();
-                var password = $('#passwordInput').val();
-                var btnNewAccount = $('#newAccount');
 
                 if (!email || !password) {
                     return console.log('email and password required');
@@ -427,7 +424,7 @@ $(".closeSignInModal").click(function () {
     var email = $('#usernameInput').val().trim();
 
     //console log each of the user 
-    console.log(email);
+    // console.log(email);
     $("welcome").text(email);
 
     //local storage clear
@@ -498,12 +495,11 @@ function activateBasicsTab() {
         $("#directionsTabContent").attr("style", "display:none")
     }
     // if this tab is active, just return
-    else if ($("#selResBasic").hasClass("is-active")) {
+    else if ($("#selResBasics").hasClass("is-active")) {
         return;
     }
-
     // activate this tab.
-    $("#selResBasic").toggleClass("is-active");
+    $("#selResBasics").toggleClass("is-active");
 
     // show tab content
     $("#basicTabContent").removeAttr("style");
@@ -516,8 +512,9 @@ $(document).on("click", "#selResPictures", activatePicturesTab);
 
 function activatePicturesTab() {
     // deactivate other tab. hide other tab content
-    if ($("#selResBasic").hasClass("is-active")) {
-        $("#selResBasic").toggleClass("is-active");
+    if ($("#selResBasics").hasClass("is-active")) {
+        $("#selResBasics").toggleClass("is-active");
+
         $("#basicTabContent").attr("style", "display:none")
     }
     else if ($("#selResMenu").hasClass("is-active")) {
@@ -550,8 +547,8 @@ $(document).on("click", "#selResMenu", activateMenuTab);
 
 function activateMenuTab() {
     // deactivate other tab. hide other tab content
-    if ($("#selResBasic").hasClass("is-active")) {
-        $("#selResBasic").toggleClass("is-active");
+    if ($("#selResBasics").hasClass("is-active")) {
+        $("#selResBasics").toggleClass("is-active");
         $("#basicTabContent").attr("style", "display:none")
     }
     else if ($("#selResPictures").hasClass("is-active")) {
@@ -579,8 +576,8 @@ $(document).on("click", "#selResDirections", activateDirectionsTab);
 
 function activateDirectionsTab() {
     // deactivate other tab. hide other tab content
-    if ($("#selResBasic").hasClass("is-active")) {
-        $("#selResBasic").toggleClass("is-active");
+    if ($("#selResBasics").hasClass("is-active")) {
+        $("#selResBasics").toggleClass("is-active");
         $("#basicTabContent").attr("style", "display:none")
     }
     else if ($("#selResPictures").hasClass("is-active")) {
@@ -764,7 +761,7 @@ function thumbs() {
         storageBucket: "project-01-1543881106905.appspot.com",
         messagingSenderId: "307620256786"
     };
-    firebase.initializeApp(something);
+    //   firebase.initializeApp(something);
 
     var database = firebase.database()
 
@@ -776,8 +773,8 @@ function thumbs() {
 
     $(document).on('click', '#yesWorth', function () {
         likeCount++;
-        $("#worthCount").html(likeCount);
 
+        $("#worthCount").html(likeCount);
         database.ref("name").set({
             Likes: likeCount
         });

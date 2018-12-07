@@ -1,3 +1,7 @@
+body {
+    background: transparent black;
+}
+
 .columns is-centered{
     float: right;
     align-content: center;
@@ -5,14 +9,46 @@
 
 .hero-body .label {
     color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em grey, 0 0 0.2em lightgrey;
+}
+
+.hero-body .column {
+    padding: 0px;
+    box-align: center;
+}
+
+.column .button {
+    align-items: center;
+}
+
+#submitSearch {
+    float:left;
+    background-color: #ef4036;
+}
+
+.button.is-primary.is-inverted {
+    background-color: #fff;
+    color: #ef4036;
 }
 
 #clearSearch {
-    color: lightblue;
-    background-color: #3273dc;
+    color:#ef4036;
+    background-color: black;
+    border-color: #ef4036;
     box-decoration-break: slice;
+    float:left;
 }
 
 .counter {
     padding: 0px;
+}
+
+.navbar-item img {
+    max-height: 5rem;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after {
+    border-color: #ef4036;
+    right: 1.125em;
+    z-index: 4;
 }

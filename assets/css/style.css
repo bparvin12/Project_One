@@ -1,3 +1,7 @@
+body {
+    background: transparent black;
+}
+
 .columns is-centered{
     float: right;
     align-content: center;
@@ -7,10 +11,27 @@
     color: white;
 }
 
+.hero-body .column {
+    padding: 0px;
+    box-align: center;
+}
+
+.column .button {
+    align-items: center;
+}
+
+#submitSearch {
+    float:left;
+}
+
 #clearSearch {
     color: lightblue;
-    background-color: #3273dc;
+    background-color: grey;
+    border-color: #3273dc;
     box-decoration-break: slice;
+    float:left;
 }
+
 .counter {
     padding: 0px;
+}

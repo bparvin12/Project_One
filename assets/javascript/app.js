@@ -11,7 +11,7 @@ var state;
 var zip;
 var cuisine;
 
-// ================ Initialize Firebase =========================
+// ================ Initialize Firebase =============rom============
 var config = {
     apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
     authDomain: "project-01-1543881106905.firebaseapp.com",
@@ -324,6 +324,7 @@ $(".closeSignInModal").click(function () {
                 
                 var email = $('#usernameInput').val();
                 var password = $('#passwordInput').val();
+                var btnNewAccount = $('#newAccount');
 
                 if (!email || !password) {
                     return console.log('email and password required');
@@ -331,33 +332,33 @@ $(".closeSignInModal").click(function () {
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
                     var errorCode = error.code;
                     var errorMessage = error.message;
+                    var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
                     console.log('signIn error', error);
                     $('.modal-card-title').html("Login Error Please Try Again");
-                    $('#submitTarget').append("<a href='#' id='newAccount'>New? Create Account</a>");
+                    $('#submitTarget').append(newAccount);
+                    newAccount.click(register);
                     $("#signInModal").toggleClass("is-active");
+                    // Event.observe(btnNewAccount, 'click', register);
 
-                    // register();
+                    //register();
                 });                
             
 
-            function register() {
-
+            function register(event) {
+                event.preventDefault();
                 var email = $('#usernameInput').val();
                 var password = $('#passwordInput').val();
 
                 if (!email || !password) {
                     return console.log('email and password required');
                 }
-                    Event.observe( $('#newAccount'), 'click', function(event) {
-                        firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error) {
-                            console.log('register error', error);
-                            if (error.code === 'auth/email-already-in-use') {
-                                var credential = firebase.auth.EmailAuthProvider.credential(email, password);
-                            }
-                        });
-                
-                        Event.stop(event);
-                    });
+                   
+                firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error) {
+                    console.log('register error', error);
+                    if (error.code === 'auth/email-already-in-use') {
+                        var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+                    }
+                });
                 
             };
 

@@ -19,6 +19,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- bulma -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/bulma-carousel.min.css">
         <!-- font awesome -->
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <!-- bootstrap -->
@@ -29,7 +30,6 @@
         <!-- link to firebase -->
         <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
         <!-- bulma carousel -->
-        <link rel="stylesheet" type="text/css" href="assets/css/bulma-carousel.min.css">
         <!-- <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script> -->
 
         <!-- Firebase App is always required and must be first -->
@@ -126,14 +126,20 @@
         </div>
         <div class="hero-body has-text-centered">
             <div class="columns is-mobile is-centered">
-                <div class="column is-half is-narrow">
+                <div class="column is-four-fifths is-narrow">
                     <div class="field has-addons">
                         <div class="control is-expanded">
                             <!-- <input class="input" type="text" placeholder="Find your happy place"> -->
                             <div class="columns is-centered">
                                 <div class="column is-three-quarters">
                                     <div class="field">
-                                        <label class="label">Location </label>
+                                        <label class="label">
+                                            <div class="columns">
+                                                <div class="column is-one-third">Location</div>
+                                                <div class="column is-one-third"></div>
+                                                <div class="column is-one-third">Cuisine</div>
+                                            </div>
+                                        </label>
                                         <div class="control">
                                             <div class="columns">
                                                 <div class="column is-one-third">
@@ -141,21 +147,11 @@
                                                 </div>
                                                 <div class="column is-one-third">
                                                     <input class="input" type="text" placeholder="State" id="stateSearch">
-                                                </div>
-                                                <div class="column is-one-third">
-                                                    <input class="input" type="text" placeholder="Zip Code (Optional)"
+                                                    <input class="input" type="text" placeholder="Zip Code*"
                                                         id="zipSearch">
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label">Cuisine</label>
-                                        <div class="control">
-                                            <!--Adding in columns-->
-                                            <div class="columns">
                                                 <div class="column is-one-third">
-                                                    <div class="select" style="width:100%;">
+                                                    <div class="select" style="width:calc(100% - 84px);">
                                                         <select id="cuisineSearch" style="width:100%;">
                                                             <option id="everything" value="">---------</option>
                                                             <option id="beer" value="beer">Beer</option>
@@ -170,10 +166,7 @@
                                                             <option id="french" value="french">French</option>
                                                         </select>
                                                     </div>
-                                                </div>
-                                                <div class="column is-half">
-                                                    <div class="column">
-                                                        <button class="button is-link submit" id="submitSearch">
+                                                    <button class="button is-link submit" id="submitSearch">
                                                             <!-- replaced "submit" with *search* icon button -->
                                                             <i class="fas fa-spinner fa-pulse fa-search"></i></button>
                                                         <!--</div>
@@ -181,10 +174,12 @@
                                                         <button class="button is-text" id="clearSearch">
                                                             <!-- replaced "clear" with *redo* icon button -->
                                                             <i class="fas fa-redo"></i></button>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label" id="optional-info">fields marked with * are optional</label>
                                     </div>
                                 </div>
                                 <div class="control">

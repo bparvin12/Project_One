@@ -52,3 +52,26 @@ body {
     right: 1.125em;
     z-index: 4;
 }
+
+#stateSearch{
+    width: 60px;
+    float: left;
+}
+
+#zipSearch{
+    width: calc(100% - 60px);
+    float: left;
+}
+
+.select {
+    float: left;
+}
+
+.fa-pulse {
+    -webkit-animation: fa-spin 2s infinite steps(8);
+    animation: fa-spin 2s infinite steps(8);
+}
+
+#optional-info{
+    color: #ef4036;
+}

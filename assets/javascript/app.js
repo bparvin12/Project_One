@@ -333,6 +333,7 @@ $(".closeSignInModal").click(function () {
                     var errorMessage = error.message;
                     console.log('signIn error', error);
                     $('.modal-card-title').html("Login Error Please Try Again");
+                    $('#submitTarget').append("<a href='#' id='newAccount'>New? Create Account</a>");
                     $("#signInModal").toggleClass("is-active");
 
                     // register();
@@ -341,15 +342,23 @@ $(".closeSignInModal").click(function () {
 
             function register() {
 
+                var email = $('#usernameInput').val();
+                var password = $('#passwordInput').val();
+
                 if (!email || !password) {
                     return console.log('email and password required');
                 }
-                firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error) {
-                    console.log('register error', error);
-                    if (error.code === 'auth/email-already-in-use') {
-                        var credential = firebase.auth.EmailAuthProvider.credential(email, password);
-                    }
-                });
+                    Event.observe( $('#newAccount'), 'click', function(event) {
+                        firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error) {
+                            console.log('register error', error);
+                            if (error.code === 'auth/email-already-in-use') {
+                                var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+                            }
+                        });
+                
+                        Event.stop(event);
+                    });
+                
             };
 
             // =========================================================
@@ -364,8 +373,8 @@ $(".closeSignInModal").click(function () {
             $("#signInModal").toggleClass("is-active");
         }
     };
-
-    //prevent page from refresing when form tries to submit itself 
+    
+       //prevent page from refresing when form tries to submit itself 
     event.preventDefault();
 
     var email = $('#usernameInput').val().trim();

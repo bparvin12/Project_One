@@ -323,9 +323,10 @@ $(".closeSignInModal").click(function () {
         //if sign in fails, clear form so user can retry
         if (errorMessage == "" && fieldsMissing == "") {
 
-            // ====================user login=====================================
+            // ====================user login========================rom=============
 
 
+<<<<<<< HEAD
             var email = $('#usernameInput').val();
             var password = $('#passwordInput').val();
             var btnNewAccount = $('#newAccount');
@@ -347,6 +348,29 @@ $(".closeSignInModal").click(function () {
                 //register();
             });
 
+=======
+                if (!email || !password) {
+                    return console.log('email and password required');
+                }
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
+                    console.log('signIn error', error);
+                    $('.modal-card-title').html("Login Error Please Try Again");
+                                           
+                    if ($('#submitTarget').text().length == 0 ) {
+                        $('#submitTarget').append(newAccount);
+                        };  
+
+                    newAccount.click(register);
+                    $("#signInModal").toggleClass("is-active");
+                    // Event.observe(btnNewAccount, 'click', register);
+
+                    //register();
+                });                
+            
+>>>>>>> origin/gh-pages
 
             function register(event) {
                 event.preventDefault();

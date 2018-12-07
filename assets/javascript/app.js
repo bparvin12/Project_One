@@ -416,7 +416,8 @@ $(".closeSignInModal").click(function () {
                             var credential = firebase.auth.EmailAuthProvider.credential(email, password);
                         }
                     });
-
+                    var uCurrent = firebase.auth().currentUser;
+                    console.log(uCurrent);
                     Event.stop(event);
                 });
 

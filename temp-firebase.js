@@ -51,3 +51,14 @@
         age: 20
      }
   });
+
+
+
+
+
+  on sign in, save email to uCurrent. (global)
+
+  on restaurant click, save restaurant key to rCurrent (local to onClick function)
+
+  on worth click 
+      

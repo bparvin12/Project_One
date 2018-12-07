@@ -144,7 +144,6 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
     // restAddress: str address
     // happyHours: str happyHours
     // main div card that everything goes into
-    $("#selectedRestaurant").text(yRestName);
 
     activateBasicsTab();
 
@@ -215,6 +214,46 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
 
     // add restaurant card to page
     addRestCard(card);
+    // RESTAURANT CARD onclick
+    card.click(function () {
+        $("#selectedRestaurant").text(yRestName);
+        // activate selected Restaurant Modal
+        $("#selResModal").toggleClass("is-active");
+        activateBasicsTab();
+        //adds image to main info modal 
+        var mainResImage = $("<img>");
+        mainResImage.attr("id", "mainResImage");
+        mainResImage.attr("src", yImageLink);
+        mainResImage.attr("alt", "Restaurant Image");
+        $("#resImageHolder").html(mainResImage);
+        //add address to main info modal 
+        $("#rAddress").html(yRestAddress);
+        //add phone number to main info modal
+        $("#rNumber").html(yRestNumber)
+        //add price to main info 
+        $("#rPrice").html(yPrice);
+        // console.log(yPrice);
+
+        //add link to menu
+
+        //add link to restaurant
+        // $("rWebLink").attr("href", )
+        var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + restId;
+        $.ajax({
+            url: myurl,
+            headers: {
+                'Authorization': 'Bearer NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx',
+            },
+            method: 'GET',
+            dataType: 'json',
+            success: function (response2) {
+                // console.log(response2);
+                //this diplays the hours in the main rest info modal 
+                $("#rHours").html(response2.hours[0].open[0].start + "-" + response2.hours[0].open[0].end)
+            }
+        });
+
+    });
 
 }
 
@@ -409,45 +448,7 @@ $(document).on("click", "#submitSearch", function () {
 // SEARCH FORM clear
 $(document).on("click", "#clearSearch", clearSearchForm);
 
-// RESTAURANT CARD onclick
-$(document).on("click", ".restaurant-card", function () {
-    // activate selected Restaurant Modal
-    $("#selResModal").toggleClass("is-active");
-    activateBasicsTab();
-    //adds image to main info modal 
-    var mainResImage = $("<img>");
-    mainResImage.attr("id", "mainResImage");
-    mainResImage.attr("src", yImageLink);
-    mainResImage.attr("alt", "Restaurant Image");
-    $("#resImageHolder").html(mainResImage);
-    //add address to main info modal 
-    $("#rAddress").html(yRestAddress);
-    //add phone number to main info modal
-    $("#rNumber").html(yRestNumber)
-    //add price to main info 
-    $("#rPrice").html(yPrice);
-    // console.log(yPrice);
 
-    //add link to menu
-
-    //add link to restaurant
-    // $("rWebLink").attr("href", )
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + restId;
-    $.ajax({
-        url: myurl,
-        headers: {
-            'Authorization': 'Bearer NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx',
-        },
-        method: 'GET',
-        dataType: 'json',
-        success: function (response2) {
-            // console.log(response2);
-            //this diplays the hours in the main rest info modal 
-            $("#rHours").html(response2.hours[0].open[0].start + "-" + response2.hours[0].open[0].end)
-        }
-    });
-
-});
 
 // RESTAURANT MODAL close
 $(document).on("click", "#closeSelResModal", function () {

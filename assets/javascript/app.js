@@ -147,10 +147,6 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
 
 
 
-    $("#selectedRestaurant").text(yRestName);
-
-
-
     var card = $("<div>");
     card.addClass("card restaurant-card");
 
@@ -219,6 +215,46 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
 
     // add restaurant card to page
     addRestCard(card);
+    // RESTAURANT CARD onclick
+    card.click(function () {
+        $("#selectedRestaurant").text(yRestName);
+        // activate selected Restaurant Modal
+        $("#selResModal").toggleClass("is-active");
+        activateBasicsTab();
+        //adds image to main info modal 
+        var mainResImage = $("<img>");
+        mainResImage.attr("id", "mainResImage");
+        mainResImage.attr("src", yImageLink);
+        mainResImage.attr("alt", "Restaurant Image");
+        $("#resImageHolder").html(mainResImage);
+        //add address to main info modal 
+        $("#rAddress").html(yRestAddress);
+        //add phone number to main info modal
+        $("#rNumber").html(yRestNumber)
+        //add price to main info 
+        $("#rPrice").html(yPrice);
+        // console.log(yPrice);
+
+        //add link to menu
+
+        //add link to restaurant
+        // $("rWebLink").attr("href", )
+        var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + restId;
+        $.ajax({
+            url: myurl,
+            headers: {
+                'Authorization': 'Bearer NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx',
+            },
+            method: 'GET',
+            dataType: 'json',
+            success: function (response2) {
+                // console.log(response2);
+                //this diplays the hours in the main rest info modal 
+                $("#rHours").html(response2.hours[0].open[0].start + "-" + response2.hours[0].open[0].end)
+            }
+        });
+
+    });
 
 }
 
@@ -326,29 +362,6 @@ $(".closeSignInModal").click(function () {
             // ====================user login========================rom=============
 
 
-<<<<<<< HEAD
-            var email = $('#usernameInput').val();
-            var password = $('#passwordInput').val();
-            var btnNewAccount = $('#newAccount');
-
-            if (!email || !password) {
-                return console.log('email and password required');
-            }
-            firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
-                console.log('signIn error', error);
-                $('.modal-card-title').html("Login Error Please Try Again");
-                $('#submitTarget').append(newAccount);
-                newAccount.click(register);
-                $("#signInModal").toggleClass("is-active");
-                // Event.observe(btnNewAccount, 'click', register);
-
-                //register();
-            });
-
-=======
                 if (!email || !password) {
                     return console.log('email and password required');
                 }
@@ -370,7 +383,6 @@ $(".closeSignInModal").click(function () {
                     //register();
                 });                
             
->>>>>>> origin/gh-pages
 
             function register(event) {
                 event.preventDefault();
@@ -434,46 +446,7 @@ $(document).on("click", "#submitSearch", function () {
 // SEARCH FORM clear
 $(document).on("click", "#clearSearch", clearSearchForm);
 
-// RESTAURANT CARD onclick
-$(document).on("click", ".restaurant-card", function () {
-    // activate selected Restaurant Modal
-    $("#selResModal").toggleClass("is-active");
-    activateBasicsTab();
-    //adds image to main info modal 
-    var mainResImage = $("<img>");
-    mainResImage.attr("id", "mainResImage");
-    mainResImage.attr("src", yImageLink);
 
-    mainResImage.attr("alt", "Restaurant Image");
-    $("#resImageHolder").html(mainResImage);
-    //add address to main info modal 
-    $("#rAddress").html(yRestAddress);
-    //add phone number to main info modal
-    $("#rNumber").html(yRestNumber)
-    //add price to main info 
-    $("#rPrice").html(yPrice);
-    // console.log(yPrice);
-
-    //add link to menu
-
-    //add link to restaurant
-    // $("rWebLink").attr("href", )
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + restId;
-    $.ajax({
-        url: myurl,
-        headers: {
-            'Authorization': 'Bearer NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx',
-        },
-        method: 'GET',
-        dataType: 'json',
-        success: function (response2) {
-            // console.log(response2);
-            //this diplays the hours in the main rest info modal 
-            $("#rHours").html(response2.hours[0].open[0].start + "-" + response2.hours[0].open[0].end)
-        }
-    });
-
-});
 
 // RESTAURANT MODAL close
 $(document).on("click", "#closeSelResModal", function () {

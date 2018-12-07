@@ -340,7 +340,7 @@ var currRow;
 function isEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
-}
+};
 
 // SIGN IN MODAL close & submit
 $(".closeSignInModal").click(function () {
@@ -377,7 +377,8 @@ $(".closeSignInModal").click(function () {
         if (errorMessage == "" && fieldsMissing == "") {
 
             // ====================user login========================rom=============
-
+            var email = $('#usernameInput').val();
+            var password = $('#passwordInput').val();
 
                 if (!email || !password) {
                     return console.log('email and password required');
@@ -409,16 +410,16 @@ $(".closeSignInModal").click(function () {
                 if (!email || !password) {
                     return console.log('email and password required');
                 }
-                Event.observe($('#newAccount'), 'click', function (event) {
+                // Event.observe($('#newAccount'), 'click', function (event) {
                     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
                         console.log('register error', error);
                         if (error.code === 'auth/email-already-in-use') {
                             var credential = firebase.auth.EmailAuthProvider.credential(email, password);
-                        }
+                        };
                     });
 
                     Event.stop(event);
-                });
+                };
 
             };
 
@@ -432,8 +433,10 @@ $(".closeSignInModal").click(function () {
             // });
 
             $("#signInModal").toggleClass("is-active");
-        }
-    };
+        
+
+
+
 
     //prevent page from refresing when form tries to submit itself 
     event.preventDefault();
@@ -451,7 +454,13 @@ $(".closeSignInModal").click(function () {
     localStorage.setItem("email", email);
 
     $("#welcome").text(localStorage.getItem("email"));
+
+};
+
 });
+
+//=======================================================
+
 $("#welcome").text(localStorage.getItem("email"));
 
 // SEARCH FORM submit

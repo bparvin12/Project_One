@@ -26,6 +26,11 @@ body {
     background-color: #ef4036;
 }
 
+.button.is-primary.is-inverted {
+    background-color: #fff;
+    color: #ef4036;
+}
+
 #clearSearch {
     color:#ef4036;
     background-color: black;

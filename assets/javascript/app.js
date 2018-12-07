@@ -1,4 +1,3 @@
-
 //making a global variable to call upon address  
 var yRestAddress;
 var yRestNumber
@@ -12,10 +11,27 @@ var state;
 var zip;
 var cuisine;
 
+// ================ Initialize Firebase =============rom============
+var config = {
+    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
+    authDomain: "project-01-1543881106905.firebaseapp.com",
+    databaseURL: "https://project-01-1543881106905.firebaseio.com",
+    projectId: "project-01-1543881106905",
+    storageBucket: "project-01-1543881106905.appspot.com",
+    messagingSenderId: "307620256786"
+};
+firebase.initializeApp(config);
+
+
+
 checkPersistantSignIn();
 
 function checkPersistantSignIn(){
-    
+    var isEmail = localStorage.getItem("email"); 
+    console.log(isEmail);
+    if(!isEmail){
+        $("#signInModal").addClass("is-active");
+    }
 }
 
 //start search for restaurants 
@@ -168,13 +184,17 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
     restAddress.addClass("subtitle is-6 restAddress");
     restAddress.text(yRestAddress) // delete this when parameters filled in.
 
-    // create line for restaurant address. add address
+    // create line for restaurant Number  . add Number
     var restNumber = $("<p>");
     restNumber.addClass("subtitle is-6 restNumber");
     restNumber.text(yRestNumber) // delete this when parameters filled in.
 
-    // add value to restaurant basics. then to card content
+    var restName = $("<p>");
+    restName.addClass("subtitle is-4 restName");
+    restName.text(yRestName) // delete this when parameters filled in
 
+    // add value to restaurant basics. then to card content
+    restaurantBasics.append(restName);
     restaurantBasics.append(restAddress);
     restaurantBasics.append(restNumber);
     cardContent.append(restaurantBasics);
@@ -219,10 +239,13 @@ function addRestCard(restCard) {
 }
 
 
-//====== Press ENTER key to submit ================
+//====== Press ENTER key to submit ===========rom=====
 
 var input = document.getElementById('passwordInput');
 var input2 = document.getElementById('usernameInput');
+var input3 = document.getElementById('citySearch');
+var input4 = document.getElementById('startLocation');
+
 
 input.addEventListener("keyup", function (event) {
     event.preventDefault();
@@ -234,6 +257,18 @@ input2.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
         document.getElementById('signInSubmit').click();
+    }
+});
+input3.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('submitSearch').click();
+    }
+});
+input4.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('directionSubmitButton').click();
     }
 });
 //=================================================
@@ -280,50 +315,67 @@ $(".closeSignInModal").click(function () {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
     }
 
-        else 
-            {
-            //if sign in fails, clear form so user can retry
-            if (errorMessage == "" && fieldsMissing == "") {
+    else {
+        //if sign in fails, clear form so user can retry
+        if (errorMessage == "" && fieldsMissing == "") {
+
+            // ====================user login=====================================
+
                 
-                // Initialize Firebase
-                var config = {
-                    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
-                    authDomain: "project-01-1543881106905.firebaseapp.com",
-                    databaseURL: "https://project-01-1543881106905.firebaseio.com",
-                    projectId: "project-01-1543881106905",
-                    storageBucket: "project-01-1543881106905.appspot.com",
-                    messagingSenderId: "307620256786"
-                  };
+                var email = $('#usernameInput').val();
+                var password = $('#passwordInput').val();
+                var btnNewAccount = $('#newAccount');
 
-                  firebase.initializeApp(config);
-
-                // Capture and send data to Firebase
-                var database = firebase.database();
-                database.ref().push({
-                    Name: $('#usernameInput').val(),
-                    Password: $('#passwordInput').val()
-                });
-
-                //========== confirm user account in Firebase ==============
-
-                function checkUser(user) {
-                    var user = firebase.auth().currentUser;
-
-                    if (user != null) {
-                    user.providerData.forEach(function (profile) {
-                        console.log("Sign-in provider: " + profile.providerId);
-                        console.log("  Provider-specific UID: " + profile.uid);
-                        console.log("  Name: " + profile.displayName);
-                        console.log("  Email: " + profile.email);
-                    });
-                    }
+                if (!email || !password) {
+                    return console.log('email and password required');
                 }
-                //==========================================================
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
+                    console.log('signIn error', error);
+                    $('.modal-card-title').html("Login Error Please Try Again");
+                    $('#submitTarget').append(newAccount);
+                    newAccount.click(register);
+                    $("#signInModal").toggleClass("is-active");
+                    // Event.observe(btnNewAccount, 'click', register);
 
-                $("#signInModal").toggleClass("is-active");
-            }
-        };
-    //prevent page from refresing when form tries to submit itself 
+                    //register();
+                });                
+            
+
+            function register(event) {
+                event.preventDefault();
+                var email = $('#usernameInput').val();
+                var password = $('#passwordInput').val();
+
+                if (!email || !password) {
+                    return console.log('email and password required');
+                }
+                   
+                firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error) {
+                    console.log('register error', error);
+                    if (error.code === 'auth/email-already-in-use') {
+                        var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+                    }
+                });
+                
+            };
+
+            // =========================================================
+                        
+            // Capture and send data to Firebase
+            // var database = firebase.database();
+            // database.ref().push({
+            //     Name: $('#usernameInput').val(),
+            //     Password: $('#passwordInput').val()
+            // });
+
+            $("#signInModal").toggleClass("is-active");
+        }
+    };
+    
+       //prevent page from refresing when form tries to submit itself 
     event.preventDefault();
 
     var email = $('#usernameInput').val().trim();
@@ -334,13 +386,13 @@ $(".closeSignInModal").click(function () {
 
     //local storage clear
     localStorage.clear();
-    
+
     //Store all content into localStorage 
-    localStorage.setItem("email", email);   
-    
+    localStorage.setItem("email", email);
+
     $("#welcome").text(localStorage.getItem("email"));
-});    
-    $("#welcome").text(localStorage.getItem("email"));
+});
+$("#welcome").text(localStorage.getItem("email"));
 
 // SEARCH FORM submit
 $(document).on("click", "#submitSearch", function () {
@@ -664,7 +716,7 @@ $(document).on("click", "#directionsSubmitButton", function () {
     $("#directionsTabContent").append(imageDiv);
 })
 
-$(document).ready(function(){
+$(document).ready(function () {
     var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
 });
 
@@ -684,3 +736,53 @@ function formatNumber(yelpNum) { // +15622360141 562.236.0141
 
     return formatNum.join("");
 }
+
+$(document).on("click", "#clearUser", function(){
+    localStorage.clear();
+    $("#welcome").text("");
+    checkPersistantSignIn();
+    location.reload();
+});
+
+//============================================================================
+//create a function with firebase to list thumbs up and thumbs down
+  // Initialize Firebase
+  function thumbs() {
+      var something = {
+    apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
+    authDomain: "project-01-1543881106905.firebaseapp.com",
+    databaseURL: "https://project-01-1543881106905.firebaseio.com",
+    projectId: "project-01-1543881106905",
+    storageBucket: "project-01-1543881106905.appspot.com",
+    messagingSenderId: "307620256786"
+  };
+//   firebase.initializeApp(something);
+
+  var database = firebase.database()
+
+  var likeCount = 0;
+  $("#worthCount").html(likeCount);
+
+  var dislikeCount = 0;
+  $("#notWorthCount").html(dislikeCount);
+
+$(document).on('click', '#yesWorth', function() {
+    likeCount++;
+    $("#worthCount").html(likeCount);
+
+    database.ref("name").set({
+        Likes: likeCount
+    });
+});
+
+$(document).on('click', '#notWorth', function() {
+    dislikeCount++;
+    $("#notWorthCount").html(dislikeCount);
+
+
+    database.ref("name").set({
+        Dislikes: dislikeCount
+    });
+});
+};
+//============================================================================

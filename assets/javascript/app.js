@@ -9,9 +9,9 @@ var restId;
 var city;
 var state;
 var zip;
-var cuisine;
+var cuisine; 
 
-// ================ Initialize Firebase =========================
+// ================ Initialize Firebase =============rom============
 var config = {
     apiKey: "AIzaSyAOF_apbWhRflI5RekKNZkrosejZ8FEeWs",
     authDomain: "project-01-1543881106905.firebaseapp.com",
@@ -144,7 +144,6 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
     // restAddress: str address
     // happyHours: str happyHours
     // main div card that everything goes into
-    $("#selectedRestaurant").text(yRestName);
 
     activateBasicsTab();
 
@@ -215,6 +214,46 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
 
     // add restaurant card to page
     addRestCard(card);
+    // RESTAURANT CARD onclick
+    card.click(function () {
+        $("#selectedRestaurant").text(yRestName);
+        // activate selected Restaurant Modal
+        $("#selResModal").toggleClass("is-active");
+        activateBasicsTab();
+        //adds image to main info modal 
+        var mainResImage = $("<img>");
+        mainResImage.attr("id", "mainResImage");
+        mainResImage.attr("src", yImageLink);
+        mainResImage.attr("alt", "Restaurant Image");
+        $("#resImageHolder").html(mainResImage);
+        //add address to main info modal 
+        $("#rAddress").html(yRestAddress);
+        //add phone number to main info modal
+        $("#rNumber").html(yRestNumber)
+        //add price to main info 
+        $("#rPrice").html(yPrice);
+        // console.log(yPrice);
+
+        //add link to menu
+
+        //add link to restaurant
+        // $("rWebLink").attr("href", )
+        var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + restId;
+        $.ajax({
+            url: myurl,
+            headers: {
+                'Authorization': 'Bearer NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx',
+            },
+            method: 'GET',
+            dataType: 'json',
+            success: function (response2) {
+                // console.log(response2);
+                //this diplays the hours in the main rest info modal 
+                $("#rHours").html(response2.hours[0].open[0].start + "-" + response2.hours[0].open[0].end)
+            }
+        });
+
+    });
 
 }
 
@@ -319,29 +358,37 @@ $(".closeSignInModal").click(function () {
         //if sign in fails, clear form so user can retry
         if (errorMessage == "" && fieldsMissing == "") {
 
-            // ====================user login=====================================
+            // ====================user login========================rom=============
 
+                
+                var email = $('#usernameInput').val();
+                var password = $('#passwordInput').val();
+                var btnNewAccount = $('#newAccount');
 
-            var email = $('#usernameInput').val();
-            var password = $('#passwordInput').val();
+                if (!email || !password) {
+                    return console.log('email and password required');
+                }
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
+                    console.log('signIn error', error);
+                    $('.modal-card-title').html("Login Error Please Try Again");
+                                           
+                    if ($('#submitTarget').text().length == 0 ) {
+                        $('#submitTarget').append(newAccount);
+                        };  
 
-            if (!email || !password) {
-                return console.log('email and password required');
-            }
-            firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log('signIn error', error);
-                $('.modal-card-title').html("Login Error Please Try Again");
-                $('#submitTarget').append("<a href='#' id='newAccount'>New? Create Account</a>");
-                $("#signInModal").toggleClass("is-active");
+                    newAccount.click(register);
+                    $("#signInModal").toggleClass("is-active");
+                    // Event.observe(btnNewAccount, 'click', register);
 
-                // register();
-            });
+                    //register();
+                });                
+            
 
-
-            function register() {
-
+            function register(event) {
+                event.preventDefault();
                 var email = $('#usernameInput').val();
                 var password = $('#passwordInput').val();
 
@@ -404,45 +451,7 @@ $(document).on("click", "#submitSearch", function () {
 // SEARCH FORM clear
 $(document).on("click", "#clearSearch", clearSearchForm);
 
-// RESTAURANT CARD onclick
-$(document).on("click", ".restaurant-card", function () {
-    // activate selected Restaurant Modal
-    $("#selResModal").toggleClass("is-active");
-    activateBasicsTab();
-    //adds image to main info modal 
-    var mainResImage = $("<img>");
-    mainResImage.attr("id", "mainResImage");
-    mainResImage.attr("src", yImageLink);
-    mainResImage.attr("alt", "Restaurant Image");
-    $("#resImageHolder").html(mainResImage);
-    //add address to main info modal 
-    $("#rAddress").html(yRestAddress);
-    //add phone number to main info modal
-    $("#rNumber").html(yRestNumber)
-    //add price to main info 
-    $("#rPrice").html(yPrice);
-    // console.log(yPrice);
 
-    //add link to menu
-
-    //add link to restaurant
-    // $("rWebLink").attr("href", )
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + restId;
-    $.ajax({
-        url: myurl,
-        headers: {
-            'Authorization': 'Bearer NHvlP42MwvOCRjHVyCPDGRj0TQ-GnJlBYnZ63U-iJd85a90cehQ9rCSoGhmSRe8bx_Nr1PXb_j2AqafFnSOM2vSg_pUGsjQ0faLnr7GOs_lXWN0stah7PrFdYroFXHYx',
-        },
-        method: 'GET',
-        dataType: 'json',
-        success: function (response2) {
-            // console.log(response2);
-            //this diplays the hours in the main rest info modal 
-            $("#rHours").html(response2.hours[0].open[0].start + "-" + response2.hours[0].open[0].end)
-        }
-    });
-
-});
 
 // RESTAURANT MODAL close
 $(document).on("click", "#closeSelResModal", function () {

@@ -10,6 +10,7 @@ var city;
 var state;
 var zip;
 var cuisine;
+var googleAddress;
 
 // ================ Initialize Firebase =============rom============
 var config = {
@@ -229,6 +230,7 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
         $("#resImageHolder").html(mainResImage);
         //add address to main info modal 
         $("#rAddress").html(yRestAddress);
+        googleAddress = yRestAddress;
         //add phone number to main info modal
         $("#rNumber").html(yRestNumber)
         //add price to main info 
@@ -723,7 +725,7 @@ $(document).on("click", "#directionsSubmitButton", function () {
     //api key for google
     var apiKeyGoogle = "AIzaSyDlIhSIHh3DOCgKFekiOXVtnGCzdkGdxlE"
     //destination equal to 
-    var destination = yRestAddress
+    var destination = googleAddress
     // console.log(yRestAddress)
     //origin equal to
     var origin = $("#startLocation").val().trim();
@@ -733,7 +735,7 @@ $(document).on("click", "#directionsSubmitButton", function () {
     var imageDiv = $("<div>");
     imageDiv.html("<iframe width='450' height='250' frameborder='0' style='border:0' src='" + googleDirectionsUrl + "' allowfullscreen></iframe>");
 
-    $("#directionsTabContent").append(imageDiv);
+    $("#directionsTabContent").html(imageDiv);
 })
 
 $(document).ready(function () {

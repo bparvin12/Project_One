@@ -245,6 +245,9 @@ var input = document.getElementById('passwordInput');
 var input2 = document.getElementById('usernameInput');
 var input3 = document.getElementById('citySearch');
 var input4 = document.getElementById('startLocation');
+var input4 = document.getElementById('stateSearch');
+var input4 = document.getElementById('zipSearch');
+
 
 
 input.addEventListener("keyup", function (event) {
@@ -269,6 +272,18 @@ input4.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
         document.getElementById('directionSubmitButton').click();
+    }
+});
+input2.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('submitSearch').click();
+    }
+});
+input2.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById('submitSearch').click();
     }
 });
 //=================================================

@@ -715,8 +715,6 @@ $(document).on("click", "#clearUser", function(){
     $("#welcome").text("");
     checkPersistantSignIn();
     location.reload();
-<<<<<<< HEAD
-=======
 });
 
 //============================================================================
@@ -748,7 +746,6 @@ $(document).on('click', '#yesWorth', function() {
     database.ref("name").set({
         Likes: likeCount
     });
->>>>>>> origin/gh-pages
 });
 
 $(document).on('click', '#notWorth', function() {

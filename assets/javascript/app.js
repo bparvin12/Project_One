@@ -694,4 +694,5 @@ $(document).on("click", "#clearUser", function(){
     localStorage.clear();
     $("#welcome").text("");
     checkPersistantSignIn();
+    location.reload();
 });

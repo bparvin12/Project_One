@@ -12,3 +12,7 @@
     background-color: #3273dc;
     box-decoration-break: slice;
 }
+
+.counter {
+    padding: 0px;
+}

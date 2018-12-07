@@ -338,11 +338,13 @@ var currRow;
 
 // SIGN IN MODAL form validation
 function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-};
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+ };
 
 // SIGN IN MODAL close & submit
+
+
 $(".closeSignInModal").click(function () {
     var errorMessage = "";
     var fieldsMissing = "";
@@ -380,7 +382,7 @@ $(".closeSignInModal").click(function () {
             var email = $('#usernameInput').val();
             var password = $('#passwordInput').val();
 
-                if (!email || !password) {
+                    if (!email || !password) {
                     return console.log('email and password required');
                 }
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {

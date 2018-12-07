@@ -9,7 +9,7 @@ var restId;
 var city;
 var state;
 var zip;
-var cuisine;
+var cuisine; 
 
 // ================ Initialize Firebase =============rom============
 var config = {

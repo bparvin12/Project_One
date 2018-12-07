@@ -23,16 +23,27 @@ body {
 
 #submitSearch {
     float:left;
+    background-color: #ef4036;
 }
 
 #clearSearch {
-    color: lightblue;
-    background-color: grey;
-    border-color: #3273dc;
+    color:#ef4036;
+    background-color: black;
+    border-color: #ef4036;
     box-decoration-break: slice;
     float:left;
 }
 
 .counter {
     padding: 0px;
+}
+
+.navbar-item img {
+    max-height: 5rem;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after {
+    border-color: #ef4036;
+    right: 1.125em;
+    z-index: 4;
 }

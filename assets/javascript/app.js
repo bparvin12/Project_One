@@ -159,7 +159,7 @@ function makeRestaurantCard(yImageLink, yRestName, yRestAddress, yPrice, yRestNu
     figure.addClass("image is-4by3");
 
     // set up picture (placeholder for now) for image portion
-    var img = $("<img>"); 
+    var img = $("<img>");
     img.addClass("restImage");
     img.attr("src", yImageLink); // img.attr("src", imageLink);
 
@@ -328,7 +328,6 @@ input2.addEventListener("keyup", function (event) {
         document.getElementById('submitSearch').click();
     }
 });
-//=================================================
 
 
 // global variables
@@ -336,11 +335,7 @@ var cardCount = 0;
 var rowCount = 0;
 var currRow;
 
-// SIGN IN MODAL form validation
-
-
-// SIGN IN MODAL close & submit =============rom===============
-
+// SIGN IN MODAL form validation, close & submit
 
 $(".closeSignInModal").click(function () {
 
@@ -350,7 +345,7 @@ $(".closeSignInModal").click(function () {
     function isEmail(email) {
         var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return regex.test(email);
-     };
+    };
 
 
     if ($("#usernameInput").val() == "") {
@@ -368,13 +363,13 @@ $(".closeSignInModal").click(function () {
     if (isEmail($("#usernameInput").val()) == false) {
         errorMessage += "<p>Your email address is not valid</p>";
     };
-   
+
     if (errorMessage !== "") {
-        
-        if ($('.modal-card-title').text().length === 9 ) {
+
+        if ($('.modal-card-title').text().length === 9) {
             $('.modal-card-title').append('<p><font color="red">' + errorMessage);
-            }; 
-        $("#signInModal").toggleClass("is-active");        
+        };
+        $("#signInModal").toggleClass("is-active");
     };
 
     if (fieldsMissing !== "") {
@@ -389,84 +384,77 @@ $(".closeSignInModal").click(function () {
             var email = $('#usernameInput').val();
             var password = $('#passwordInput').val();
 
-                    if (!email || !password) {
-                    return console.log('email and password required');
-                }
-                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-                    var errorCode = error.code;
-                    var error = error.message;
-                    var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
-                    console.log('signIn error', error, errorCode);
-                    $('.modal-card-title').html("Login Error Please Try Again");
-                                           
-                    if ($('#submitTarget').text().length == 0 ) {
-                        $('#submitTarget').append(newAccount);
-                        };  
+            if (!email || !password) {
+                return console.log('email and password required');
+            }
+            firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+                var errorCode = error.code;
+                var error = error.message;
+                var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
+                console.log('signIn error', error, errorCode);
+                $('.modal-card-title').html("Login Error Please Try Again");
 
-                    newAccount.click(register);
-                    $("#signInModal").toggleClass("is-active");
-                                        
-                });                
-            
+                if ($('#submitTarget').text().length == 0) {
+                    $('#submitTarget').append(newAccount);
+                };
+
+                newAccount.click(register);
+                $("#signInModal").toggleClass("is-active");
+
+            });
+
 
             function register(event) {
                 event.preventDefault();
                 var email = $('#usernameInput').val();
                 var password = $('#passwordInput').val();
+                var user = firebase.auth().currentUser;
 
                 if (!email || !password) {
                     return console.log('email and password required');
                 }
-                // Event.observe($('#newAccount'), 'click', function (event) {
                     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-                        console.log('register error', error);
+                    console.log('register error', error);
                         if (error.code === 'auth/email-already-in-use') {
-                            var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+                        var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+                            if (!$('#newAccountTarget').innerHTML) {
+                            $('#newAccountTarget').html('Sorry squirrel, this name is already in use!');
+                            };
                         };
                     });
+                        $('#newAccountTarget').html('<-- Welcome Squirrel! Press Submit to explore!');
 
-                    Event.stop(event);
-                };
 
+                Event.stop(event);
             };
 
-            // =========================================================
+        };
 
-            // Capture and send data to Firebase
-            // var database = firebase.database();
-            // database.ref().push({
-            //     Name: $('#usernameInput').val(),
-            //     Password: $('#passwordInput').val()
-            // });
-
-            $("#signInModal").toggleClass("is-active");
-        
+        $("#signInModal").toggleClass("is-active");
 
 
 
+        //prevent page from refresing when form tries to submit itself 
+        event.preventDefault();
 
-    //prevent page from refresing when form tries to submit itself 
-    event.preventDefault();
+        var email = $('#usernameInput').val().trim();
 
-    var email = $('#usernameInput').val().trim();
+        //console log each of the user 
+        // console.log(email);
+        $("welcome").text(email);
 
-    //console log each of the user 
-    // console.log(email);
-    $("welcome").text(email);
+        //local storage clear
+        localStorage.clear();
 
-    //local storage clear
-    localStorage.clear();
+        //Store all content into localStorage 
+        localStorage.setItem("email", email);
 
-    //Store all content into localStorage 
-    localStorage.setItem("email", email);
+        $("#welcome").text(localStorage.getItem("email"));
 
-    $("#welcome").text(localStorage.getItem("email"));
-
-};
+    };
 
 });
 
-//=======================================================
 
 $("#welcome").text(localStorage.getItem("email"));
 
@@ -606,7 +594,7 @@ function activateMenuTab() {
     // show tab content
     $("#menuTabContent").removeAttr("style");
 
-    
+
 }
 
 
@@ -654,7 +642,7 @@ function fillPicturesContent() {
     var foodImageLinkArg = "https://bulma.io/images/placeholders/640x480.png";
     var foodImageAltArg = "alt alt alt";
 
-    
+
     makeFoodImageCard("http://www.studyabroadcorner.com/wp-content/uploads/2015/06/Fast-food.jpg", "a");
 
     makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Eggs-as-food.jpg/1200px-Eggs-as-food.jpg", "b");
@@ -662,7 +650,7 @@ function fillPicturesContent() {
     makeFoodImageCard("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Momo_nepal.jpg/1200px-Momo_nepal.jpg", "c");
 
     makeFoodImageCard("http://thenextweb.com/wp-content/blogs.dir/1/files/2012/10/Food.jpg", "d");
-    
+
 
 }
 

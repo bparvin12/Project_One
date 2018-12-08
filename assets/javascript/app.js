@@ -337,17 +337,20 @@ var rowCount = 0;
 var currRow;
 
 // SIGN IN MODAL form validation
-function isEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
- };
 
-// SIGN IN MODAL close & submit
+
+// SIGN IN MODAL close & submit =============rom===============
 
 
 $(".closeSignInModal").click(function () {
+
     var errorMessage = "";
     var fieldsMissing = "";
+
+    function isEmail(email) {
+        var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return regex.test(email);
+     };
 
 
     if ($("#usernameInput").val() == "") {
@@ -358,19 +361,23 @@ $(".closeSignInModal").click(function () {
         fieldsMissing += "<br>Password";
     };
 
-    if (fieldsMissing != "") {
+    if (fieldsMissing !== "") {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
     };
 
     if (isEmail($("#usernameInput").val()) == false) {
         errorMessage += "<p>Your email address is not valid</p>";
     };
-
-    if (errorMessage != "") {
-        $(".modal-card-title").html(errorMessage);
+   
+    if (errorMessage !== "") {
+        
+        if ($('.modal-card-title').text().length === 9 ) {
+            $('.modal-card-title').append('<p><font color="red">' + errorMessage);
+            }; 
+        $("#signInModal").toggleClass("is-active");        
     };
 
-    if (fieldsMissing != "") {
+    if (fieldsMissing !== "") {
         errorMessage += "<p>The following field(s) are missing: " + fieldsMissing;
     }
 
@@ -387,9 +394,9 @@ $(".closeSignInModal").click(function () {
                 }
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
                     var errorCode = error.code;
-                    var errorMessage = error.message;
+                    var error = error.message;
                     var newAccount = $("<a href='#' id='newAccount'>New? Create Account</a>");
-                    console.log('signIn error', error);
+                    console.log('signIn error', error, errorCode);
                     $('.modal-card-title').html("Login Error Please Try Again");
                                            
                     if ($('#submitTarget').text().length == 0 ) {
@@ -398,9 +405,7 @@ $(".closeSignInModal").click(function () {
 
                     newAccount.click(register);
                     $("#signInModal").toggleClass("is-active");
-                    // Event.observe(btnNewAccount, 'click', register);
-
-                    //register();
+                                        
                 });                
             
 

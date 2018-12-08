@@ -74,4 +74,12 @@ body {
 
 #optional-info{
     color: #ef4036;
+
+}
+
+#newAccountTarget {
+    margin-left: 14px;
+    font-size: 95%;
+    font-style: italic; 
+    color: red;
 }
